@@ -1,0 +1,18 @@
+{
+  "short_name": "CCS ERP",
+  "name": "Chitra Crop Science Partners",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/app",
+  "display": "standalone",
+  "theme_color": "#2e7d32",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "scope": "/"
+}

@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Directly serve Android APK with correct headers and MIME type
+  <FilesMatch "\.(apk)$">
+    Header set Content-Type "application/vnd.android.package-archive"
+    Header set Content-Disposition "attachment; filename=\"CCS-Connect.apk\""
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+
+  # Allow direct access to downloads folder
+  RewriteRule ^downloads/CCS-Connect\.apk$ downloads/CCS-Connect.apk [L]
+
+  # Serve existing files and directories directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Route all SPA requests to index.html
+  RewriteRule ^ index.html [L]
+</IfModule>

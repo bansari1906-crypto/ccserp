@@ -1,0 +1,1 @@
+import{A as e,j as t}from"./AntdIconLight-DKOgggHa.js";function n(e){return t(`MuiListItemButton`,e)}var r=e(`MuiListItemButton`,[`root`,`focusVisible`,`dense`,`alignItemsFlexStart`,`disabled`,`divider`,`gutters`,`selected`]);export{r as n,n as t};

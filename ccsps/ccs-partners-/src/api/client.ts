@@ -29,9 +29,9 @@ const getBaseUrl = (): string => {
       window.location.hostname.includes('hostingerapp.com'));
 
   // On native Android/Capacitor, localhost points to the device itself.
-  // Connect to the local Wi-Fi backend IP (or configured server).
+  // Connect to the official production server API.
   if (isNativeApp) {
-    return 'http://192.168.1.4:8000/api';
+    return 'https://chitracropsciencepartners.com/api';
   }
 
   if (isHostingerDomain) {

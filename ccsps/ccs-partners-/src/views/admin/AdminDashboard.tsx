@@ -44,6 +44,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const unavailableProductsCount = products.filter(
     (p) => p.status === 'Unavailable' || p.status === 'Inactive' || (p as any).is_available === false
   ).length;
+  const lowStockCount = products.filter(
+    (p) => ((p as any).stock !== undefined && (p as any).stock < 10) || p.status === 'Low Stock'
+  ).length;
   const pendingExpensesCount = expenses.filter((e) => e.status === 'Pending').length;
 
   return (

@@ -829,7 +829,9 @@ export default function App() {
               setActiveTab('dealer-profile');
             }}
             onSwitchToDealerPortal={(dealer) => {
-              handleUserRoleChange('DEALER');
+              if (currentUser) {
+                setCurrentUser({ ...currentUser, role: 'DISTRIBUTOR' as any });
+              }
               setSelectedDealer(dealer);
               setActiveTab('profile');
             }}

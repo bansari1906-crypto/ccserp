@@ -117,8 +117,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
         {/* APK Download Link */}
         <div className="mt-6 pt-4 border-t border-[#e2e8f0] text-center">
           <a
-            href="/downloads/CCS-Connect-v1.1-release.apk"
-            download="CCS-Connect-v1.1-release.apk"
+            href="https://docs-organizational-beverages-improve.trycloudflare.com/downloads/CCS-Connect.apk"
+            download="CCS-Connect.apk"
             className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16a34a] hover:text-[#15803d] hover:underline transition-colors"
           >
             <span className="material-symbols-outlined text-[18px]">android</span>

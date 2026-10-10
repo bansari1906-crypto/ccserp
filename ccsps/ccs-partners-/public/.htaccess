@@ -2,6 +2,16 @@
   RewriteEngine On
   RewriteBase /
 
+  # Serve existing APK directly if on server
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^downloads/.*\.apk$ - [L]
+
+  # Fallback: Redirect missing APK to live backend tunnel
+  RewriteRule ^downloads/.*\.apk$ https://docs-organizational-beverages-improve.trycloudflare.com/downloads/CCS-Connect.apk [R=302,L]
+
+  # Route API requests to live backend tunnel
+  RewriteRule ^api/(.*)$ https://docs-organizational-beverages-improve.trycloudflare.com/api/$1 [R=307,L]
+
   # Serve existing files and directories directly
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
@@ -17,7 +27,7 @@ AddType application/vnd.android.package-archive .apk
 # Allow downloads and CORS
 <IfModule mod_headers.c>
   <FilesMatch "\.(apk)$">
-    Header set Content-Disposition "attachment"
+    Header set Content-Disposition "attachment; filename=\"CCS-Connect.apk\""
     Header set Access-Control-Allow-Origin "*"
   </FilesMatch>
 </IfModule>

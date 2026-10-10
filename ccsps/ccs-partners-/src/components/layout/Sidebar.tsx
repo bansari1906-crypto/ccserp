@@ -195,7 +195,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Footer Links & Logout */}
         <div className="px-2 pt-2 border-t border-[#e2e8f0] mt-auto space-y-0.5">
           <a
-            href="/downloads/CCS-Connect.apk"
+            href="https://docs-organizational-beverages-improve.trycloudflare.com/downloads/CCS-Connect.apk"
             download="CCS-Connect.apk"
             className="w-full flex items-center gap-2.5 px-3 py-1.5 text-[#16a34a] hover:bg-[#f0fdf4] hover:text-[#15803d] transition-colors text-xs font-bold rounded-md"
             title="Download Android APK"

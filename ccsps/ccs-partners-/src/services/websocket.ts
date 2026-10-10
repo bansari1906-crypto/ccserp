@@ -57,7 +57,7 @@ class WebSocketService {
         window.location.hostname.includes('hostingerapp.com'));
 
     if (isNativeApp) {
-      return `ws://192.168.1.4:8000/ws/events/?token=${encodeURIComponent(token)}`;
+      return `wss://chitracropsciencepartners.com/ws/events/?token=${encodeURIComponent(token)}`;
     }
 
     if (isHostingerDomain) {

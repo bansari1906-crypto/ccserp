@@ -2,21 +2,14 @@
   RewriteEngine On
   RewriteBase /
 
-  # Directly serve Android APK with correct headers and MIME type if file exists locally
-  <FilesMatch "\.(apk)$">
-    Header set Content-Type "application/vnd.android.package-archive"
-    Header set Content-Disposition "attachment; filename=\"CCS-Connect.apk\""
-    Header set Access-Control-Allow-Origin "*"
-  </FilesMatch>
-
-  # If downloads/CCS-Connect.apk exists locally on Hostinger, serve it directly
+  # Serve existing APK directly if on server
   RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule ^downloads/CCS-Connect\.apk$ - [L]
+  RewriteRule ^downloads/.*\.apk$ - [L]
 
-  # If downloads/CCS-Connect.apk is missing on Hostinger, redirect to live backend tunnel
-  RewriteRule ^downloads/CCS-Connect\.apk$ https://docs-organizational-beverages-improve.trycloudflare.com/downloads/CCS-Connect.apk [R=302,L]
+  # Fallback: Redirect missing APK to live backend tunnel
+  RewriteRule ^downloads/.*\.apk$ https://docs-organizational-beverages-improve.trycloudflare.com/downloads/CCS-Connect.apk [R=302,L]
 
-  # Route legacy or direct /api/ requests to live backend tunnel
+  # Route API requests to live backend tunnel
   RewriteRule ^api/(.*)$ https://docs-organizational-beverages-improve.trycloudflare.com/api/$1 [R=307,L]
 
   # Serve existing files and directories directly
@@ -24,6 +17,17 @@
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Route all SPA requests to index.html
+  # Direct all other routes to React index.html
   RewriteRule ^ index.html [L]
+</IfModule>
+
+# Correct MIME type for Android APK downloads
+AddType application/vnd.android.package-archive .apk
+
+# Allow downloads and CORS
+<IfModule mod_headers.c>
+  <FilesMatch "\.(apk)$">
+    Header set Content-Disposition "attachment; filename=\"CCS-Connect.apk\""
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
 </IfModule>

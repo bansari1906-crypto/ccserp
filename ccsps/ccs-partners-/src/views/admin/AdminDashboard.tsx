@@ -41,7 +41,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     : [{ month: 'No Data', sales: 0 }];
 
   const pendingOrdersCount = orders.filter((o) => o.status === 'Submitted' || o.status === 'Processing').length;
-  const lowStockCount = products.filter((p) => p.status === 'Low Stock' || p.status === 'Out of Stock').length;
+  const unavailableProductsCount = products.filter(
+    (p) => p.status === 'Unavailable' || p.status === 'Inactive' || (p as any).is_available === false
+  ).length;
   const pendingExpensesCount = expenses.filter((e) => e.status === 'Pending').length;
 
   return (
@@ -178,17 +180,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </div>
           </div>
 
-          {/* Card 3 */}
+          {/* Card 3 - Product Catalog Availability */}
           <div
             onClick={() => onNavigate('products')}
-            className="bg-white p-3 border border-[#fcd34d] rounded-md hover:border-[#d97706] transition-all cursor-pointer shadow-2xs flex items-center gap-3"
+            className="bg-white p-3 border border-[#e2e8f0] rounded-md hover:border-[#0f62fe] transition-all cursor-pointer shadow-2xs flex items-center gap-3"
           >
-            <div className="w-9 h-9 rounded-full bg-[#fee2e2] text-[#dc2626] flex items-center justify-center font-bold">
-              <span className="material-symbols-outlined text-[20px]">inventory_2</span>
+            <div className="w-9 h-9 rounded-full bg-[#f4f4f4] text-[#0f62fe] flex items-center justify-center font-bold">
+              <span className="material-symbols-outlined text-[20px]">category</span>
             </div>
             <div>
-              <div className="font-bold text-[#0f172a] text-xs">{lowStockCount} Low Stock Products</div>
-              <div className="text-[10px] text-[#dc2626] font-medium">Product inventory requiring restock</div>
+              <div className="font-bold text-[#0f172a] text-xs">{unavailableProductsCount} Unavailable Products</div>
+              <div className="text-[10px] text-[#525252] font-medium">Click to manage availability in catalog</div>
             </div>
           </div>
         </div>

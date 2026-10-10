@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import ReloadOutlined from '@ant-design/icons/ReloadOutlined';
 import useAuth from 'hooks/useAuth';
 import api from 'api/client';
+import { fetchActiveAttendance } from '../../services/attendanceService';
 import { DistributorDashboard as StitchDistributorDashboard } from '../../views/distributor/DistributorDashboard';
 
 export default function FieldDashboardPage({ data: dashboardData }) {
@@ -15,6 +16,7 @@ export default function FieldDashboardPage({ data: dashboardData }) {
 
   const [orders, setOrders] = useState([]);
   const [dealers, setDealers] = useState([]);
+  const [activeAttendance, setActiveAttendance] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -35,10 +37,15 @@ export default function FieldDashboardPage({ data: dashboardData }) {
     setLoading(true);
     setError(null);
     try {
-      const [ordersRes, dealersRes] = await Promise.all([
-        api.get('/orders/orders/'),
-        api.get('/admin/users/?role=Dealer'),
+      const [ordersRes, dealersRes, attRes] = await Promise.all([
+        api.get('/orders/orders/').catch(() => ({ data: [] })),
+        api.get('/admin/users/?role=Dealer').catch(() => ({ data: [] })),
+        fetchActiveAttendance().catch(() => null),
       ]);
+
+      if (attRes) {
+        setActiveAttendance(attRes);
+      }
 
       if (Array.isArray(ordersRes.data)) {
         const mappedOrders = ordersRes.data.map((o) => ({
@@ -148,6 +155,8 @@ export default function FieldDashboardPage({ data: dashboardData }) {
       dealers={dealers}
       onSelectOrder={handleSelectOrder}
       onCreateOrder={handleCreateOrder}
+      onCheckIn={() => navigate('/field/attendance')}
+      activeAttendance={activeAttendance}
     />
   );
 }

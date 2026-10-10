@@ -62,7 +62,13 @@ export const SalesmanAttendance: React.FC<SalesmanAttendanceProps> = ({
     return matchesSearch;
   });
 
-  const handleSelfieSubmit = async (data: { photo: string; location: string; latitude?: number; longitude?: number }) => {
+  const handleSelfieSubmit = async (data: {
+    photo: string;
+    backCameraPhoto?: string;
+    location: string;
+    latitude?: number;
+    longitude?: number;
+  }) => {
     setLoading(true);
     try {
       if (selfieModalMode === 'start') {
@@ -71,6 +77,7 @@ export const SalesmanAttendance: React.FC<SalesmanAttendanceProps> = ({
           latitude: data.latitude,
           longitude: data.longitude,
           photo: data.photo,
+          backCameraPhoto: data.backCameraPhoto,
         });
         setSuccessMsg('Check-in recorded successfully! Shift started.');
       } else {
@@ -145,7 +152,7 @@ export const SalesmanAttendance: React.FC<SalesmanAttendanceProps> = ({
               <div className="flex items-center gap-3">
                 <span className="px-2 py-0.5 bg-[#dcfce7] text-[#15803d] font-bold rounded-full flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] animate-pulse" />
-                  Working
+                  Started / Checked In
                 </span>
                 <span className="text-[#0f172a] font-bold">
                   Started at {activeAttendance?.checkIn}

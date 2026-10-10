@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const DEFAULT_PROD_API = 'https://acid-everywhere-equation-network.trycloudflare.com/api';
+const DEFAULT_PROD_API = 'https://chitracropsciencepartners.com/api';
 
 const isNativeApp = typeof window !== 'undefined' && (
   window.location.protocol === 'capacitor:' || 

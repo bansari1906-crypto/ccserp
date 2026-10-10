@@ -17,9 +17,18 @@ export const SalesmanExpenses: React.FC<SalesmanExpensesProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('All Months');
+  const [selectedStatus, setSelectedStatus] = useState('All Statuses');
   const [showAddModal, setShowAddModal] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  // Local expense records synchronized with incoming prop and immediately updated on submit
+  const [localExpenses, setLocalExpenses] = useState<Expense[]>(expenses);
+
+  React.useEffect(() => {
+    setLocalExpenses(expenses);
+  }, [expenses]);
 
   // Form State for Add Expense (Starting KM, Ending KM, and Admin-assigned KM Rate)
   const [startingKm, setStartingKm] = useState<number | ''>('');
@@ -105,21 +114,63 @@ export const SalesmanExpenses: React.FC<SalesmanExpensesProps> = ({
     (Number(photocopy) || 0) +
     (Number(otherCharge) || 0);
 
-  const recordsToDisplay = expenses;
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
 
-  // Filter Expense Records
-  const filteredExpenses = recordsToDisplay.filter((exp) => {
-    const matchesSearch =
-      exp.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (exp.remarks || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-      exp.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      exp.date.includes(searchTerm);
-    return matchesSearch;
+  // Dynamic available months list based on data and current date
+  const availableMonths = React.useMemo(() => {
+    const set = new Set<string>();
+    const now = new Date();
+    set.add(`${monthNames[now.getMonth()]} ${now.getFullYear()}`);
+
+    localExpenses.forEach((e) => {
+      if (e.date) {
+        const d = new Date(e.date);
+        if (!isNaN(d.getTime())) {
+          set.add(`${monthNames[d.getMonth()]} ${d.getFullYear()}`);
+        }
+      }
+    });
+    return ['All Months', ...Array.from(set)];
+  }, [localExpenses]);
+
+  // Filter Expense Records based on search, month, and status
+  const filteredExpenses = localExpenses.filter((exp) => {
+    // Status Filter
+    if (selectedStatus !== 'All Statuses' && exp.status !== selectedStatus) {
+      return false;
+    }
+
+    // Month Filter
+    if (selectedMonth !== 'All Months' && exp.date) {
+      const d = new Date(exp.date);
+      if (!isNaN(d.getTime())) {
+        const mStr = `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
+        if (mStr !== selectedMonth) return false;
+      }
+    }
+
+    // Search Filter
+    if (searchTerm.trim()) {
+      const term = searchTerm.toLowerCase();
+      const matchesEmp = (exp.employeeName || '').toLowerCase().includes(term);
+      const matchesRemark = (exp.remarks || exp.remark || '').toLowerCase().includes(term);
+      const matchesStatus = (exp.status || '').toLowerCase().includes(term);
+      const matchesDate = (exp.date || '').toLowerCase().includes(term);
+      const matchesType = (exp.type || '').toLowerCase().includes(term);
+      if (!matchesEmp && !matchesRemark && !matchesStatus && !matchesDate && !matchesType) {
+        return false;
+      }
+    }
+
+    return true;
   });
 
-  const totalClaimed = recordsToDisplay.reduce((sum, e) => sum + (e.totalAmount || e.amount || 0), 0);
-  const totalApproved = recordsToDisplay.filter((e) => e.status === 'Approved').reduce((sum, e) => sum + (e.approvalAmount || e.amount || 0), 0);
-  const pendingCount = recordsToDisplay.filter((e) => e.status === 'Pending').length;
+  const totalClaimed = filteredExpenses.reduce((sum, e) => sum + (e.totalAmount || e.amount || 0), 0);
+  const totalApproved = filteredExpenses.filter((e) => e.status === 'Approved').reduce((sum, e) => sum + (e.approvalAmount || e.amount || 0), 0);
+  const pendingCount = filteredExpenses.filter((e) => e.status === 'Pending').length;
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -155,8 +206,9 @@ export const SalesmanExpenses: React.FC<SalesmanExpensesProps> = ({
     }
 
     setSubmitting(true);
+    setErrorMsg('');
     try {
-      await hrApi.createExpense({
+      const created = await hrApi.createExpense({
         category: 'Travel',
         amount: calculatedTotal,
         starting_km: startingKm,
@@ -173,18 +225,21 @@ export const SalesmanExpenses: React.FC<SalesmanExpensesProps> = ({
         courier: courier,
         photocopy: photocopy,
         other_charge: otherCharge,
+        bill: billImage || undefined,
         remarks: remark || (totalKm > 0 ? `Field visit (${totalKm} KM @ ₹${employeeKmRate}/KM)` : 'Field sales claim'),
       });
+
+      // Immediately prepend newly created expense to the list so it appears without delay
+      setLocalExpenses((prev) => [created, ...prev]);
       setSuccessMsg('Expense claim submitted successfully for approval!');
       setShowAddModal(false);
       resetForm();
       if (onRefresh) onRefresh();
     } catch (err: any) {
-      console.warn("Expense submission notice:", err);
-      setSuccessMsg('Expense claim recorded successfully.');
-      setShowAddModal(false);
-      resetForm();
-      if (onRefresh) onRefresh();
+      console.error("Expense submission error:", err);
+      const msg = err.message || (typeof err === 'string' ? err : 'Failed to submit expense claim. Please try again.');
+      setErrorMsg(msg);
+      // DO NOT close modal or show false success!
     } finally {
       setSubmitting(false);
       setTimeout(() => setSuccessMsg(''), 4000);
@@ -259,33 +314,50 @@ export const SalesmanExpenses: React.FC<SalesmanExpensesProps> = ({
         </div>
       </div>
 
-      {/* Search & Month Filter */}
-      <div className="bg-white border border-[#e2e8f0] p-4 rounded-lg shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div className="relative w-full sm:w-72">
+      {/* Search, Status & Month Filter */}
+      <div className="bg-white border border-[#e2e8f0] p-4 rounded-lg shadow-2xs flex flex-col md:flex-row items-center justify-between gap-3">
+        <div className="relative w-full md:w-72">
           <span className="material-symbols-outlined absolute left-3 top-2.5 text-[#94a3b8] text-[18px]">
             search
           </span>
           <input
             type="text"
-            placeholder="Search remark, date, status..."
+            placeholder="Search remark, date, status, employee..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-9 pr-3 py-2 bg-[#f8fafc] border border-[#cbd5e1] rounded-md text-xs focus:outline-none focus:border-[#16a34a]"
           />
         </div>
 
-        <div className="flex items-center gap-2 w-full sm:w-auto">
-          <span className="text-xs font-semibold text-[#64748b] whitespace-nowrap">Filter Month:</span>
-          <select
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-            className="px-3 py-2 bg-[#f8fafc] border border-[#cbd5e1] rounded-md text-xs font-bold text-[#0f172a] focus:outline-none focus:border-[#16a34a]"
-          >
-            <option value="All Months">All Months (2026)</option>
-            <option value="August">August 2026</option>
-            <option value="July">July 2026</option>
-            <option value="June">June 2026</option>
-          </select>
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-semibold text-[#64748b] whitespace-nowrap">Status:</span>
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="px-2.5 py-1.5 bg-[#f8fafc] border border-[#cbd5e1] rounded-md text-xs font-bold text-[#0f172a] focus:outline-none focus:border-[#16a34a]"
+            >
+              <option value="All Statuses">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-semibold text-[#64748b] whitespace-nowrap">Month:</span>
+            <select
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="px-2.5 py-1.5 bg-[#f8fafc] border border-[#cbd5e1] rounded-md text-xs font-bold text-[#0f172a] focus:outline-none focus:border-[#16a34a]"
+            >
+              {availableMonths.map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
@@ -430,6 +502,13 @@ export const SalesmanExpenses: React.FC<SalesmanExpensesProps> = ({
                 KM rate has not been configured by Admin. Please contact Admin.
               </div>
             ) : null}
+
+            {errorMsg && (
+              <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-xs font-bold flex items-center gap-2">
+                <span className="material-symbols-outlined text-base">error</span>
+                {errorMsg}
+              </div>
+            )}
 
             <form onSubmit={handleSubmitExpense} className="space-y-4">
               {/* Group 1: Travel Expenses */}

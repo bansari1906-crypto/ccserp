@@ -33,21 +33,14 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   onGoBack,
   canGoBack = false,
 }) => {
-  const [showRoleMenu, setShowRoleMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
-  const handleRoleSelect = (roleKey: string) => {
-    if (onRoleChange) onRoleChange(roleKey as UserRole);
-    if (onUserChange) onUserChange(roleKey);
-    setShowRoleMenu(false);
-  };
-
   const rawRole = (currentUser.role || 'ADMIN').toString().toUpperCase();
-  const displayRole = rawRole.includes('WAREHOUSE')
+  const displayRole: 'ADMIN' | 'EMPLOYEE' | 'DISTRIBUTOR' | 'WAREHOUSE' = rawRole.includes('WAREHOUSE')
     ? 'WAREHOUSE'
     : rawRole.includes('ADMIN')
     ? 'ADMIN'
-    : rawRole.includes('DEALER')
+    : rawRole.includes('DISTRIBUTOR')
     ? 'DISTRIBUTOR'
     : 'EMPLOYEE';
 
@@ -128,78 +121,11 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
           <span className="material-symbols-outlined text-[18px]">help</span>
         </button>
 
-        {/* Professional Role Switcher */}
-        <div className="relative">
-          <button
-            onClick={() => setShowRoleMenu(!showRoleMenu)}
-            className="flex items-center gap-2 px-3 bg-white hover:bg-[#f8fafc] border border-[#cbd5e1] text-xs text-[#334155] transition-colors cursor-pointer rounded-md shadow-2xs h-9"
-          >
-            <span className="w-2 h-2 bg-[#16a34a] rounded-full shrink-0" />
-            <span className="hidden sm:inline text-[#64748b] font-medium">Role:</span>
-            <span className="font-bold text-[#0f172a]">{displayRole}</span>
-            <span className="material-symbols-outlined text-[18px] text-[#64748b]">
-              expand_more
-            </span>
-          </button>
-
-          {showRoleMenu && (
-            <div className="absolute right-0 mt-1.5 w-56 bg-white border border-[#e2e8f0] shadow-md py-1.5 z-50 text-xs rounded-md">
-              <div className="px-3 py-1.5 font-semibold text-[#64748b] border-b border-[#e2e8f0] uppercase text-[10px] tracking-wider">
-                Switch Portal Role
-              </div>
-              <button
-                onClick={() => handleRoleSelect('ADMIN')}
-                className={`w-full text-left px-3 py-2 flex items-center justify-between hover:bg-[#f8fafc] ${
-                  rawRole.includes('ADMIN') ? 'bg-[#f0fdf4] font-bold text-[#14532d]' : 'text-[#334155]'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-[#16a34a]">admin_panel_settings</span>
-                  <span>Admin Portal</span>
-                </div>
-                {rawRole.includes('ADMIN') && <span className="material-symbols-outlined text-[16px] text-[#16a34a]">check</span>}
-              </button>
-
-              <button
-                onClick={() => handleRoleSelect('DISTRIBUTOR')}
-                className={`w-full text-left px-3 py-2 flex items-center justify-between hover:bg-[#f8fafc] ${
-                  (rawRole.includes('DISTRIBUTOR') || rawRole.includes('EMPLOYEE')) && !rawRole.includes('DEALER') ? 'bg-[#f0fdf4] font-bold text-[#14532d]' : 'text-[#334155]'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-[#16a34a]">badge</span>
-                  <span>Employee Portal</span>
-                </div>
-                {(rawRole.includes('DISTRIBUTOR') || rawRole.includes('EMPLOYEE')) && !rawRole.includes('DEALER') && <span className="material-symbols-outlined text-[16px] text-[#16a34a]">check</span>}
-              </button>
-
-              <button
-                onClick={() => handleRoleSelect('DEALER')}
-                className={`w-full text-left px-3 py-2 flex items-center justify-between hover:bg-[#f8fafc] ${
-                  rawRole.includes('DEALER') ? 'bg-[#f0fdf4] font-bold text-[#14532d]' : 'text-[#334155]'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-[#16a34a]">domain</span>
-                  <span>Distributor Portal</span>
-                </div>
-                {rawRole.includes('DEALER') && <span className="material-symbols-outlined text-[16px] text-[#16a34a]">check</span>}
-              </button>
-
-              <button
-                onClick={() => handleRoleSelect('WAREHOUSE')}
-                className={`w-full text-left px-3 py-2 flex items-center justify-between hover:bg-[#f8fafc] ${
-                  rawRole.includes('WAREHOUSE') ? 'bg-[#f0fdf4] font-bold text-[#14532d]' : 'text-[#334155]'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-[#16a34a]">inventory_2</span>
-                  <span>Warehouse Portal</span>
-                </div>
-                {rawRole.includes('WAREHOUSE') && <span className="material-symbols-outlined text-[16px] text-[#16a34a]">check</span>}
-              </button>
-            </div>
-          )}
+        {/* Authenticated Role Indicator Badge (Strictly Non-Switchable) */}
+        <div className="flex items-center gap-2 px-3 bg-[#f8fafc] border border-[#cbd5e1] text-xs text-[#334155] rounded-md shadow-2xs h-9 select-none">
+          <span className="w-2 h-2 bg-[#16a34a] rounded-full shrink-0" />
+          <span className="hidden sm:inline text-[#64748b] font-medium">Role:</span>
+          <span className="font-extrabold text-[#0f172a] tracking-wide">{displayRole}</span>
         </div>
 
         {/* User Profile dropdown */}
@@ -229,7 +155,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                 <div className="text-[11px] text-[#64748b]">{currentUser.email}</div>
                 <div className="text-[10px] text-[#16a34a] font-bold mt-1 uppercase flex items-center gap-1">
                   <span className="material-symbols-outlined text-[12px]">verified</span>
-                  {rawRole} • {currentUser.territory || 'Chitra Crop Science HQ'}
+                  {displayRole} • {currentUser.territory || 'Chitra Crop Science HQ'}
                 </div>
               </div>
               <button
@@ -237,29 +163,17 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                   if (onTabChange) onTabChange('profile');
                   setShowUserMenu(false);
                 }}
-                className="w-full text-left px-3 py-2 hover:bg-[#f0fdf4] flex items-center gap-2 text-[#334155]"
+                className="w-full text-left px-3 py-2 hover:bg-[#f0fdf4] flex items-center gap-2 text-[#334155] cursor-pointer"
               >
                 <span className="material-symbols-outlined text-[16px] text-[#16a34a]">account_circle</span>
                 <span>My Profile & Account</span>
               </button>
               <button
                 onClick={() => {
-                  if (onRoleChange) onRoleChange('DEALER');
-                  if (onUserChange) onUserChange('DEALER');
-                  if (onTabChange) onTabChange('profile');
-                  setShowUserMenu(false);
-                }}
-                className="w-full text-left px-3 py-2 hover:bg-[#f0fdf4] flex items-center gap-2 text-[#14532d] font-bold"
-              >
-                <span className="material-symbols-outlined text-[16px] text-[#16a34a]">domain</span>
-                <span>Distributor Business Profile</span>
-              </button>
-              <button
-                onClick={() => {
                   onOpenSupport();
                   setShowUserMenu(false);
                 }}
-                className="w-full text-left px-3 py-2 hover:bg-[#f0fdf4] flex items-center gap-2 text-[#334155]"
+                className="w-full text-left px-3 py-2 hover:bg-[#f0fdf4] flex items-center gap-2 text-[#334155] cursor-pointer"
               >
                 <span className="material-symbols-outlined text-[16px] text-[#16a34a]">headset_mic</span>
                 <span>Help Desk & Support</span>
@@ -267,10 +181,10 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
               <div className="border-t border-[#e2e8f0] my-1" />
               <button
                 onClick={() => {
-                  alert('Logged out successfully.');
                   setShowUserMenu(false);
+                  if (onTabChange) onTabChange('logout');
                 }}
-                className="w-full text-left px-3 py-2 hover:bg-[#fee2e2] flex items-center gap-2 text-[#dc2626] font-medium"
+                className="w-full text-left px-3 py-2 hover:bg-[#fee2e2] flex items-center gap-2 text-[#dc2626] font-medium cursor-pointer"
               >
                 <span className="material-symbols-outlined text-[16px]">logout</span>
                 <span>Log Out</span>

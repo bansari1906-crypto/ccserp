@@ -22,7 +22,39 @@ class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.name', read_only=True)
     sub_category_name = serializers.CharField(source='sub_category.name', read_only=True)
     brand_name = serializers.CharField(source='brand.name', read_only=True)
+    code = serializers.SerializerMethodField()
+    price = serializers.SerializerMethodField()
+    is_available = serializers.BooleanField(read_only=True)
     
     class Meta:
         model = Product
         fields = '__all__'
+
+    def get_code(self, obj):
+        if obj.barcode:
+            return obj.barcode
+        return f"PRD-{str(obj.id)[:8].upper()}"
+
+    def get_price(self, obj):
+        return float(obj.dealer_price)
+
+    def to_internal_value(self, data):
+        data = data.copy() if hasattr(data, 'copy') else dict(data)
+        import uuid
+        cat_val = data.get('category')
+        if isinstance(cat_val, str) and cat_val.strip():
+            try:
+                uuid.UUID(cat_val)
+            except ValueError:
+                category_obj, _ = Category.objects.get_or_create(name=cat_val.strip())
+                data['category'] = str(category_obj.id)
+                
+        if 'code' in data and not data.get('barcode'):
+            data['barcode'] = data['code']
+            
+        if 'pack_size' in data and not data.get('packing'):
+            data['packing'] = data['pack_size']
+        elif 'packing' in data and not data.get('pack_size'):
+            data['pack_size'] = data['packing']
+
+        return super().to_internal_value(data)

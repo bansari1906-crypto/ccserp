@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getCurrentGpsPosition, GpsLocationResult } from '../../services/locationService';
+import { captureFrontSelfie, captureBackCameraPhoto } from '../../services/cameraService';
 
 interface AttendanceSelfieModalProps {
   isOpen: boolean;
@@ -7,9 +9,11 @@ interface AttendanceSelfieModalProps {
   employeeName?: string;
   onSubmit: (data: {
     photo: string;
+    backCameraPhoto?: string;
     location: string;
-    latitude?: number;
-    longitude?: number;
+    latitude: number;
+    longitude: number;
+    accuracy?: number;
   }) => Promise<void>;
 }
 
@@ -20,238 +24,137 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
   employeeName = 'Employee',
   onSubmit,
 }) => {
-  const [stream, setStream] = useState<MediaStream | null>(null);
-  const [photoData, setPhotoData] = useState<string | null>(null);
-  const [locationStr, setLocationStr] = useState<string>('Detecting location...');
-  const [latitude, setLatitude] = useState<number | undefined>(undefined);
-  const [longitude, setLongitude] = useState<number | undefined>(undefined);
-  const [cameraError, setCameraError] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [frontPhoto, setFrontPhoto] = useState<string | null>(null);
+  const [backPhoto, setBackPhoto] = useState<string | null>(null);
 
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [gpsData, setGpsData] = useState<GpsLocationResult | null>(null);
+  const [isDetectingGps, setIsDetectingGps] = useState(false);
+  const [gpsError, setGpsError] = useState<string | null>(null);
+
+  const [isCapturingFront, setIsCapturingFront] = useState(false);
+  const [isCapturingBack, setIsCapturingBack] = useState(false);
+  const [cameraError, setCameraError] = useState<string | null>(null);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const isStart = mode === 'start';
-  const title = isStart ? 'Start Day Attendance' : 'End Day Attendance';
+  const title = isStart ? 'START DAY ATTENDANCE' : 'END DAY ATTENDANCE';
 
-  // Request location coordinates with safe timeout & instant fallback
-  useEffect(() => {
-    if (!isOpen) return;
+  // Format today's date (e.g. 05 Oct 2026)
+  const todayFormatted = new Date().toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
 
-    let isMounted = true;
-    const fallbackTimer = setTimeout(() => {
-      if (isMounted) {
-        setLocationStr((prev) => (prev.startsWith('Detecting') ? 'Location captured (Depot Office)' : prev));
-        setLatitude((prev) => prev ?? 18.5204);
-        setLongitude((prev) => prev ?? 73.8567);
-      }
-    }, 3500);
-
-    if (typeof navigator !== 'undefined' && 'geolocation' in navigator) {
-      try {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            clearTimeout(fallbackTimer);
-            if (!isMounted) return;
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-            setLatitude(lat);
-            setLongitude(lng);
-            setLocationStr(`${lat.toFixed(4)}° N, ${lng.toFixed(4)}° E (GPS Verified)`);
-          },
-          (err) => {
-            clearTimeout(fallbackTimer);
-            if (!isMounted) return;
-            console.warn('Geolocation notice:', err.message);
-            setLocationStr('Location captured (Depot Office)');
-            setLatitude(18.5204);
-            setLongitude(73.8567);
-          },
-          { enableHighAccuracy: false, timeout: 3500, maximumAge: 120000 }
-        );
-      } catch (e) {
-        clearTimeout(fallbackTimer);
-        setLocationStr('Location captured (Depot Office)');
-        setLatitude(18.5204);
-        setLongitude(73.8567);
-      }
-    } else {
-      clearTimeout(fallbackTimer);
-      setLocationStr('Location captured (Depot Office)');
-      setLatitude(18.5204);
-      setLongitude(73.8567);
-    }
-
-    return () => {
-      isMounted = false;
-      clearTimeout(fallbackTimer);
-    };
-  }, [isOpen]);
-
-  // Start Camera Stream with mobile-safe resolution
-  useEffect(() => {
-    if (!isOpen) {
-      stopCamera();
-      return;
-    }
-
-    let activeStream: MediaStream | null = null;
-    setCameraError(null);
-    setPhotoData(null);
-    setErrorMessage(null);
-
-    const startCamera = async () => {
-      try {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          throw new Error('Camera device access not supported in this browser.');
-        }
-        const s = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'user', width: { ideal: 480 }, height: { ideal: 480 } },
-          audio: false,
-        });
-        activeStream = s;
-        setStream(s);
-        if (videoRef.current) {
-          videoRef.current.srcObject = s;
-          videoRef.current.play().catch(() => {});
-        }
-      } catch (err: any) {
-        console.warn('Camera access unavailable:', err);
-        setCameraError(
-          err.name === 'NotAllowedError'
-            ? 'Camera permission denied. You can upload a photo or use file selection below.'
-            : 'Camera not available. You can upload a selfie photo below.'
-        );
-      }
-    };
-
-    startCamera();
-
-    return () => {
-      if (activeStream) {
-        activeStream.getTracks().forEach((t) => t.stop());
-      }
-    };
-  }, [isOpen]);
-
-  const stopCamera = () => {
-    if (stream) {
-      stream.getTracks().forEach((t) => t.stop());
-      setStream(null);
-    }
-  };
-
-  const handleCapture = () => {
-    if (!videoRef.current) return;
+  // Fetch real GPS on open
+  const fetchGps = async () => {
+    setIsDetectingGps(true);
+    setGpsError(null);
     try {
-      const video = videoRef.current;
-      const canvas = document.createElement('canvas');
-      // Downscale to max 480px to prevent Android out-of-memory crashes
-      const maxDim = 480;
-      let w = video.videoWidth || 480;
-      let h = video.videoHeight || 480;
-      if (w > maxDim || h > maxDim) {
-        if (w > h) {
-          h = Math.round((h * maxDim) / w);
-          w = maxDim;
-        } else {
-          w = Math.round((w * maxDim) / h);
-          h = maxDim;
-        }
-      }
-      canvas.width = w;
-      canvas.height = h;
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.drawImage(video, 0, 0, w, h);
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.65);
-        setPhotoData(dataUrl);
-        stopCamera();
-      }
-    } catch (e) {
-      console.error('Snapshot error:', e);
-    }
-  };
-
-  const handleRetake = async () => {
-    setPhotoData(null);
-    setErrorMessage(null);
-    try {
-      const s = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user', width: { ideal: 480 }, height: { ideal: 480 } },
-        audio: false,
-      });
-      setStream(s);
-      if (videoRef.current) {
-        videoRef.current.srcObject = s;
-        videoRef.current.play().catch(() => {});
-      }
+      const pos = await getCurrentGpsPosition({ timeout: 15000, enableHighAccuracy: true });
+      setGpsData(pos);
     } catch (err: any) {
-      setCameraError('Camera not available. Please choose a photo.');
+      console.error('GPS error:', err);
+      setGpsError(err.message || 'Unable to acquire accurate GPS coordinates. Please enable GPS and try again.');
+      setGpsData(null);
+    } finally {
+      setIsDetectingGps(false);
     }
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const maxDim = 480;
-        let w = img.width;
-        let h = img.height;
-        if (w > maxDim || h > maxDim) {
-          if (w > h) {
-            h = Math.round((h * maxDim) / w);
-            w = maxDim;
-          } else {
-            w = Math.round((w * maxDim) / h);
-            h = maxDim;
-          }
-        }
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, w, h);
-          setPhotoData(canvas.toDataURL('image/jpeg', 0.65));
-        } else {
-          setPhotoData(reader.result as string);
-        }
-        stopCamera();
-      };
-      img.src = reader.result as string;
-    };
-    reader.readAsDataURL(file);
+  useEffect(() => {
+    if (isOpen) {
+      setFrontPhoto(null);
+      setBackPhoto(null);
+      setGpsData(null);
+      setGpsError(null);
+      setCameraError(null);
+      setSubmitError(null);
+      setSubmitSuccess(false);
+      fetchGps();
+    }
+  }, [isOpen]);
+
+  const handleTakeFrontSelfie = async () => {
+    setIsCapturingFront(true);
+    setCameraError(null);
+    try {
+      const photo = await captureFrontSelfie();
+      setFrontPhoto(photo);
+    } catch (err: any) {
+      if (!err.message?.includes('cancelled')) {
+        setCameraError(err.message || 'Failed to capture front selfie.');
+      }
+    } finally {
+      setIsCapturingFront(false);
+    }
   };
+
+  const handleTakeBackPhoto = async () => {
+    setIsCapturingBack(true);
+    setCameraError(null);
+    try {
+      const photo = await captureBackCameraPhoto();
+      setBackPhoto(photo);
+    } catch (err: any) {
+      if (!err.message?.includes('cancelled')) {
+        setCameraError(err.message || 'Failed to capture rear camera photo.');
+      }
+    } finally {
+      setIsCapturingBack(false);
+    }
+  };
+
+  const isReadyToSubmit = Boolean(
+    gpsData &&
+    gpsData.latitude &&
+    gpsData.longitude &&
+    frontPhoto &&
+    (isStart ? backPhoto : true) &&
+    !isSubmitting
+  );
 
   const handleSubmit = async () => {
-    if (!photoData) {
-      setErrorMessage('Please capture or select a selfie photo before submitting.');
+    if (!gpsData) {
+      setSubmitError('Real GPS location is required. Please verify GPS before submitting.');
+      return;
+    }
+    if (!frontPhoto) {
+      setSubmitError('Front Camera Selfie is required.');
+      return;
+    }
+    if (isStart && !backPhoto) {
+      setSubmitError('Back Camera Photo is required to verify work site / field location.');
       return;
     }
 
     setIsSubmitting(true);
-    setErrorMessage(null);
+    setSubmitError(null);
     try {
       await onSubmit({
-        photo: photoData,
-        location: locationStr,
-        latitude,
-        longitude,
+        photo: frontPhoto,
+        backCameraPhoto: backPhoto || undefined,
+        location: gpsData.formattedText,
+        latitude: gpsData.latitude,
+        longitude: gpsData.longitude,
+        accuracy: gpsData.accuracy,
       });
-      stopCamera();
-      onClose();
+      setSubmitSuccess(true);
+      setTimeout(() => {
+        onClose();
+      }, 800);
     } catch (err: any) {
       console.error('Attendance submission error:', err);
-      let msg = err.message || 'Failed to record attendance. Please try again.';
-      if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
-        msg = 'Unable to connect to attendance server. Please ensure the backend server is running and try again.';
+      let msg = err.message || (isStart ? 'Start Day failed. Please try again.' : 'End Day failed. Please try again.');
+      if (typeof err === 'object' && err.response?.data?.error) {
+        msg = err.response.data.error;
+      } else if (typeof err === 'object' && err.response?.data?.detail) {
+        msg = err.response.data.detail;
       }
-      setErrorMessage(msg);
+      setSubmitError(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -260,131 +163,262 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 animate-fadeIn font-body text-xs">
-      <div className="bg-white rounded-xl max-w-md w-full overflow-hidden shadow-2xl flex flex-col border border-[#cbd5e1]">
+    <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-3 overflow-y-auto animate-fadeIn font-body text-xs">
+      <div className="bg-white rounded-xl max-w-lg w-full overflow-hidden shadow-2xl flex flex-col border border-[#cbd5e1] my-auto">
         {/* Header */}
         <div className="p-4 bg-[#f8fafc] border-b border-[#e2e8f0] flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-[#dcfce7] text-[#16a34a] flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">
+          <div className="flex items-center gap-2.5">
+            <div className={`w-9 h-9 rounded-lg ${isStart ? 'bg-[#dcfce7] text-[#16a34a]' : 'bg-[#fee2e2] text-[#dc2626]'} flex items-center justify-center`}>
+              <span className="material-symbols-outlined text-[22px]">
                 {isStart ? 'event_available' : 'logout'}
               </span>
             </div>
             <div>
-              <h3 className="text-sm font-bold text-[#0f172a]">{title}</h3>
-              <p className="text-[11px] text-[#64748b]">
-                {employeeName} • {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
+              <h3 className="text-sm font-bold text-[#0f172a] uppercase tracking-wide">{title}</h3>
+              <p className="text-[11px] text-[#64748b] font-medium">
+                Employee: <span className="font-semibold text-[#0f172a]">{employeeName}</span> • Date: <span className="font-semibold text-[#0f172a]">{todayFormatted}</span>
               </p>
             </div>
           </div>
           <button
-            onClick={() => {
-              stopCamera();
-              onClose();
-            }}
+            onClick={onClose}
             disabled={isSubmitting}
-            className="w-7 h-7 rounded-full bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#64748b] hover:text-[#0f172a] flex items-center justify-center font-bold text-sm cursor-pointer transition-colors"
+            className="w-8 h-8 rounded-full bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#64748b] hover:text-[#0f172a] flex items-center justify-center font-bold text-sm cursor-pointer transition-colors"
           >
             ✕
           </button>
         </div>
 
-        {/* Body */}
-        <div className="p-4 space-y-3">
-          {/* Location & Time Indicator */}
-          <div className="bg-[#f0fdf4] border border-[#86efac] p-2.5 rounded-lg flex items-center justify-between text-[#15803d]">
-            <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-[18px]">location_on</span>
-              <span className="font-semibold text-xs">{locationStr}</span>
-            </div>
-            <span className="font-mono text-[11px] text-[#166534]">
-              {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-            </span>
-          </div>
-
-          {/* Camera Stream / Captured Photo */}
-          <div className="relative w-full aspect-4/3 bg-[#0f172a] rounded-lg overflow-hidden flex items-center justify-center border border-[#cbd5e1]">
-            {photoData ? (
-              <img
-                src={photoData}
-                alt="Captured Selfie"
-                className="w-full h-full object-cover"
-              />
-            ) : cameraError ? (
-              <div className="p-6 text-center text-[#94a3b8] space-y-3">
-                <span className="material-symbols-outlined text-[40px] text-[#cbd5e1]">
-                  no_photography
+        {/* Content Body */}
+        <div className="p-4 space-y-4 max-h-[75vh] overflow-y-auto">
+          {/* 1. GPS Verification Box */}
+          <div className="rounded-lg border p-3 bg-[#f8fafc] transition-all">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <span className={`material-symbols-outlined text-[20px] ${gpsData ? 'text-[#16a34a]' : isDetectingGps ? 'text-[#eab308] animate-spin' : 'text-[#dc2626]'}`}>
+                  {gpsData ? 'verified' : isDetectingGps ? 'refresh' : 'location_off'}
                 </span>
-                <p className="text-xs text-white/90">{cameraError}</p>
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="px-3 py-1.5 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold rounded cursor-pointer"
-                >
-                  Upload Selfie Photo
-                </button>
+                <span className="font-bold text-xs uppercase tracking-wider text-[#0f172a]">
+                  {gpsData ? '📍 GPS VERIFIED' : isDetectingGps ? '📍 DETECTING REAL GPS...' : '📍 GPS NOT VERIFIED'}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={fetchGps}
+                disabled={isDetectingGps || isSubmitting}
+                className="text-[11px] text-[#16a34a] hover:text-[#15803d] font-bold underline cursor-pointer disabled:opacity-50"
+              >
+                {isDetectingGps ? 'Detecting...' : 'Retry GPS'}
+              </button>
+            </div>
+
+            {gpsData ? (
+              <div className="grid grid-cols-3 gap-2 bg-white p-2.5 rounded border border-[#bbf7d0] text-[11px]">
+                <div>
+                  <span className="text-[#64748b] block text-[10px]">Latitude</span>
+                  <span className="font-mono font-bold text-[#0f172a]">{gpsData.latitude.toFixed(6)}°</span>
+                </div>
+                <div>
+                  <span className="text-[#64748b] block text-[10px]">Longitude</span>
+                  <span className="font-mono font-bold text-[#0f172a]">{gpsData.longitude.toFixed(6)}°</span>
+                </div>
+                <div>
+                  <span className="text-[#64748b] block text-[10px]">Accuracy</span>
+                  <span className="font-mono font-bold text-[#16a34a]">±{gpsData.accuracy}m</span>
+                </div>
+              </div>
+            ) : gpsError ? (
+              <div className="p-2 bg-[#fee2e2] border border-[#fca5a5] rounded text-[#b91c1c] text-[11px] font-medium flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-[16px]">error</span>
+                <span>{gpsError}</span>
               </div>
             ) : (
-              <video
-                ref={videoRef}
-                autoPlay
-                playsInline
-                muted
-                className="w-full h-full object-cover"
-              />
+              <div className="text-[11px] text-[#64748b] italic">
+                Acquiring high-accuracy satellite GPS coordinates from Android device...
+              </div>
             )}
-
-            <input
-              type="file"
-              ref={fileInputRef}
-              accept="image/*"
-              capture="user"
-              className="hidden"
-              onChange={handleFileUpload}
-            />
           </div>
 
-          {errorMessage && (
-            <div className="p-2.5 bg-[#fee2e2] text-[#b91c1c] border border-[#fca5a5] rounded-md font-semibold text-xs flex items-center gap-2">
-              <span className="material-symbols-outlined text-[16px]">error</span>
-              {errorMessage}
+          {/* Camera Error Banner */}
+          {cameraError && (
+            <div className="p-2.5 bg-[#fee2e2] text-[#b91c1c] border border-[#fca5a5] rounded-md font-medium text-xs flex items-center gap-2">
+              <span className="material-symbols-outlined text-[18px]">videocam_off</span>
+              <span>{cameraError}</span>
             </div>
           )}
+
+          {/* 2. Dual Camera Actions & Previews */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {/* Front Camera Selfie Card */}
+            <div className="border border-[#cbd5e1] rounded-lg p-3 bg-white flex flex-col justify-between space-y-2.5">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-xs text-[#0f172a] flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[18px] text-[#16a34a]">face</span>
+                  📷 FRONT SELFIE
+                </span>
+                {frontPhoto && (
+                  <span className="px-1.5 py-0.5 bg-[#dcfce7] text-[#15803d] font-bold text-[10px] rounded">
+                    ✓ Captured
+                  </span>
+                )}
+              </div>
+
+              {/* Preview or Capture Button */}
+              <div className="relative w-full aspect-4/3 bg-[#0f172a] rounded-lg overflow-hidden flex items-center justify-center border border-[#e2e8f0]">
+                {frontPhoto ? (
+                  <img
+                    src={frontPhoto}
+                    alt="Front Selfie Preview"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="p-4 text-center text-[#94a3b8] space-y-1">
+                    <span className="material-symbols-outlined text-[36px] text-[#475569]">
+                      account_box
+                    </span>
+                    <p className="text-[10px] text-[#cbd5e1]">Front camera selfie required</p>
+                  </div>
+                )}
+              </div>
+
+              {frontPhoto ? (
+                <button
+                  type="button"
+                  onClick={handleTakeFrontSelfie}
+                  disabled={isCapturingFront || isSubmitting}
+                  className="w-full py-2 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#334155] border border-[#cbd5e1] font-bold text-xs rounded-md cursor-pointer flex items-center justify-center gap-1.5"
+                >
+                  <span className="material-symbols-outlined text-[16px]">cached</span>
+                  Retake Front Selfie
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleTakeFrontSelfie}
+                  disabled={isCapturingFront || isSubmitting}
+                  className="w-full py-2.5 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold text-xs rounded-md shadow-xs flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                >
+                  <span className="material-symbols-outlined text-[18px]">photo_camera</span>
+                  {isCapturingFront ? 'Opening Camera...' : 'Take Front Selfie'}
+                </button>
+              )}
+            </div>
+
+            {/* Back Camera Photo Card */}
+            <div className="border border-[#cbd5e1] rounded-lg p-3 bg-white flex flex-col justify-between space-y-2.5">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-xs text-[#0f172a] flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[18px] text-[#0284c7]">photo_camera_back</span>
+                  📷 BACK CAMERA PHOTO
+                </span>
+                {backPhoto && (
+                  <span className="px-1.5 py-0.5 bg-[#e0f2fe] text-[#0369a1] font-bold text-[10px] rounded">
+                    ✓ Captured
+                  </span>
+                )}
+              </div>
+
+              {/* Preview or Capture Button */}
+              <div className="relative w-full aspect-4/3 bg-[#0f172a] rounded-lg overflow-hidden flex items-center justify-center border border-[#e2e8f0]">
+                {backPhoto ? (
+                  <img
+                    src={backPhoto}
+                    alt="Back Camera Photo Preview"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="p-4 text-center text-[#94a3b8] space-y-1">
+                    <span className="material-symbols-outlined text-[36px] text-[#475569]">
+                      landscape
+                    </span>
+                    <p className="text-[10px] text-[#cbd5e1]">Rear worksite / field photo required</p>
+                  </div>
+                )}
+              </div>
+
+              {backPhoto ? (
+                <button
+                  type="button"
+                  onClick={handleTakeBackPhoto}
+                  disabled={isCapturingBack || isSubmitting}
+                  className="w-full py-2 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#334155] border border-[#cbd5e1] font-bold text-xs rounded-md cursor-pointer flex items-center justify-center gap-1.5"
+                >
+                  <span className="material-symbols-outlined text-[16px]">cached</span>
+                  Retake Back Photo
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleTakeBackPhoto}
+                  disabled={isCapturingBack || isSubmitting}
+                  className="w-full py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs rounded-md shadow-xs flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                >
+                  <span className="material-symbols-outlined text-[18px]">add_a_photo</span>
+                  {isCapturingBack ? 'Opening Rear Camera...' : 'Take Back Camera Photo'}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Submission Error Banner */}
+          {submitError && (
+            <div className="p-3 bg-[#fee2e2] text-[#b91c1c] border border-[#fca5a5] rounded-md font-semibold text-xs flex items-center gap-2">
+              <span className="material-symbols-outlined text-[18px]">error</span>
+              <span>{submitError}</span>
+            </div>
+          )}
+
+          {/* Submission Success Banner */}
+          {submitSuccess && (
+            <div className="p-3 bg-[#dcfce7] text-[#15803d] border border-[#86efac] rounded-md font-bold text-xs flex items-center gap-2">
+              <span className="material-symbols-outlined text-[18px]">check_circle</span>
+              <span>Day Started Successfully! Updating dashboard...</span>
+            </div>
+          )}
+
+          {/* Checklist reminder */}
+          <div className="p-2.5 bg-[#f1f5f9] rounded-lg border border-[#e2e8f0] text-[11px] text-[#475569] space-y-1">
+            <div className="font-semibold text-[#0f172a]">Required for submission:</div>
+            <div className="flex items-center gap-2">
+              <span className={gpsData ? 'text-[#16a34a] font-bold' : 'text-[#94a3b8]'}>
+                {gpsData ? '✓' : '○'} Real device GPS acquired
+              </span>
+              <span>•</span>
+              <span className={frontPhoto ? 'text-[#16a34a] font-bold' : 'text-[#94a3b8]'}>
+                {frontPhoto ? '✓' : '○'} Front selfie captured
+              </span>
+              <span>•</span>
+              <span className={backPhoto ? 'text-[#16a34a] font-bold' : 'text-[#94a3b8]'}>
+                {backPhoto ? '✓' : '○'} Back camera photo captured
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* Footer Actions */}
-        <div className="p-4 bg-[#f8fafc] border-t border-[#e2e8f0] flex items-center justify-between gap-2">
-          {!photoData ? (
-            <button
-              type="button"
-              onClick={handleCapture}
-              disabled={!!cameraError}
-              className="w-full py-2.5 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold text-xs rounded-lg shadow-xs flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
-            >
-              <span className="material-symbols-outlined text-[18px]">photo_camera</span>
-              Take Selfie Photo
-            </button>
-          ) : (
-            <div className="flex items-center gap-2 w-full">
-              <button
-                type="button"
-                onClick={handleRetake}
-                disabled={isSubmitting}
-                className="flex-1 py-2 bg-white hover:bg-[#f1f5f9] text-[#475569] border border-[#cbd5e1] font-bold text-xs rounded-lg cursor-pointer"
-              >
-                Retake
-              </button>
-              <button
-                type="button"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className="flex-1 py-2 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold text-xs rounded-lg shadow-xs flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
-              >
-                <span className="material-symbols-outlined text-[18px]">check_circle</span>
-                {isSubmitting ? 'Saving...' : isStart ? 'Confirm & Start Day' : 'Confirm & End Day'}
-              </button>
-            </div>
-          )}
+        {/* Footer Submit Button */}
+        <div className="p-4 bg-[#f8fafc] border-t border-[#e2e8f0]">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!isReadyToSubmit}
+            className={`w-full py-3 ${
+              isStart ? 'bg-[#16a34a] hover:bg-[#15803d]' : 'bg-[#dc2626] hover:bg-[#b91c1c]'
+            } text-white font-extrabold text-sm rounded-lg shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-all`}
+          >
+            {isSubmitting ? (
+              <>
+                <span className="material-symbols-outlined text-[20px] animate-spin">refresh</span>
+                Submitting... Please wait...
+              </>
+            ) : (
+              <>
+                <span className="material-symbols-outlined text-[20px]">
+                  {isStart ? 'login' : 'logout'}
+                </span>
+                {isStart ? 'START DAY (CLOCK IN)' : 'END DAY (CLOCK OUT)'}
+              </>
+            )}
+          </button>
         </div>
       </div>
     </div>

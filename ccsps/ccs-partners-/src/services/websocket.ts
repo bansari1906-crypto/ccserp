@@ -56,9 +56,12 @@ class WebSocketService {
       (window.location.hostname.includes('chitracropsciencepartners.com') ||
         window.location.hostname.includes('hostingerapp.com'));
 
-    if (isNativeApp || isHostingerDomain) {
-      // Connects to the live active tunnel with WSS
-      return `wss://gen-crawford-constitutional-medical.trycloudflare.com/ws/events/?token=${encodeURIComponent(token)}`;
+    if (isNativeApp) {
+      return `ws://192.168.1.4:8000/ws/events/?token=${encodeURIComponent(token)}`;
+    }
+
+    if (isHostingerDomain) {
+      return `wss://chitracropsciencepartners.com/ws/events/?token=${encodeURIComponent(token)}`;
     }
 
     if ((import.meta as any).env?.DEV) {

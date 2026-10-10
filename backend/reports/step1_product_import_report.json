@@ -1,0 +1,4056 @@
+{
+  "summary": {
+    "total_source_rows": 520,
+    "valid_rows_count": 122,
+    "rows_created": 122,
+    "rows_updated": 0,
+    "rows_skipped": 398,
+    "duplicates_in_file": 0,
+    "price_conflicts": 0,
+    "count_before": 7,
+    "count_after": 129
+  },
+  "conflicts": [],
+  "created_records": [
+    {
+      "id": "041968b7-e923-4a8a-b487-2761242da43c",
+      "product_name": "ACTIVE 100",
+      "technical_name": "Silicon Based Super Spreader",
+      "pack_size": "100 ml",
+      "dealer_price": 100.0
+    },
+    {
+      "id": "4d249c2e-c41a-46d4-842c-0d9fc672277f",
+      "product_name": "ACTIVE 100",
+      "technical_name": "Silicon Based Super Spreader",
+      "pack_size": "1 Ltr",
+      "dealer_price": 750.0
+    },
+    {
+      "id": "89252239-1282-4976-9d4a-d53c34352146",
+      "product_name": "ACTIVE 100",
+      "technical_name": "Silicon Based Super Spreader",
+      "pack_size": "250 ml",
+      "dealer_price": 210.0
+    },
+    {
+      "id": "0268157d-003a-4a27-91c9-cef1d296c9b4",
+      "product_name": "ACTIVE 100",
+      "technical_name": "Silicon Based Super Spreader",
+      "pack_size": "500 ml",
+      "dealer_price": 390.0
+    },
+    {
+      "id": "9be2a1d2-3166-4608-ab38-7fdcce88d3eb",
+      "product_name": "ACTIVE 100",
+      "technical_name": "Silicon Based Super Spreader",
+      "pack_size": "5 Ltr",
+      "dealer_price": 3600.0
+    },
+    {
+      "id": "88a27fca-e210-4f17-a344-07dfd33a12b8",
+      "product_name": "ACTIVE 100",
+      "technical_name": "Silicon Based Super Spreader",
+      "pack_size": "5 ml",
+      "dealer_price": 148.0
+    },
+    {
+      "id": "5aa823b3-60f1-434e-84df-8d416fa3589c",
+      "product_name": "AGNEEPATH SC",
+      "technical_name": "Fipronil 5% SC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 620.0
+    },
+    {
+      "id": "2a1b4a0c-f743-4b85-a5cf-98a73083e1fe",
+      "product_name": "AGNEEPATH SC",
+      "technical_name": "Fipronil 5% SC",
+      "pack_size": "500 ml",
+      "dealer_price": 330.0
+    },
+    {
+      "id": "99449ecd-fc8f-4d5d-802e-faa30337c331",
+      "product_name": "AMITRA 80",
+      "technical_name": "Amino Acid 80% Powder",
+      "pack_size": "1 Kg",
+      "dealer_price": 465.0
+    },
+    {
+      "id": "4b795eaf-0826-44d2-940f-d5574b02079a",
+      "product_name": "AMITRA 80",
+      "technical_name": "Amino Acid 80% Powder",
+      "pack_size": "500 Gm",
+      "dealer_price": 253.0
+    },
+    {
+      "id": "23493196-26ea-4f4a-b9f0-fd9002b03775",
+      "product_name": "ATTACK-20",
+      "technical_name": "Chlorpyriphos 20% EC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 340.0
+    },
+    {
+      "id": "08600015-5f05-4f99-b83e-c9f7c34c6396",
+      "product_name": "ATTACK-20",
+      "technical_name": "Chlorpyriphos 20% EC",
+      "pack_size": "250 ml",
+      "dealer_price": 101.0
+    },
+    {
+      "id": "c82a6e8b-18d9-47b9-99cc-226e25e09990",
+      "product_name": "ATTACK-20",
+      "technical_name": "Chlorpyriphos 20% EC",
+      "pack_size": "500 ml",
+      "dealer_price": 187.5
+    },
+    {
+      "id": "d92417b3-052d-42d1-a12a-74556e5a34e0",
+      "product_name": "ATTACK-50",
+      "technical_name": "Chlorpyriphos 50% EC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 630.0
+    },
+    {
+      "id": "8c447da8-3cd9-447e-bf5c-af5f00d46af8",
+      "product_name": "ATTACK-50",
+      "technical_name": "Chlorpyriphos 50% EC",
+      "pack_size": "500 ml",
+      "dealer_price": 333.0
+    },
+    {
+      "id": "13efefbd-7315-4bc0-a83d-c6aba53c1fb8",
+      "product_name": "ATTACK-505",
+      "technical_name": "Chlorpyrifos + Cypermethrin 5% EC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 685.0
+    },
+    {
+      "id": "5a34014c-604d-40fe-b20c-6667b67e3356",
+      "product_name": "ATTACK-505",
+      "technical_name": "Chlorpyrifos + Cypermethrin 5% EC",
+      "pack_size": "500 ml",
+      "dealer_price": 360.0
+    },
+    {
+      "id": "5c2c5cc8-c334-4585-86ad-10abc7b6ecdb",
+      "product_name": "BENZO KILL",
+      "technical_name": "Emamectin Benzoate 5% SG",
+      "pack_size": "100 Gm",
+      "dealer_price": 140.0
+    },
+    {
+      "id": "398a51e7-29d5-4c98-b2d4-c1408ae524c8",
+      "product_name": "BENZO KILL",
+      "technical_name": "Emamectin Benzoate 5% SG",
+      "pack_size": "250 Gm",
+      "dealer_price": 323.0
+    },
+    {
+      "id": "b3316bcd-c9a3-4194-8872-bc1d49a43440",
+      "product_name": "BENZO KILL",
+      "technical_name": "Emamectin Benzoate 5% SG",
+      "pack_size": "500 Gm",
+      "dealer_price": 620.0
+    },
+    {
+      "id": "ef2f695c-2732-4da5-b950-6a80e412f070",
+      "product_name": "BHISMA GOLD",
+      "technical_name": "Profenophos 50% EC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 635.0
+    },
+    {
+      "id": "43ab804d-50fd-44f2-b19a-4f6159167a23",
+      "product_name": "BHISMA GOLD",
+      "technical_name": "Profenophos 50% EC",
+      "pack_size": "250 ml",
+      "dealer_price": 183.0
+    },
+    {
+      "id": "033b1b1f-55c7-4aff-a97f-dbf49f30dedd",
+      "product_name": "BHISMA GOLD",
+      "technical_name": "Profenophos 50% EC",
+      "pack_size": "500 ml",
+      "dealer_price": 340.0
+    },
+    {
+      "id": "1e79b3cf-9bdd-4de2-982a-9dd0040a028d",
+      "product_name": "C-IMIDA",
+      "technical_name": "Imidacloprid 17.8% SL",
+      "pack_size": "1 Ltr",
+      "dealer_price": 825.0
+    },
+    {
+      "id": "e797d3bf-9c6c-4f85-b5ca-3876a5ff3ea8",
+      "product_name": "C-IMIDA",
+      "technical_name": "Imidacloprid 17.8% SL",
+      "pack_size": "250 ml",
+      "dealer_price": 229.0
+    },
+    {
+      "id": "d291e309-b4ec-4f5f-81b0-b802fe40d98a",
+      "product_name": "C-IMIDA",
+      "technical_name": "Imidacloprid 17.8% SL",
+      "pack_size": "500 ml",
+      "dealer_price": 433.0
+    },
+    {
+      "id": "a3516a2b-3b84-4046-b0a1-c72bfaeaea0d",
+      "product_name": "C-IMIDA SUPER",
+      "technical_name": "Imidacloprid 30.5% SC",
+      "pack_size": "250 ml",
+      "dealer_price": 307.0
+    },
+    {
+      "id": "9f8d2518-f584-4d67-a398-b883daf762eb",
+      "product_name": "C-IMIDA SUPER",
+      "technical_name": "Imidacloprid 30.5% SC",
+      "pack_size": "500 ml",
+      "dealer_price": 593.0
+    },
+    {
+      "id": "2969f702-1851-440c-90ff-5bd76eae5711",
+      "product_name": "CCS-303",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "1 Ltr",
+      "dealer_price": 1807.0
+    },
+    {
+      "id": "56d59a38-6b57-47f0-a195-f11129e1aac2",
+      "product_name": "CCS-303",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "250 ml",
+      "dealer_price": 475.0
+    },
+    {
+      "id": "21431e42-20b2-4bc0-bc77-c6c3f09ca44c",
+      "product_name": "CCS-303",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "500 ml",
+      "dealer_price": 921.0
+    },
+    {
+      "id": "00d4c83b-4213-49eb-af6b-f02e6236be3d",
+      "product_name": "CCS-CARB",
+      "technical_name": "Plant Immunity Booster Bio Stimulant",
+      "pack_size": "1 Ltr",
+      "dealer_price": 697.0
+    },
+    {
+      "id": "54382c2a-5040-4535-8a5c-dbf9eda2ec9c",
+      "product_name": "CCS-CARB",
+      "technical_name": "Plant Immunity Booster Bio Stimulant",
+      "pack_size": "500 ml",
+      "dealer_price": 365.0
+    },
+    {
+      "id": "41cf1f20-9ad1-439c-b9c8-6220a1657ab4",
+      "product_name": "CCS-NEEM 100",
+      "technical_name": "Azadirachtin 1% (1000 ppm) min",
+      "pack_size": "250 ml",
+      "dealer_price": 710.0
+    },
+    {
+      "id": "3fd2d26a-a38a-4774-a5c0-63865befb35a",
+      "product_name": "CCS-NEEM 100",
+      "technical_name": "Azadirachtin 1% (1000 ppm) min",
+      "pack_size": "500 ml",
+      "dealer_price": 1400.0
+    },
+    {
+      "id": "3d2a9249-46d3-46b8-a821-de6b48790001",
+      "product_name": "CHIT BRIGHT",
+      "technical_name": "Flowering Stimulant",
+      "pack_size": "250 ml",
+      "dealer_price": 847.5
+    },
+    {
+      "id": "488cd9ee-c9dc-4237-bbf1-8a614d7221cd",
+      "product_name": "CHIT BRIGHT",
+      "technical_name": "Flowering Stimulant",
+      "pack_size": "5 ml",
+      "dealer_price": 275.0
+    },
+    {
+      "id": "af97dbe7-5c1d-4ce4-a16a-e949daf975ec",
+      "product_name": "CHIT-OXY",
+      "technical_name": "Oxyfluorfen 23.5% EC",
+      "pack_size": "100 ml",
+      "dealer_price": 125.0
+    },
+    {
+      "id": "ba9d1719-cb74-417c-aa16-d56ef70bad0a",
+      "product_name": "CHITARA",
+      "technical_name": "Thiamethoxam 25% WG",
+      "pack_size": "100 Gm",
+      "dealer_price": 82.0
+    },
+    {
+      "id": "1034f69f-a895-4d5b-a42f-3df335a4e34f",
+      "product_name": "CHITARA",
+      "technical_name": "Thiamethoxam 25% WG",
+      "pack_size": "1 Kg",
+      "dealer_price": 650.0
+    },
+    {
+      "id": "617d26d6-adbe-49da-8351-c5fdde68a75e",
+      "product_name": "CHITARA",
+      "technical_name": "Thiamethoxam 25% WG",
+      "pack_size": "250 Gm",
+      "dealer_price": 185.0
+    },
+    {
+      "id": "831b7afc-b9a4-49b9-b46a-93f8ea6c6892",
+      "product_name": "CHITARA",
+      "technical_name": "Thiamethoxam 25% WG",
+      "pack_size": "500 Gm",
+      "dealer_price": 345.0
+    },
+    {
+      "id": "01cc393f-b277-476b-bc53-14e351894796",
+      "product_name": "CHITGOR",
+      "technical_name": "Dimethoate 30% EC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 570.0
+    },
+    {
+      "id": "677eeaf2-4dd1-469f-976d-da40c2778bff",
+      "product_name": "CHITGOR",
+      "technical_name": "Dimethoate 30% EC",
+      "pack_size": "250 ml",
+      "dealer_price": 165.0
+    },
+    {
+      "id": "788c0d03-bfec-439b-8596-178f95ab79d0",
+      "product_name": "CHITGOR",
+      "technical_name": "Dimethoate 30% EC",
+      "pack_size": "500 ml",
+      "dealer_price": 305.0
+    },
+    {
+      "id": "56685424-3480-41ce-86aa-eeb4d95de904",
+      "product_name": "CHITHEXA GOLD",
+      "technical_name": "Hexaconazole 75% WG",
+      "pack_size": "100 Gm",
+      "dealer_price": 395.0
+    },
+    {
+      "id": "d888a7f9-e1fd-4f6c-821b-c301c0d4f151",
+      "product_name": "CHITMIZA-10",
+      "technical_name": "Imazethapyr 10% SL",
+      "pack_size": "1 Ltr",
+      "dealer_price": 780.0
+    },
+    {
+      "id": "7acc82a4-0256-4cb3-81de-0e7c11a22f9f",
+      "product_name": "CHITMIZA-10",
+      "technical_name": "Imazethapyr 10% SL",
+      "pack_size": "500 ml",
+      "dealer_price": 415.0
+    },
+    {
+      "id": "86acd87e-79f2-4931-9de5-d11500d80434",
+      "product_name": "CHITRA B",
+      "technical_name": "Chelated Boron as Boron Glycine (Liquid)",
+      "pack_size": "100 ml",
+      "dealer_price": 340.0
+    },
+    {
+      "id": "72aae925-0109-4502-89a4-8ac380a72039",
+      "product_name": "CHITRA BOOST",
+      "technical_name": "Paclobutrazole 40% SC",
+      "pack_size": "100 ml",
+      "dealer_price": 340.0
+    },
+    {
+      "id": "43660352-4fea-46ea-af79-63dbcd626eaf",
+      "product_name": "CHITRA CA",
+      "technical_name": "Chelated Calcium as Calcium Glycine (Liquid)",
+      "pack_size": "1 Ltr",
+      "dealer_price": 572.0
+    },
+    {
+      "id": "fae4931d-f749-4d47-814f-ee31a8944136",
+      "product_name": "CHITRA CA",
+      "technical_name": "Chelated Calcium as Calcium Glycine (Liquid)",
+      "pack_size": "250 ml",
+      "dealer_price": 225.0
+    },
+    {
+      "id": "fd71cef4-9b7b-4a89-bb03-471b8fa2202d",
+      "product_name": "CHITRA CA",
+      "technical_name": "Chelated Calcium as Calcium Glycine (Liquid)",
+      "pack_size": "500 ml",
+      "dealer_price": 299.0
+    },
+    {
+      "id": "bec3e579-000f-4cd2-b288-b250aac76791",
+      "product_name": "CHITRA CAL-11",
+      "technical_name": "Concentrated Liquid Calcium 11%",
+      "pack_size": "1 Ltr",
+      "dealer_price": 572.0
+    },
+    {
+      "id": "8e464238-ae11-429e-866d-a0aa80b90a29",
+      "product_name": "CHITRA CAL-11",
+      "technical_name": "Concentrated Liquid Calcium 11%",
+      "pack_size": "500 ml",
+      "dealer_price": 299.0
+    },
+    {
+      "id": "b9b0a154-c0cf-4534-9bdb-998412394b9d",
+      "product_name": "CHITRA CBZ",
+      "technical_name": "Fortified Calcium Suspension",
+      "pack_size": "1 Ltr",
+      "dealer_price": 1025.0
+    },
+    {
+      "id": "a79637c6-033b-494c-a469-9b8534440be7",
+      "product_name": "CHITRA CBZ",
+      "technical_name": "Fortified Calcium Suspension",
+      "pack_size": "500 ml",
+      "dealer_price": 525.0
+    },
+    {
+      "id": "05c51858-55ff-4c47-97f8-3e8b8fc7c0e1",
+      "product_name": "CHITRA MKP",
+      "technical_name": "N:P:K - 00%:52%:34%",
+      "pack_size": "25 Kg",
+      "dealer_price": 5300.0
+    },
+    {
+      "id": "e30519f2-7013-4abc-ac44-b69ce9dcec77",
+      "product_name": "CHITRA PACLO",
+      "technical_name": "Paclobutrazole 23% SC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 1050.0
+    },
+    {
+      "id": "96ce5aaa-9aaf-48b9-a5fe-b848f8dc1b08",
+      "product_name": "CHITRA PYRAD",
+      "technical_name": "Tolfenpyrad 15% EC",
+      "pack_size": "250 ml",
+      "dealer_price": 370.0
+    },
+    {
+      "id": "1edd1506-f70e-4538-8c6b-ddb54967397c",
+      "product_name": "CHITRA PYRAD",
+      "technical_name": "Tolfenpyrad 15% EC",
+      "pack_size": "500 ml",
+      "dealer_price": 720.0
+    },
+    {
+      "id": "773ff03b-c444-48ec-98b0-9f5ae3e800c8",
+      "product_name": "CHITRA ZIB",
+      "technical_name": "NPK 11:11:8 Fortified With Zinc & Boron (Suspension)",
+      "pack_size": "1 Ltr",
+      "dealer_price": 965.0
+    },
+    {
+      "id": "d90c3259-5d57-4ddf-8b1f-5e1dd493e2cf",
+      "product_name": "CHITRA ZIB",
+      "technical_name": "NPK 11:11:8 Fortified With Zinc & Boron (Suspension)",
+      "pack_size": "500 ml",
+      "dealer_price": 495.0
+    },
+    {
+      "id": "ffd7b47d-7f1a-43fb-bfec-76f1cd880a7b",
+      "product_name": "CHITRA ZINC",
+      "technical_name": "Chelated Zinc as Zn-EDTA 12%",
+      "pack_size": "500 Gm",
+      "dealer_price": 328.0
+    },
+    {
+      "id": "11f445eb-fd27-41c0-8fed-fc42a9917dd9",
+      "product_name": "CHITRA ZINCOOX",
+      "technical_name": "Zinc Oxide Suspension 39.5% Zn",
+      "pack_size": "1 Ltr",
+      "dealer_price": 1018.0
+    },
+    {
+      "id": "71d4a02f-e5e0-4e03-a41b-8b71553b7559",
+      "product_name": "CHITRA ZINCOOX",
+      "technical_name": "Zinc Oxide Suspension 39.5% Zn",
+      "pack_size": "500 ml",
+      "dealer_price": 521.0
+    },
+    {
+      "id": "8c35fc3c-aa14-4d94-83a8-a0e65e5dd605",
+      "product_name": "CHITRAZINE",
+      "technical_name": "Atrazine 50% WP",
+      "pack_size": "500 Gm",
+      "dealer_price": 190.0
+    },
+    {
+      "id": "54fc088d-f0e0-4ec5-8f51-b2c6c9fdd542",
+      "product_name": "CRAGIBB",
+      "technical_name": "Gibberellic Acid 0.001% L",
+      "pack_size": "1 Ltr",
+      "dealer_price": 340.0
+    },
+    {
+      "id": "ba4dffe2-6247-4203-9b80-b36c17ac83e4",
+      "product_name": "CRETA SUPER",
+      "technical_name": "Thiamethoxam 30% FS",
+      "pack_size": "100 ml",
+      "dealer_price": 86.0
+    },
+    {
+      "id": "766e6f24-125d-4395-9128-3436e8160b2c",
+      "product_name": "CRETA SUPER",
+      "technical_name": "Thiamethoxam 30% FS",
+      "pack_size": "1 Ltr",
+      "dealer_price": 705.0
+    },
+    {
+      "id": "6063f561-3cce-4147-968d-cdadf85645d7",
+      "product_name": "CRETA SUPER",
+      "technical_name": "Thiamethoxam 30% FS",
+      "pack_size": "250 ml",
+      "dealer_price": 198.0
+    },
+    {
+      "id": "d6289ed3-ec83-490e-8751-f391d8065bae",
+      "product_name": "CRETA SUPER",
+      "technical_name": "Thiamethoxam 30% FS",
+      "pack_size": "500 ml",
+      "dealer_price": 370.0
+    },
+    {
+      "id": "5140f52e-f8a4-4800-a32c-363501dda40d",
+      "product_name": "DHARTI RATAN",
+      "technical_name": "Humic Acid + Alginic Acid + Amino Acid Bio Stimulant",
+      "pack_size": "1 Kg",
+      "dealer_price": 810.0
+    },
+    {
+      "id": "d5d254aa-3498-4ea7-aecd-86e6b7d91958",
+      "product_name": "DHARTI RATAN",
+      "technical_name": "Humic Acid + Alginic Acid + Amino Acid Bio Stimulant",
+      "pack_size": "500 Gm",
+      "dealer_price": 430.0
+    },
+    {
+      "id": "dd0207d0-3795-41df-bda5-10f2bf7d3d0b",
+      "product_name": "FIMIDA-40",
+      "technical_name": "Fipronil 40% + Imidacloprid 40% WG",
+      "pack_size": "100 Gm",
+      "dealer_price": 540.0
+    },
+    {
+      "id": "8638d520-fe4a-4979-be3b-894f68c3d167",
+      "product_name": "FIMIDA 40",
+      "technical_name": "Fipronil 40% + Imidacloprid 40% WG",
+      "pack_size": "100 gm",
+      "dealer_price": 540.0
+    },
+    {
+      "id": "edfaebfc-824d-4a96-a8b5-b5804df73f5a",
+      "product_name": "FLO-AVTAR",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "1 Ltr",
+      "dealer_price": 800.0
+    },
+    {
+      "id": "ec762dc7-3491-4ae5-b154-a2e8606f9d94",
+      "product_name": "FLO-AVTAR",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "250 ml",
+      "dealer_price": 220.0
+    },
+    {
+      "id": "7c5559e8-83e1-4d0a-8906-773ca9aa643b",
+      "product_name": "FLO-AVTAR",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "500 ml",
+      "dealer_price": 415.0
+    },
+    {
+      "id": "6cc2ba06-c80d-4342-be3c-8e194b1bbaf9",
+      "product_name": "FLOWER PLUS",
+      "technical_name": "Amino Acids & Vitamins",
+      "pack_size": "100 ml",
+      "dealer_price": 212.0
+    },
+    {
+      "id": "a239b1fd-255e-46b6-94bc-19f7df107c98",
+      "product_name": "FLOWER PLUS",
+      "technical_name": "Amino Acids & Vitamins",
+      "pack_size": "250 ml",
+      "dealer_price": 505.0
+    },
+    {
+      "id": "ca42d4a4-f2f8-4ec5-8a83-c1e4648c794f",
+      "product_name": "FLOWER PLUS",
+      "technical_name": "Amino Acids & Vitamins",
+      "pack_size": "500 ml",
+      "dealer_price": 980.0
+    },
+    {
+      "id": "34fc9d54-84b2-49af-8822-d5b7fa469eac",
+      "product_name": "FUNGASTIN",
+      "technical_name": "Carbendazim 50% WP",
+      "pack_size": "250 Gm",
+      "dealer_price": 140.0
+    },
+    {
+      "id": "fd3766e8-f706-489b-8a40-f6ef96079948",
+      "product_name": "FUNGASTIN",
+      "technical_name": "Carbendazim 50% WP",
+      "pack_size": "500 Gm",
+      "dealer_price": 270.0
+    },
+    {
+      "id": "dd1d91d2-a80b-40ea-99a2-9c4df83ee033",
+      "product_name": "HARIYALI GOLD PLUS",
+      "technical_name": "Humic Acid + Fulvic Acid + Amino Acid + Seaweed",
+      "pack_size": "1 Ltr",
+      "dealer_price": 478.0
+    },
+    {
+      "id": "42c281e9-f968-4d5d-bb27-eeefaa99928d",
+      "product_name": "HARIYALI GOLD PLUS",
+      "technical_name": "Humic Acid + Fulvic Acid + Amino Acid + Seaweed",
+      "pack_size": "500 ml",
+      "dealer_price": 254.0
+    },
+    {
+      "id": "2c9b835c-9c90-4d30-bff2-0ec06fa17a2e",
+      "product_name": "HIT-WICKET",
+      "technical_name": "Paraquat Dichloride 24% SL",
+      "pack_size": "1 Ltr",
+      "dealer_price": 335.0
+    },
+    {
+      "id": "b80bf6cf-bbf2-4647-a15b-e6b71a928e60",
+      "product_name": "HIT-WICKET",
+      "technical_name": "Paraquat Dichloride 24% SL",
+      "pack_size": "500 ml",
+      "dealer_price": 188.0
+    },
+    {
+      "id": "a151cedf-87b0-486e-9819-12a6b54c18ba",
+      "product_name": "HUKUMAT",
+      "technical_name": "Thiamethoxam 12.6% + Lambdacyhalothrin 9.5% ZC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 1255.0
+    },
+    {
+      "id": "03457277-c891-46bc-83cb-1fd9190700c8",
+      "product_name": "HUKUMAT",
+      "technical_name": "Thiamethoxam 12.6% + Lambdacyhalothrin 9.5% ZC",
+      "pack_size": "500 ml",
+      "dealer_price": 648.0
+    },
+    {
+      "id": "f7738531-f914-4437-87a5-1a9f5ffdda52",
+      "product_name": "JORAWAR",
+      "technical_name": "Azoxystrobin 11% + Tebuconazole 18.3% SC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 1140.0
+    },
+    {
+      "id": "0ca9f961-94d4-4af3-b39d-40fea1d9be0d",
+      "product_name": "JORAWAR",
+      "technical_name": "Azoxystrobin 11% + Tebuconazole 18.3% SC",
+      "pack_size": "250 ml",
+      "dealer_price": 308.0
+    },
+    {
+      "id": "27ca8d51-cefc-4f00-abfa-3161fb97d6b8",
+      "product_name": "JORAWAR",
+      "technical_name": "Azoxystrobin 11% + Tebuconazole 18.3% SC",
+      "pack_size": "500 ml",
+      "dealer_price": 590.0
+    },
+    {
+      "id": "72c37126-9cc0-400b-a0ab-4bf9b89be119",
+      "product_name": "KARGIL-75",
+      "technical_name": "Carbendazim 12% + Mancozeb 63% WP",
+      "pack_size": "1 Kg",
+      "dealer_price": 545.0
+    },
+    {
+      "id": "3049b910-4025-49dd-9ec2-ada46adf1c87",
+      "product_name": "KARGIL-75",
+      "technical_name": "Carbendazim 12% + Mancozeb 63% WP",
+      "pack_size": "500 Gm",
+      "dealer_price": 283.0
+    },
+    {
+      "id": "db84e90e-4fbb-4cc4-9e60-ae77984e4299",
+      "product_name": "KILL-71",
+      "technical_name": "Ammonium Salt of Glyphosate 71% SG",
+      "pack_size": "100 Gm",
+      "dealer_price": 65.0
+    },
+    {
+      "id": "3ae8d17a-f57f-473d-8ebb-e741cb1a20f8",
+      "product_name": "KILL-71",
+      "technical_name": "Ammonium Salt of Glyphosate 71% SG",
+      "pack_size": "1 Kg",
+      "dealer_price": 600.0
+    },
+    {
+      "id": "d12a62c1-c687-4853-9b41-b48445a411a2",
+      "product_name": "KRANTIKARI",
+      "technical_name": "Azoxystrobin 18.2% + Difenoconazole 11.4% SC",
+      "pack_size": "500 ml",
+      "dealer_price": 925.0
+    },
+    {
+      "id": "96315680-ff11-4704-927a-11adaf754940",
+      "product_name": "LASKAR",
+      "technical_name": "Lambda Cyhalothrin 4.9% CS",
+      "pack_size": "1 Ltr",
+      "dealer_price": 355.0
+    },
+    {
+      "id": "34b3ef41-2762-41e0-a833-e22cb55270aa",
+      "product_name": "METMAX",
+      "technical_name": "Metalaxyl 35% WS",
+      "pack_size": "250 Gm",
+      "dealer_price": 270.0
+    },
+    {
+      "id": "1d26eb96-61fa-4ded-8d27-e6eede02b6a3",
+      "product_name": "MULTI POWER 55",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "1 Ltr",
+      "dealer_price": 765.0
+    },
+    {
+      "id": "998f89eb-e26d-4d97-92d2-bfe505ecdda8",
+      "product_name": "MULTI POWER 55",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "500 ml",
+      "dealer_price": 397.5
+    },
+    {
+      "id": "4d1f249f-bb6e-49bf-b621-d554d56ed581",
+      "product_name": "NOVA-404",
+      "technical_name": "Profenofos + Cypermethrin 4% EC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 575.0
+    },
+    {
+      "id": "15958442-9d97-4a62-b4c5-c90a4dc25f1f",
+      "product_name": "NOVA-404",
+      "technical_name": "Profenofos + Cypermethrin 4% EC",
+      "pack_size": "500 ml",
+      "dealer_price": 308.0
+    },
+    {
+      "id": "a45d02e6-55e4-4e8f-9043-ea7e78e22554",
+      "product_name": "PLATINUM-5",
+      "technical_name": "Lambda Cyhalothrin 5% EC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 315.0
+    },
+    {
+      "id": "703e2f36-d470-45ef-a030-e9ed376595b7",
+      "product_name": "PRO-VALIDA",
+      "technical_name": "Validamycin 3% SL",
+      "pack_size": "1 Ltr",
+      "dealer_price": 305.0
+    },
+    {
+      "id": "5f25c580-9242-4090-b22c-cab0b421cede",
+      "product_name": "PRO-VALIDA",
+      "technical_name": "Validamycin 3% SL",
+      "pack_size": "500 ml",
+      "dealer_price": 168.0
+    },
+    {
+      "id": "b543ff66-3bea-405a-b23e-001b34c722fa",
+      "product_name": "QUIZFOP-10",
+      "technical_name": "Quizalofop-Ethyl 10% EC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 905.0
+    },
+    {
+      "id": "b8d85737-4fd4-4697-8cc4-2fddff2983bf",
+      "product_name": "QUIZFOP-10",
+      "technical_name": "Quizalofop-Ethyl 10% EC",
+      "pack_size": "250 ml",
+      "dealer_price": 241.0
+    },
+    {
+      "id": "dc9fa76c-62e6-461d-a083-c948b5238794",
+      "product_name": "QUIZFOP-10",
+      "technical_name": "Quizalofop-Ethyl 10% EC",
+      "pack_size": "500 ml",
+      "dealer_price": 468.0
+    },
+    {
+      "id": "f75672bc-8ed2-4b92-85ce-7695267dcb10",
+      "product_name": "ROOT RATAN",
+      "technical_name": "Humic Acid + Alginic Acid",
+      "pack_size": "1 Kg",
+      "dealer_price": 402.0
+    },
+    {
+      "id": "b680fd8a-47cd-4618-a9bc-2ed052a11cd3",
+      "product_name": "ROOT RATAN",
+      "technical_name": "Humic Acid + Alginic Acid",
+      "pack_size": "500 Gm",
+      "dealer_price": 219.0
+    },
+    {
+      "id": "978b36e1-0893-42b4-8480-98bc89a49f6b",
+      "product_name": "SEED MAX",
+      "technical_name": "Carboxin 17.5% + Thiram 17.5% FF",
+      "pack_size": "100 ml",
+      "dealer_price": 170.0
+    },
+    {
+      "id": "9b7edbf2-c42f-4b95-ae63-a8b47e8fcf10",
+      "product_name": "SEED MAX",
+      "technical_name": "Carboxin 17.5% + Thiram 17.5% FF",
+      "pack_size": "250 ml",
+      "dealer_price": 400.0
+    },
+    {
+      "id": "7b7fcf5f-aa82-4972-b005-531326449c5b",
+      "product_name": "SHAKTIMAN",
+      "technical_name": "Sulphur 55.16% SC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 260.0
+    },
+    {
+      "id": "de5843ff-be8c-4e74-95ab-3463f06b3d0e",
+      "product_name": "STORAGE",
+      "technical_name": "High Performance Soil Adjuvant",
+      "pack_size": "250 Gm",
+      "dealer_price": 360.0
+    },
+    {
+      "id": "754f7171-5a46-465f-830d-4e53231684cd",
+      "product_name": "TEBU SF",
+      "technical_name": "Tebuconazole 10% + Sulphur 65% WG",
+      "pack_size": "1 Kg",
+      "dealer_price": 425.0
+    },
+    {
+      "id": "aea726f0-a466-4142-96a4-a41d4614beb2",
+      "product_name": "TEBU SF",
+      "technical_name": "Tebuconazole 10% + Sulphur 65% WG",
+      "pack_size": "500 Gm",
+      "dealer_price": 227.5
+    },
+    {
+      "id": "b92bb92e-a7ac-489f-89ed-0d7b388f9f3c",
+      "product_name": "TEBZOLE",
+      "technical_name": "Tebuconazole 25.9% EC",
+      "pack_size": "1 Ltr",
+      "dealer_price": 950.0
+    },
+    {
+      "id": "b5db2cb8-bbdd-462d-9aae-5948bde2a70c",
+      "product_name": "TEBZOLE",
+      "technical_name": "Tebuconazole 25.9% EC",
+      "pack_size": "500 ml",
+      "dealer_price": 421.0
+    },
+    {
+      "id": "8ba2dcda-6090-45f1-8e82-ebc0d997582d",
+      "product_name": "VITARA GOLD",
+      "technical_name": "Metalaxyl 8% + Mancozeb 64% WP",
+      "pack_size": "500 Gm",
+      "dealer_price": 368.0
+    },
+    {
+      "id": "e5b707bc-8c41-4db2-8909-510d69e96d1d",
+      "product_name": "WELCOME HONEY BEE",
+      "technical_name": "Citrus Peel Extract Silicon Based Adjuvant",
+      "pack_size": "250 ml",
+      "dealer_price": 295.0
+    }
+  ],
+  "skipped_rows": [
+    {
+      "row_number": 2,
+      "product_name": "AAKRAMAN",
+      "technical_name": "Chlorantraniliprole 9.3% + Lambdacyhalothrin 4.6% ZC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 3,
+      "product_name": "AAKRAMAN",
+      "technical_name": "Chlorantraniliprole 9.3% + Lambdacyhalothrin 4.6% ZC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 4,
+      "product_name": "AAKRAMAN",
+      "technical_name": "Chlorantraniliprole 9.3% + Lambdacyhalothrin 4.6% ZC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 5,
+      "product_name": "AAKRAMAN",
+      "technical_name": "Chlorantraniliprole 9.3% + Lambdacyhalothrin 4.6% ZC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 6,
+      "product_name": "ABACHIT",
+      "technical_name": "Abamectin 1.9% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 7,
+      "product_name": "ABACHIT",
+      "technical_name": "Abamectin 1.9% EC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 8,
+      "product_name": "ABACHIT",
+      "technical_name": "Abamectin 1.9% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 9,
+      "product_name": "ABACHIT",
+      "technical_name": "Abamectin 1.9% EC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 16,
+      "product_name": "AGNEEPATH GR",
+      "technical_name": "Fipronil 0.3% GR",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 17,
+      "product_name": "AGNEEPATH GR",
+      "technical_name": "Fipronil 0.3% GR",
+      "pack_size": "5 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 18,
+      "product_name": "AGNEEPATH SC",
+      "technical_name": "Fipronil 5% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 20,
+      "product_name": "AGNEEPATH SC",
+      "technical_name": "Fipronil 5% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 22,
+      "product_name": "AMITRA 80",
+      "technical_name": "Amino Acid 80% Powder",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 24,
+      "product_name": "AMITRA 80",
+      "technical_name": "Amino Acid 80% Powder",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 26,
+      "product_name": "ATTACK-10 G",
+      "technical_name": "Chlorpyriphos 10% GR",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 27,
+      "product_name": "ATTACK-10 G",
+      "technical_name": "Chlorpyriphos 10% GR",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 28,
+      "product_name": "ATTACK-10 G",
+      "technical_name": "Chlorpyriphos 10% GR",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 29,
+      "product_name": "ATTACK-10 G",
+      "technical_name": "Chlorpyriphos 10% GR",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 30,
+      "product_name": "ATTACK-20",
+      "technical_name": "Chlorpyriphos 20% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 34,
+      "product_name": "ATTACK-50",
+      "technical_name": "Chlorpyriphos 50% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 36,
+      "product_name": "ATTACK-50",
+      "technical_name": "Chlorpyriphos 50% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 38,
+      "product_name": "ATTACK-505",
+      "technical_name": "Chlorpyrifos + Cypermethrin 5% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 40,
+      "product_name": "ATTACK-505",
+      "technical_name": "Chlorpyrifos + Cypermethrin 5% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 42,
+      "product_name": "Azotech",
+      "technical_name": "Azoxystrobin 23% SC",
+      "pack_size": "NA",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 43,
+      "product_name": "AZOTRI PLUS",
+      "technical_name": "Tricyclazole 20.4% + Azoxystrobin 6.8% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 44,
+      "product_name": "AZOTRI PLUS",
+      "technical_name": "Tricyclazole 20.4% + Azoxystrobin 6.8% SC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 45,
+      "product_name": "AZOTRI PLUS",
+      "technical_name": "Tricyclazole 20.4% + Azoxystrobin 6.8% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 46,
+      "product_name": "AZOTRI PLUS",
+      "technical_name": "Tricyclazole 20.4% + Azoxystrobin 6.8% SC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 47,
+      "product_name": "AZTRIX",
+      "technical_name": "Azoxystrobin 16.7% + Tricyclazole 33.3% SC",
+      "pack_size": "NA",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 48,
+      "product_name": "BATALIYAN",
+      "technical_name": "Mesotrione 2.27% + Atrazine 22.7% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 49,
+      "product_name": "BATALIYAN",
+      "technical_name": "Mesotrione 2.27% + Atrazine 22.7% SC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 50,
+      "product_name": "BATALIYAN",
+      "technical_name": "Mesotrione 2.27% + Atrazine 22.7% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 51,
+      "product_name": "BATALIYAN",
+      "technical_name": "Mesotrione 2.27% + Atrazine 22.7% SC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 52,
+      "product_name": "BENZO FIRE",
+      "technical_name": "Emamectin Benzoate 1.9% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 53,
+      "product_name": "BENZO FIRE",
+      "technical_name": "Emamectin Benzoate 1.9% EC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 54,
+      "product_name": "BENZO FIRE",
+      "technical_name": "Emamectin Benzoate 1.9% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 55,
+      "product_name": "BENZO FIRE",
+      "technical_name": "Emamectin Benzoate 1.9% EC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 57,
+      "product_name": "BENZO KILL",
+      "technical_name": "Emamectin Benzoate 5% SG",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 60,
+      "product_name": "BENZO NIL",
+      "technical_name": "Emamectin Benzoate 1.5% + Fipronil 3.5% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 61,
+      "product_name": "BENZO NIL",
+      "technical_name": "Emamectin Benzoate 1.5% + Fipronil 3.5% SC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 62,
+      "product_name": "BENZO NIL",
+      "technical_name": "Emamectin Benzoate 1.5% + Fipronil 3.5% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 63,
+      "product_name": "BENZO NIL",
+      "technical_name": "Emamectin Benzoate 1.5% + Fipronil 3.5% SC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 64,
+      "product_name": "BHAGAO",
+      "technical_name": "Halosulfuron Methyl 75% WG",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 65,
+      "product_name": "BHAGAO",
+      "technical_name": "Halosulfuron Methyl 75% WG",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 66,
+      "product_name": "BHAGAO",
+      "technical_name": "Halosulfuron Methyl 75% WG",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 67,
+      "product_name": "BHAGAO",
+      "technical_name": "Halosulfuron Methyl 75% WG",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 68,
+      "product_name": "BHISMA GOLD",
+      "technical_name": "Profenophos 50% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 72,
+      "product_name": "C-IMIDA",
+      "technical_name": "Imidacloprid 17.8% SL",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 76,
+      "product_name": "C-IMIDA SUPER",
+      "technical_name": "Imidacloprid 30.5% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 77,
+      "product_name": "C-IMIDA SUPER",
+      "technical_name": "Imidacloprid 30.5% SC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 80,
+      "product_name": "CAPHEXA",
+      "technical_name": "Captan 70% + Hexaconazole 5% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 81,
+      "product_name": "CAPHEXA",
+      "technical_name": "Captan 70% + Hexaconazole 5% WP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 82,
+      "product_name": "CAPHEXA",
+      "technical_name": "Captan 70% + Hexaconazole 5% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 83,
+      "product_name": "CAPHEXA",
+      "technical_name": "Captan 70% + Hexaconazole 5% WP",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 84,
+      "product_name": "CCS-303",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 88,
+      "product_name": "CCS BOOSTER",
+      "technical_name": "Nitrobenzene 20% EW",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 89,
+      "product_name": "CCS BOOSTER",
+      "technical_name": "Nitrobenzene 20% EW",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 90,
+      "product_name": "CCS BOOSTER",
+      "technical_name": "Nitrobenzene 20% EW",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 91,
+      "product_name": "CCS BOOSTER",
+      "technical_name": "Nitrobenzene 20% EW",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 92,
+      "product_name": "CCS-CARB",
+      "technical_name": "Plant Immunity Booster Bio Stimulant",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 94,
+      "product_name": "CCS-CARB",
+      "technical_name": "Plant Immunity Booster Bio Stimulant",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 96,
+      "product_name": "CCS-CARB ULTRA",
+      "technical_name": "NA",
+      "pack_size": "NA",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 97,
+      "product_name": "CCS-NEEM 100",
+      "technical_name": "Azadirachtin 1% (1000 ppm) min",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 98,
+      "product_name": "CCS-NEEM 100",
+      "technical_name": "Azadirachtin 1% (1000 ppm) min",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 101,
+      "product_name": "CCS-NEEM100",
+      "technical_name": "Neem Seed Kernel Based EC containing Azadirachtin 1% (10000 ppm min.)",
+      "pack_size": "NA",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 104,
+      "product_name": "CHIT FIGHTER",
+      "technical_name": "Chlorantraniliprole 0.4% GR",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 105,
+      "product_name": "CHIT FIGHTER",
+      "technical_name": "Chlorantraniliprole 0.4% GR",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 106,
+      "product_name": "CHIT FIGHTER",
+      "technical_name": "Chlorantraniliprole 0.4% GR",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 107,
+      "product_name": "CHIT FIGHTER",
+      "technical_name": "Chlorantraniliprole 0.4% GR",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 108,
+      "product_name": "CHIT HEXA",
+      "technical_name": "Hexaconazole 5% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 109,
+      "product_name": "CHIT HEXA",
+      "technical_name": "Hexaconazole 5% SC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 110,
+      "product_name": "CHIT HEXA",
+      "technical_name": "Hexaconazole 5% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 111,
+      "product_name": "CHIT HEXA",
+      "technical_name": "Hexaconazole 5% SC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 113,
+      "product_name": "CHIT-OXY",
+      "technical_name": "Oxyfluorfen 23.5% EC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 114,
+      "product_name": "CHIT-OXY",
+      "technical_name": "Oxyfluorfen 23.5% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 115,
+      "product_name": "CHIT-OXY",
+      "technical_name": "Oxyfluorfen 23.5% EC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 116,
+      "product_name": "CHIT PRIDE",
+      "technical_name": "Acetamiprid 20% SP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 117,
+      "product_name": "CHIT PRIDE",
+      "technical_name": "Acetamiprid 20% SP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 118,
+      "product_name": "CHIT PRIDE",
+      "technical_name": "Acetamiprid 20% SP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 119,
+      "product_name": "CHIT PRIDE",
+      "technical_name": "Acetamiprid 20% SP",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 124,
+      "product_name": "CHITARA GOLD",
+      "technical_name": "Thiamethoxam 75% SG",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 125,
+      "product_name": "CHITARA GOLD",
+      "technical_name": "Thiamethoxam 75% SG",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 126,
+      "product_name": "CHITARA GOLD",
+      "technical_name": "Thiamethoxam 75% SG",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 127,
+      "product_name": "CHITARA GOLD",
+      "technical_name": "Thiamethoxam 75% SG",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 128,
+      "product_name": "CHITGIBB EZY",
+      "technical_name": "Gibberellic Acid 40% WSG",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 129,
+      "product_name": "CHITGIBB EZY",
+      "technical_name": "Gibberellic Acid 40% WSG",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 130,
+      "product_name": "CHITGIBB EZY",
+      "technical_name": "Gibberellic Acid 40% WSG",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 131,
+      "product_name": "CHITGIBB EZY",
+      "technical_name": "Gibberellic Acid 40% WSG",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 132,
+      "product_name": "CHITGOR",
+      "technical_name": "Dimethoate 30% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 136,
+      "product_name": "CHITHEXA",
+      "technical_name": "Hexaconazole 5% SC",
+      "pack_size": "NA",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 138,
+      "product_name": "CHITHEXA GOLD",
+      "technical_name": "Hexaconazole 75% WG",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 139,
+      "product_name": "CHITHEXA GOLD",
+      "technical_name": "Hexaconazole 75% WG",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 140,
+      "product_name": "CHITHEXA GOLD",
+      "technical_name": "Hexaconazole 75% WG",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 141,
+      "product_name": "CHITMIZA",
+      "technical_name": "Imazethapyr 70% WG",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 142,
+      "product_name": "CHITMIZA",
+      "technical_name": "Imazethapyr 70% WG",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 143,
+      "product_name": "CHITMIZA",
+      "technical_name": "Imazethapyr 70% WG",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 144,
+      "product_name": "CHITMIZA",
+      "technical_name": "Imazethapyr 70% WG",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 145,
+      "product_name": "CHITMIZA-10",
+      "technical_name": "Imazethapyr 10% SL",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 147,
+      "product_name": "CHITMIZA-10",
+      "technical_name": "Imazethapyr 10% SL",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 149,
+      "product_name": "CHITRA 888",
+      "technical_name": "NPK 8-8-8 (Liquid) - For Sugarcane Crop",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 150,
+      "product_name": "CHITRA 888",
+      "technical_name": "NPK 8-8-8 (Liquid) - For Sugarcane Crop",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 151,
+      "product_name": "CHITRA 888",
+      "technical_name": "NPK 8-8-8 (Liquid) - For Sugarcane Crop",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 152,
+      "product_name": "CHITRA 888",
+      "technical_name": "NPK 8-8-8 (Liquid) - For Sugarcane Crop",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 153,
+      "product_name": "CHITRA AMS",
+      "technical_name": "Ammonium Sulphate",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 154,
+      "product_name": "CHITRA AMS",
+      "technical_name": "Ammonium Sulphate",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 156,
+      "product_name": "CHITRA B",
+      "technical_name": "Chelated Boron as Boron Glycine (Liquid)",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 157,
+      "product_name": "CHITRA B",
+      "technical_name": "Chelated Boron as Boron Glycine (Liquid)",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 158,
+      "product_name": "CHITRA B",
+      "technical_name": "Chelated Boron as Boron Glycine (Liquid)",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 160,
+      "product_name": "CHITRA BOOST",
+      "technical_name": "Paclobutrazole 40% SC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 161,
+      "product_name": "CHITRA BOOST",
+      "technical_name": "Paclobutrazole 40% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 162,
+      "product_name": "CHITRA BOOST",
+      "technical_name": "Paclobutrazole 40% SC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 163,
+      "product_name": "CHITRA CA",
+      "technical_name": "Chelated Calcium as Calcium Glycine (Liquid)",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 167,
+      "product_name": "CHITRA CAL-11",
+      "technical_name": "Concentrated Liquid Calcium 11%",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 169,
+      "product_name": "CHITRA CAL-11",
+      "technical_name": "Concentrated Liquid Calcium 11%",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 171,
+      "product_name": "CHITRA CALBO",
+      "technical_name": "Boronated Calcium Nitrate",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 172,
+      "product_name": "CHITRA CALBO",
+      "technical_name": "Boronated Calcium Nitrate",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 173,
+      "product_name": "CHITRA CBZ",
+      "technical_name": "Fortified Calcium Suspension",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 175,
+      "product_name": "CHITRA CBZ",
+      "technical_name": "Fortified Calcium Suspension",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 177,
+      "product_name": "CHITRA CN",
+      "technical_name": "Calcium Nitrate",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 178,
+      "product_name": "CHITRA CN",
+      "technical_name": "Calcium Nitrate",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 179,
+      "product_name": "CHITRA-COC",
+      "technical_name": "Copper Oxychloride 50% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 180,
+      "product_name": "CHITRA-COC",
+      "technical_name": "Copper Oxychloride 50% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 181,
+      "product_name": "CHITRA-COC",
+      "technical_name": "Copper Oxychloride 50% WP",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 182,
+      "product_name": "CHITRA DEFEND",
+      "technical_name": "Chlorothalonil 75% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 183,
+      "product_name": "CHITRA DEFEND",
+      "technical_name": "Chlorothalonil 75% WP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 184,
+      "product_name": "CHITRA DEFEND",
+      "technical_name": "Chlorothalonil 75% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 185,
+      "product_name": "CHITRA DEFEND",
+      "technical_name": "Chlorothalonil 75% WP",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 186,
+      "product_name": "CHITRA FE",
+      "technical_name": "Chelated Iron as Fe-EDTA 12%",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 187,
+      "product_name": "CHITRA GOLD",
+      "technical_name": "Calcium Nitrate Fortified With Magnesium (Suspension)",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 188,
+      "product_name": "CHITRA GOLD",
+      "technical_name": "Calcium Nitrate Fortified With Magnesium (Suspension)",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 189,
+      "product_name": "CHITRA GOLD",
+      "technical_name": "Calcium Nitrate Fortified With Magnesium (Suspension)",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 190,
+      "product_name": "CHITRA GOLD",
+      "technical_name": "Calcium Nitrate Fortified With Magnesium (Suspension)",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 191,
+      "product_name": "CHITRA M-45",
+      "technical_name": "Mancozeb 75% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 192,
+      "product_name": "CHITRA M-45",
+      "technical_name": "Mancozeb 75% WP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 193,
+      "product_name": "CHITRA M-45",
+      "technical_name": "Mancozeb 75% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 194,
+      "product_name": "CHITRA M-45",
+      "technical_name": "Mancozeb 75% WP",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 195,
+      "product_name": "CHITRA MAP",
+      "technical_name": "N:P:K - 12%:61%:00%",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 196,
+      "product_name": "CHITRA MAP",
+      "technical_name": "N:P:K - 12%:61%:00%",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 197,
+      "product_name": "CHITRA MAX",
+      "technical_name": "Potassium Metaphosphate Dimer (0-40-40)",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 198,
+      "product_name": "CHITRA MAX",
+      "technical_name": "Potassium Metaphosphate Dimer (0-40-40)",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 199,
+      "product_name": "CHITRA MAX",
+      "technical_name": "Potassium Metaphosphate Dimer (0-40-40)",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 200,
+      "product_name": "CHITRA MAX",
+      "technical_name": "Potassium Metaphosphate Dimer (0-40-40)",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 201,
+      "product_name": "CHITRA MEG",
+      "technical_name": "Magnesium Sulphate",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 202,
+      "product_name": "CHITRA MEG",
+      "technical_name": "Magnesium Sulphate",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 203,
+      "product_name": "CHITRA MKP",
+      "technical_name": "N:P:K - 00%:52%:34%",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 205,
+      "product_name": "CHITRA MSM",
+      "technical_name": "Metsulfuron Methyl 20% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 206,
+      "product_name": "CHITRA MSM",
+      "technical_name": "Metsulfuron Methyl 20% WP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 207,
+      "product_name": "CHITRA MSM",
+      "technical_name": "Metsulfuron Methyl 20% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 208,
+      "product_name": "CHITRA MSM",
+      "technical_name": "Metsulfuron Methyl 20% WP",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 209,
+      "product_name": "CHITRA NK",
+      "technical_name": "NK 6:0:18 Fortified With Calcium, Magnesium & Boron (Suspension)",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 210,
+      "product_name": "CHITRA NK",
+      "technical_name": "NK 6:0:18 Fortified With Calcium, Magnesium & Boron (Suspension)",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 211,
+      "product_name": "CHITRA NK",
+      "technical_name": "NK 6:0:18 Fortified With Calcium, Magnesium & Boron (Suspension)",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 212,
+      "product_name": "CHITRA NK",
+      "technical_name": "NK 6:0:18 Fortified With Calcium, Magnesium & Boron (Suspension)",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 213,
+      "product_name": "CHITRA NKP",
+      "technical_name": "N:P:K - 10%:26%:26%",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 214,
+      "product_name": "CHITRA NKP",
+      "technical_name": "N:P:K - 10%:26%:26%",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 215,
+      "product_name": "CHITRA NOP",
+      "technical_name": "N:P:K - 13%:00%:45%",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 216,
+      "product_name": "CHITRA NOP",
+      "technical_name": "N:P:K - 13%:00%:45%",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 217,
+      "product_name": "CHITRA NP",
+      "technical_name": "N:P:K - 17%:44%:00%",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 218,
+      "product_name": "CHITRA NP",
+      "technical_name": "N:P:K - 17%:44%:00%",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 219,
+      "product_name": "CHITRA NP (LIQUID)",
+      "technical_name": "Fortified NP (7-21-0) Liquid",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 220,
+      "product_name": "CHITRA NP (LIQUID)",
+      "technical_name": "Fortified NP (7-21-0) Liquid",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 221,
+      "product_name": "CHITRA NP (LIQUID)",
+      "technical_name": "Fortified NP (7-21-0) Liquid",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 222,
+      "product_name": "CHITRA NP (LIQUID)",
+      "technical_name": "Fortified NP (7-21-0) Liquid",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 223,
+      "product_name": "CHITRA NPK",
+      "technical_name": "N : P : K - 19% : 19% : 19%",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 224,
+      "product_name": "CHITRA NPK",
+      "technical_name": "N : P : K - 19% : 19% : 19%",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 225,
+      "product_name": "CHITRA NPK (13:40:13)",
+      "technical_name": "N:P:K - 13%:40%:13%",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 226,
+      "product_name": "CHITRA NPK 13:40:13",
+      "technical_name": "NA",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 227,
+      "product_name": "CHITRA NPK (13:40:13)",
+      "technical_name": "N:P:K - 13%:40%:13%",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 228,
+      "product_name": "CHITRA NPK 13:40:13",
+      "technical_name": "NA",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 229,
+      "product_name": "CHITRA NPK (19:19:19)",
+      "technical_name": "N:P:K - 19%:19%:19%",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 230,
+      "product_name": "CHITRA NPK 19:19:19",
+      "technical_name": "NA",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 231,
+      "product_name": "CHITRA NPK (19:19:19)",
+      "technical_name": "N:P:K - 19%:19%:19%",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 232,
+      "product_name": "CHITRA NPK 19:19:19",
+      "technical_name": "NA",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 233,
+      "product_name": "CHITRA PACLO",
+      "technical_name": "Paclobutrazole 23% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 235,
+      "product_name": "CHITRA PACLO",
+      "technical_name": "Paclobutrazole 23% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 236,
+      "product_name": "CHITRA PACLO",
+      "technical_name": "Paclobutrazole 23% SC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 237,
+      "product_name": "CHITRA PKA",
+      "technical_name": "N:P:K - 00%:60%:20%",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 238,
+      "product_name": "CHITRA PKA",
+      "technical_name": "N:P:K - 00%:60%:20%",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 239,
+      "product_name": "CHITRA PYRAD",
+      "technical_name": "Tolfenpyrad 15% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 240,
+      "product_name": "CHITRA PYRAD",
+      "technical_name": "Tolfenpyrad 15% EC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 243,
+      "product_name": "CHITRA SARTHI",
+      "technical_name": "Kresoxim-Methyl 15% + Chlorothalonil 56% WG",
+      "pack_size": "100 gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 244,
+      "product_name": "CHITRA SARTHI",
+      "technical_name": "Kresoxim-Methyl 15% + Chlorothalonil 56% WG",
+      "pack_size": "250 gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 245,
+      "product_name": "CHITRA SARTHI",
+      "technical_name": "Kresoxim-Methyl 15% + Chlorothalonil 56% WG",
+      "pack_size": "500 gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 246,
+      "product_name": "CHITRA SONITE",
+      "technical_name": "Potassium Schoenite",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 247,
+      "product_name": "CHITRA SONITE",
+      "technical_name": "Potassium Schoenite",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 248,
+      "product_name": "CHITRA SOP",
+      "technical_name": "N:P:K - 00%:00%:50%",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 249,
+      "product_name": "CHITRA SOP",
+      "technical_name": "N:P:K - 00%:00%:50%",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 250,
+      "product_name": "CHITRA ZIB",
+      "technical_name": "NPK 11:11:8 Fortified With Zinc & Boron (Suspension)",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 252,
+      "product_name": "CHITRA ZIB",
+      "technical_name": "NPK 11:11:8 Fortified With Zinc & Boron (Suspension)",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 255,
+      "product_name": "CHITRA ZINCOOX",
+      "technical_name": "Zinc Oxide Suspension 39.5% Zn",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 257,
+      "product_name": "CHITRA ZINCOOX",
+      "technical_name": "Zinc Oxide Suspension 39.5% Zn",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 259,
+      "product_name": "CHITRA ZINK",
+      "technical_name": "Zn EDTA 12%",
+      "pack_size": "500 gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 260,
+      "product_name": "CHITRA ZN",
+      "technical_name": "Chelated Zinc as Zinc-Glycine (Liquid)",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 261,
+      "product_name": "CHITRA ZN",
+      "technical_name": "Chelated Zinc as Zinc-Glycine (Liquid)",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 262,
+      "product_name": "CHITRA ZN",
+      "technical_name": "Chelated Zinc as Zinc-Glycine (Liquid)",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 263,
+      "product_name": "CHITRA ZN",
+      "technical_name": "Chelated Zinc as Zinc-Glycine (Liquid)",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 264,
+      "product_name": "CHITRACOL",
+      "technical_name": "Propineb 70% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 265,
+      "product_name": "CHITRACOL",
+      "technical_name": "Propineb 70% WP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 266,
+      "product_name": "CHITRACOL",
+      "technical_name": "Propineb 70% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 267,
+      "product_name": "CHITRACOL",
+      "technical_name": "Propineb 70% WP",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 268,
+      "product_name": "CHITRAZINE",
+      "technical_name": "Atrazine 50% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 269,
+      "product_name": "CHITRAZINE",
+      "technical_name": "Atrazine 50% WP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 270,
+      "product_name": "CHITRAZINE",
+      "technical_name": "Atrazine 50% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 272,
+      "product_name": "CHITWEED",
+      "technical_name": "2,4-D Ethyl Ester 38% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 273,
+      "product_name": "CHITWEED",
+      "technical_name": "2,4-D Ethyl Ester 38% EC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 274,
+      "product_name": "CHITWEED",
+      "technical_name": "2,4-D Ethyl Ester 38% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 275,
+      "product_name": "CHITWEED",
+      "technical_name": "2,4-D Ethyl Ester 38% EC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 276,
+      "product_name": "CHITWEED SUPER",
+      "technical_name": "2,4-D Amine Salt 58% SL",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 277,
+      "product_name": "CHITWEED SUPER",
+      "technical_name": "2,4-D Amine Salt 58% SL",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 278,
+      "product_name": "CHITWEED SUPER",
+      "technical_name": "2,4-D Amine Salt 58% SL",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 279,
+      "product_name": "CHITWEED SUPER",
+      "technical_name": "2,4-D Amine Salt 58% SL",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 280,
+      "product_name": "CRAGIBB",
+      "technical_name": "Gibberellic Acid 0.001% L",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 282,
+      "product_name": "CRAGIBB",
+      "technical_name": "Gibberellic Acid 0.001% L",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 283,
+      "product_name": "CRAGIBB",
+      "technical_name": "Gibberellic Acid 0.001% L",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 288,
+      "product_name": "CYMO PLUS",
+      "technical_name": "Cymoxanil 8% + Mancozeb 64% WP",
+      "pack_size": "1200 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 289,
+      "product_name": "CYMO PLUS",
+      "technical_name": "Cymoxanil 8% + Mancozeb 64% WP",
+      "pack_size": "300 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 290,
+      "product_name": "CYMO PLUS",
+      "technical_name": "Cymoxanil 8% + Mancozeb 64% WP",
+      "pack_size": "600 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 291,
+      "product_name": "CYQ-320",
+      "technical_name": "Cypermethrin 3% + Quinalphos 20% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 292,
+      "product_name": "CYQ-320",
+      "technical_name": "Cypermethrin 3% + Quinalphos 20% EC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 293,
+      "product_name": "CYQ-320",
+      "technical_name": "Cypermethrin 3% + Quinalphos 20% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 294,
+      "product_name": "CYQ-320",
+      "technical_name": "Cypermethrin 3% + Quinalphos 20% EC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 295,
+      "product_name": "DHARTI RATAN",
+      "technical_name": "Humic Acid + Alginic Acid + Amino Acid Bio Stimulant",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 297,
+      "product_name": "DHARTI RATAN",
+      "technical_name": "Humic Acid + Alginic Acid + Amino Acid Bio Stimulant",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 299,
+      "product_name": "DR ROOT RAJA",
+      "technical_name": "NA",
+      "pack_size": "NA",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 300,
+      "product_name": "DR. ROOT RAJA",
+      "technical_name": "Organic Nematicide",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 301,
+      "product_name": "DR. ROOT RAJA",
+      "technical_name": "Organic Nematicide",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 302,
+      "product_name": "DR. ROOT RAJA",
+      "technical_name": "Organic Nematicide",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 303,
+      "product_name": "DR. ROOT RAJA",
+      "technical_name": "Organic Nematicide",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 304,
+      "product_name": "DUALSTRIKE GR",
+      "technical_name": "Thiamethoxam 1.0% + Chlorantraniliprole 0.5% GR",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 305,
+      "product_name": "DUALSTRIKE GR",
+      "technical_name": "Thiamethoxam 1.0% + Chlorantraniliprole 0.5% GR",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 306,
+      "product_name": "DUALSTRIKE GR",
+      "technical_name": "Thiamethoxam 1.0% + Chlorantraniliprole 0.5% GR",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 307,
+      "product_name": "DUALSTRIKE GR",
+      "technical_name": "Thiamethoxam 1.0% + Chlorantraniliprole 0.5% GR",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 308,
+      "product_name": "FENDOL-DP",
+      "technical_name": "Fenvalerate 0.4% DP",
+      "pack_size": "10 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 309,
+      "product_name": "FENDOL-DP",
+      "technical_name": "Fenvalerate 0.4% DP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 310,
+      "product_name": "FENDOL-DP",
+      "technical_name": "Fenvalerate 0.4% DP",
+      "pack_size": "25 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 311,
+      "product_name": "FENDOL-DP",
+      "technical_name": "Fenvalerate 0.4% DP",
+      "pack_size": "5 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 312,
+      "product_name": "FEURADON-3G",
+      "technical_name": "Carbofuron 3% CG",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 313,
+      "product_name": "FEURADON-3G",
+      "technical_name": "Carbofuron 3% CG",
+      "pack_size": "5 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 316,
+      "product_name": "FIMIDA-40",
+      "technical_name": "Fipronil 40% + Imidacloprid 40% WG",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 317,
+      "product_name": "FIMIDA-40",
+      "technical_name": "Fipronil 40% + Imidacloprid 40% WG",
+      "pack_size": "40 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 318,
+      "product_name": "FLO-AVTAR",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 322,
+      "product_name": "FLO-JEET",
+      "technical_name": "Flowering Stimulant",
+      "pack_size": "1 Gm x 10 Pcs",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 324,
+      "product_name": "FLOWER PLUS",
+      "technical_name": "Amino Acids & Vitamins",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 327,
+      "product_name": "FUNGASTIN",
+      "technical_name": "Carbendazim 50% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 328,
+      "product_name": "FUNGASTIN",
+      "technical_name": "Carbendazim 50% WP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 331,
+      "product_name": "HAMLAVAR",
+      "technical_name": "Bio Botanical Controller",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 332,
+      "product_name": "HAMLAVAR",
+      "technical_name": "Bio Botanical Controller",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 333,
+      "product_name": "HAMLAVAR",
+      "technical_name": "Bio Botanical Controller",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 334,
+      "product_name": "HAMLAVAR",
+      "technical_name": "Bio Botanical Controller",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 335,
+      "product_name": "HARIYALI GOLD PLUS",
+      "technical_name": "Humic Acid + Fulvic Acid + Amino Acid + Seaweed",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 337,
+      "product_name": "HARIYALI GOLD PLUS",
+      "technical_name": "Humic Acid + Fulvic Acid + Amino Acid + Seaweed",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 339,
+      "product_name": "HARIYALI SULF-80",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "15 kg bucket",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 340,
+      "product_name": "HARIYALI SULF-80",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "30 kg bag",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 341,
+      "product_name": "HARIYALI SULF-80",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "30 kg drum",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 342,
+      "product_name": "HARIYALI SULF-80",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "3 kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 343,
+      "product_name": "HARIYALI SULF-80 (FUNGICIDE)",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 344,
+      "product_name": "HARIYALI SULF-80 (FUNGICIDE)",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 345,
+      "product_name": "HARIYALI SULF-80 (FUNGICIDE)",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 346,
+      "product_name": "HARIYALI SULF-80 (FUNGICIDE)",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 347,
+      "product_name": "HARIYALI SULF-80 (INSECTICIDE)",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "15 kg bucket",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 348,
+      "product_name": "HARIYALI SULF-80 (INSECTICIDE)",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "30 kg bag",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 349,
+      "product_name": "HARIYALI SULF-80 (INSECTICIDE)",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "30 kg drum",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 350,
+      "product_name": "HARIYALI SULF-80 (INSECTICIDE)",
+      "technical_name": "Sulphur 80% WDG",
+      "pack_size": "3 kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 351,
+      "product_name": "HIT-WICKET",
+      "technical_name": "Paraquat Dichloride 24% SL",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 353,
+      "product_name": "HIT-WICKET",
+      "technical_name": "Paraquat Dichloride 24% SL",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 355,
+      "product_name": "HUKUMAT",
+      "technical_name": "Thiamethoxam 12.6% + Lambdacyhalothrin 9.5% ZC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 357,
+      "product_name": "HUKUMAT",
+      "technical_name": "Thiamethoxam 12.6% + Lambdacyhalothrin 9.5% ZC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 359,
+      "product_name": "JODIDAR",
+      "technical_name": "Kasugamycin 3% SL",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 360,
+      "product_name": "JODIDAR",
+      "technical_name": "Kasugamycin 3% SL",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 361,
+      "product_name": "JODIDAR",
+      "technical_name": "Kasugamycin 3% SL",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 362,
+      "product_name": "JODIDAR",
+      "technical_name": "Kasugamycin 3% SL",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 363,
+      "product_name": "JORAWAR",
+      "technical_name": "Azoxystrobin 11% + Tebuconazole 18.3% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 367,
+      "product_name": "KARGIL-75",
+      "technical_name": "Carbendazim 12% + Mancozeb 63% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 369,
+      "product_name": "KARGIL-75",
+      "technical_name": "Carbendazim 12% + Mancozeb 63% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 371,
+      "product_name": "KILL-41",
+      "technical_name": "Glyphosate 41% SL",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 372,
+      "product_name": "KILL-41",
+      "technical_name": "Glyphosate 41% SL",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 373,
+      "product_name": "KILL-41",
+      "technical_name": "Glyphosate 41% SL",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 374,
+      "product_name": "KILL-41",
+      "technical_name": "Glyphosate 41% SL",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 377,
+      "product_name": "KILL-71",
+      "technical_name": "Ammonium Salt of Glyphosate 71% SG",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 378,
+      "product_name": "KILL-71",
+      "technical_name": "Ammonium Salt of Glyphosate 71% SG",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 379,
+      "product_name": "KILL-LARVA",
+      "technical_name": "Chlorantraniliprole 18.5% SC",
+      "pack_size": "150 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 380,
+      "product_name": "KILL-LARVA",
+      "technical_name": "Chlorantraniliprole 18.5% SC",
+      "pack_size": "300 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 381,
+      "product_name": "KILL-LARVA",
+      "technical_name": "Chlorantraniliprole 18.5% SC",
+      "pack_size": "30 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 382,
+      "product_name": "KILL-LARVA",
+      "technical_name": "Chlorantraniliprole 18.5% SC",
+      "pack_size": "60 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 383,
+      "product_name": "KRANTIKARI",
+      "technical_name": "Azoxystrobin 18.2% + Difenoconazole 11.4% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 384,
+      "product_name": "KRANTIKARI",
+      "technical_name": "Azoxystrobin 18.2% + Difenoconazole 11.4% SC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 385,
+      "product_name": "KRANTIKARI",
+      "technical_name": "Azoxystrobin 18.2% + Difenoconazole 11.4% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 387,
+      "product_name": "LASKAR",
+      "technical_name": "Lambda Cyhalothrin 4.9% CS",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 389,
+      "product_name": "LASKAR",
+      "technical_name": "Lambda Cyhalothrin 4.9% CS",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 390,
+      "product_name": "LASKAR",
+      "technical_name": "Lambda Cyhalothrin 4.9% CS",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 391,
+      "product_name": "MENTED SUPER",
+      "technical_name": "Plant Immunity Booster Bio Stimulant",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 392,
+      "product_name": "MENTED SUPER",
+      "technical_name": "Plant Immunity Booster Bio Stimulant",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 393,
+      "product_name": "MENTED SUPER",
+      "technical_name": "Plant Immunity Booster Bio Stimulant",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 394,
+      "product_name": "MENTED SUPER",
+      "technical_name": "Plant Immunity Booster Bio Stimulant",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 395,
+      "product_name": "METMAX",
+      "technical_name": "Metalaxyl 35% WS",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 396,
+      "product_name": "METMAX",
+      "technical_name": "Metalaxyl 35% WS",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 398,
+      "product_name": "METMAX",
+      "technical_name": "Metalaxyl 35% WS",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 399,
+      "product_name": "MONOSIL",
+      "technical_name": "Monocrotophos 36% SL",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 400,
+      "product_name": "MONOSIL",
+      "technical_name": "Monocrotophos 36% SL",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 401,
+      "product_name": "MONOSIL",
+      "technical_name": "Monocrotophos 36% SL",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 402,
+      "product_name": "MONOSIL",
+      "technical_name": "Monocrotophos 36% SL",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 403,
+      "product_name": "MORPHIS",
+      "technical_name": "Fipronil 80% WG",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 404,
+      "product_name": "MORPHIS",
+      "technical_name": "Fipronil 80% WG",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 405,
+      "product_name": "MORPHIS",
+      "technical_name": "Fipronil 80% WG",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 406,
+      "product_name": "MORPHIS",
+      "technical_name": "Fipronil 80% WG",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 407,
+      "product_name": "MR. THANKS",
+      "technical_name": "Thiophanate Methyl 70% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 408,
+      "product_name": "MR. THANKS",
+      "technical_name": "Thiophanate Methyl 70% WP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 409,
+      "product_name": "MR. THANKS",
+      "technical_name": "Thiophanate Methyl 70% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 410,
+      "product_name": "MR. THANKS",
+      "technical_name": "Thiophanate Methyl 70% WP",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 411,
+      "product_name": "MULTI POWER 55",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 413,
+      "product_name": "MULTI POWER 55",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 415,
+      "product_name": "NOVA-404",
+      "technical_name": "Profenofos + Cypermethrin 4% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 417,
+      "product_name": "NOVA-404",
+      "technical_name": "Profenofos + Cypermethrin 4% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 419,
+      "product_name": "ON SPOT",
+      "technical_name": "Ethephon 39% SL",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 420,
+      "product_name": "ON SPOT",
+      "technical_name": "Ethephon 39% SL",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 421,
+      "product_name": "ON SPOT",
+      "technical_name": "Ethephon 39% SL",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 422,
+      "product_name": "ON SPOT",
+      "technical_name": "Ethephon 39% SL",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 423,
+      "product_name": "PENDI-STOP",
+      "technical_name": "Pendimethalin 30% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 424,
+      "product_name": "PENDI-STOP",
+      "technical_name": "Pendimethalin 30% EC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 425,
+      "product_name": "PENDI-STOP",
+      "technical_name": "Pendimethalin 30% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 426,
+      "product_name": "PENDI-STOP",
+      "technical_name": "Pendimethalin 30% EC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 427,
+      "product_name": "PENDI-STOP EXTRA",
+      "technical_name": "Pendimethalin 30% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 428,
+      "product_name": "PENDI-STOP EXTRA",
+      "technical_name": "Pendimethalin 30% EC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 429,
+      "product_name": "PENDI-STOP EXTRA",
+      "technical_name": "Pendimethalin 30% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 430,
+      "product_name": "PENDI-STOP EXTRA",
+      "technical_name": "Pendimethalin 30% EC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 431,
+      "product_name": "PLATINUM-5",
+      "technical_name": "Lambda Cyhalothrin 5% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 433,
+      "product_name": "PLATINUM-5",
+      "technical_name": "Lambda Cyhalothrin 5% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 434,
+      "product_name": "PLATINUM-5",
+      "technical_name": "Lambda Cyhalothrin 5% EC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 435,
+      "product_name": "PRIDEZOLE",
+      "technical_name": "Imidacloprid 18.5% + Hexaconazole 1.5% FS",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 436,
+      "product_name": "PRIDEZOLE",
+      "technical_name": "Imidacloprid 18.5% + Hexaconazole 1.5% FS",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 437,
+      "product_name": "PRIDEZOLE",
+      "technical_name": "Imidacloprid 18.5% + Hexaconazole 1.5% FS",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 438,
+      "product_name": "PRIDEZOLE",
+      "technical_name": "Imidacloprid 18.5% + Hexaconazole 1.5% FS",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 439,
+      "product_name": "PRIDEZOLE (SEED TREATMENT)",
+      "technical_name": "Imidacloprid 18.5% + Hexaconazole 1.5% FS",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 440,
+      "product_name": "PRIDEZOLE (SEED TREATMENT)",
+      "technical_name": "Imidacloprid 18.5% + Hexaconazole 1.5% FS",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 441,
+      "product_name": "PRIDEZOLE (SEED TREATMENT)",
+      "technical_name": "Imidacloprid 18.5% + Hexaconazole 1.5% FS",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 442,
+      "product_name": "PRIDEZOLE (SEED TREATMENT)",
+      "technical_name": "Imidacloprid 18.5% + Hexaconazole 1.5% FS",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 443,
+      "product_name": "PRO-VALIDA",
+      "technical_name": "Validamycin 3% SL",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 445,
+      "product_name": "PRO-VALIDA",
+      "technical_name": "Validamycin 3% SL",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 447,
+      "product_name": "PRO VALIDA",
+      "technical_name": "NA",
+      "pack_size": "NA",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 448,
+      "product_name": "QUEENPHOS",
+      "technical_name": "Quinalphos 25% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 449,
+      "product_name": "QUEENPHOS",
+      "technical_name": "Quinalphos 25% EC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 450,
+      "product_name": "QUEENPHOS",
+      "technical_name": "Quinalphos 25% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 451,
+      "product_name": "QUEENPHOS",
+      "technical_name": "Quinalphos 25% EC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 452,
+      "product_name": "QUIZFOP-10",
+      "technical_name": "Quizalofop-Ethyl 10% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 456,
+      "product_name": "QUIZFOP-10 (Herbicide listing)",
+      "technical_name": "Quizalofop-ethyl 10% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 457,
+      "product_name": "QUIZFOP-10 (Herbicide listing)",
+      "technical_name": "Quizalofop-ethyl 10% EC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 458,
+      "product_name": "QUIZFOP-10 (Herbicide listing)",
+      "technical_name": "Quizalofop-ethyl 10% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 459,
+      "product_name": "QUIZFOP-10 (Herbicide listing)",
+      "technical_name": "Quizalofop-ethyl 10% EC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 460,
+      "product_name": "ROOT RAJA",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 461,
+      "product_name": "ROOT RAJA",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 462,
+      "product_name": "ROOT RAJA",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 463,
+      "product_name": "ROOT RAJA",
+      "technical_name": "Bio Stimulant",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 464,
+      "product_name": "ROOT RATAN",
+      "technical_name": "Humic Acid + Alginic Acid",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 466,
+      "product_name": "ROOT RATAN",
+      "technical_name": "Humic Acid + Alginic Acid",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 468,
+      "product_name": "SAFE COVER",
+      "technical_name": "Dimethomorph 50% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 469,
+      "product_name": "SAFE COVER",
+      "technical_name": "Dimethomorph 50% WP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 470,
+      "product_name": "SAFE COVER",
+      "technical_name": "Dimethomorph 50% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 471,
+      "product_name": "SAFE COVER",
+      "technical_name": "Dimethomorph 50% WP",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 473,
+      "product_name": "SEED MAX",
+      "technical_name": "Carboxin 17.5% + Thiram 17.5% FF",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 475,
+      "product_name": "SEED MAX",
+      "technical_name": "Carboxin 17.5% + Thiram 17.5% FF",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 476,
+      "product_name": "SEED MAX PRO",
+      "technical_name": "Carboxin 37.5% + Thiram 37.5% WS",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 477,
+      "product_name": "SEED MAX PRO",
+      "technical_name": "Carboxin 37.5% + Thiram 37.5% WS",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 478,
+      "product_name": "SEED MAX PRO",
+      "technical_name": "Carboxin 37.5% + Thiram 37.5% WS",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 479,
+      "product_name": "SEED MAX PRO",
+      "technical_name": "Carboxin 37.5% + Thiram 37.5% WS",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 480,
+      "product_name": "SHAKTIMAN",
+      "technical_name": "Sulphur 55.16% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 482,
+      "product_name": "SHAKTIMAN",
+      "technical_name": "Sulphur 55.16% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 483,
+      "product_name": "SHAKTIMAN",
+      "technical_name": "Sulphur 55.16% SC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 485,
+      "product_name": "SULFO-ON",
+      "technical_name": "Sulfosulfuron 75% WG",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 486,
+      "product_name": "SULFO-ON",
+      "technical_name": "Sulfosulfuron 75% WG",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 487,
+      "product_name": "SULFO-ON",
+      "technical_name": "Sulfosulfuron 75% WG",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 488,
+      "product_name": "SULFO-ON",
+      "technical_name": "Sulfosulfuron 75% WG",
+      "pack_size": "500 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 489,
+      "product_name": "SUPER STORAGE",
+      "technical_name": "NA",
+      "pack_size": "NA",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 490,
+      "product_name": "SUPPORTER",
+      "technical_name": "Specially Virus Controller",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 491,
+      "product_name": "SUPPORTER",
+      "technical_name": "Specially Virus Controller",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 492,
+      "product_name": "SUPPORTER",
+      "technical_name": "Specially Virus Controller",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 493,
+      "product_name": "SUPPORTER",
+      "technical_name": "Specially Virus Controller",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 494,
+      "product_name": "TEBU SF",
+      "technical_name": "Tebuconazole 10% + Sulphur 65% WG",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 496,
+      "product_name": "TEBU SF",
+      "technical_name": "Tebuconazole 10% + Sulphur 65% WG",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 498,
+      "product_name": "TEBU TRY",
+      "technical_name": "Tricyclazole 18.0% + Tebuconazole 14.4% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 499,
+      "product_name": "TEBU TRY",
+      "technical_name": "Tricyclazole 18.0% + Tebuconazole 14.4% SC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 500,
+      "product_name": "TEBU TRY",
+      "technical_name": "Tricyclazole 18.0% + Tebuconazole 14.4% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 501,
+      "product_name": "TEBU TRY",
+      "technical_name": "Tricyclazole 18.0% + Tebuconazole 14.4% SC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 502,
+      "product_name": "TEBZOLE",
+      "technical_name": "Tebuconazole 25.9% EC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 504,
+      "product_name": "TEBZOLE",
+      "technical_name": "Tebuconazole 25.9% EC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 506,
+      "product_name": "TEMBA",
+      "technical_name": "Tembotrione 34.4% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 507,
+      "product_name": "TEMBA",
+      "technical_name": "Tembotrione 34.4% SC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 508,
+      "product_name": "TEMBA",
+      "technical_name": "Tembotrione 34.4% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 509,
+      "product_name": "TEMBA",
+      "technical_name": "Tembotrione 34.4% SC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 510,
+      "product_name": "VANDAN",
+      "technical_name": "Carbendazim 46.27% SC",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 511,
+      "product_name": "VANDAN",
+      "technical_name": "Carbendazim 46.27% SC",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 512,
+      "product_name": "VANDAN",
+      "technical_name": "Carbendazim 46.27% SC",
+      "pack_size": "250 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 513,
+      "product_name": "VANDAN",
+      "technical_name": "Carbendazim 46.27% SC",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 514,
+      "product_name": "VITARA GOLD",
+      "technical_name": "Metalaxyl 8% + Mancozeb 64% WP",
+      "pack_size": "100 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 515,
+      "product_name": "VITARA GOLD",
+      "technical_name": "Metalaxyl 8% + Mancozeb 64% WP",
+      "pack_size": "1 Kg",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 516,
+      "product_name": "VITARA GOLD",
+      "technical_name": "Metalaxyl 8% + Mancozeb 64% WP",
+      "pack_size": "250 Gm",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 518,
+      "product_name": "WELCOME HONEY BEE",
+      "technical_name": "Citrus Peel Extract Silicon Based Adjuvant",
+      "pack_size": "100 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 519,
+      "product_name": "WELCOME HONEY BEE",
+      "technical_name": "Citrus Peel Extract Silicon Based Adjuvant",
+      "pack_size": "1 Ltr",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    },
+    {
+      "row_number": 521,
+      "product_name": "WELCOME HONEY BEE",
+      "technical_name": "Citrus Peel Extract Silicon Based Adjuvant",
+      "pack_size": "500 ml",
+      "raw_price": "NA",
+      "reason": "Price is marked NA"
+    }
+  ]
+}

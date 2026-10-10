@@ -139,7 +139,8 @@ def dashboard_summary(request):
             date=today, status__in=['Working', 'Present']
         ).values('employee').distinct().count()
         total_products_count = Product.objects.count()
-        low_stock_count = Product.objects.filter(stock__lte=10).count()
+        unavailable_products_count = Product.objects.filter(status__in=['Unavailable', 'Inactive', 'Discontinued']).count()
+        low_stock_count = unavailable_products_count
         total_collections = float(
             LedgerEntry.objects.filter(type='Collection').aggregate(total=Sum('amount'))['total'] or 0.0
         )
@@ -160,6 +161,7 @@ def dashboard_summary(request):
             'total_distributors_count': total_distributors_count,
             'active_field_staff_count': active_field_staff_count,
             'total_products_count': total_products_count,
+            'unavailable_products_count': unavailable_products_count,
             'low_stock_count': low_stock_count,
             'total_collections': total_collections,
             'pending_complaints_count': pending_complaints_count,

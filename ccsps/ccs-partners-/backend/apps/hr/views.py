@@ -92,9 +92,23 @@ class AttendanceViewSet(HRBaseViewSet):
         check_in_location = request.data.get('check_in_location') or request.data.get('location') or 'Current Location'
         latitude = request.data.get('check_in_latitude') or request.data.get('latitude')
         longitude = request.data.get('check_in_longitude') or request.data.get('longitude')
-        photo_raw = request.data.get('check_in_photo') or request.data.get('photo')
         
-        photo_file = save_base64_image(photo_raw, prefix="checkin")
+        photo_raw = request.data.get('check_in_photo') or request.data.get('photo')
+        back_photo_raw = request.data.get('back_camera_photo') or request.data.get('back_photo')
+        
+        photo_file = save_base64_image(photo_raw, prefix="checkin_front")
+        back_photo_file = save_base64_image(back_photo_raw, prefix="checkin_back")
+        
+        # Support multipart file uploads directly if provided
+        if not photo_file and 'check_in_photo' in request.FILES:
+            photo_file = request.FILES['check_in_photo']
+        elif not photo_file and 'photo' in request.FILES:
+            photo_file = request.FILES['photo']
+            
+        if not back_photo_file and 'back_camera_photo' in request.FILES:
+            back_photo_file = request.FILES['back_camera_photo']
+        elif not back_photo_file and 'back_photo' in request.FILES:
+            back_photo_file = request.FILES['back_photo']
 
         attendance = Attendance(
             employee=request.user,
@@ -112,6 +126,8 @@ class AttendanceViewSet(HRBaseViewSet):
         )
         if photo_file:
             attendance.check_in_photo = photo_file
+        if back_photo_file:
+            attendance.back_camera_photo = back_photo_file
             
         attendance.save()
 

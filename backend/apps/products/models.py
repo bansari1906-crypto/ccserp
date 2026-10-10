@@ -72,10 +72,22 @@ class Product(models.Model):
     gst = models.DecimalField(max_digits=5, decimal_places=2, default=18.00)
     
     stock = models.IntegerField(default=0)
-    status = models.CharField(max_length=20, choices=[('Active', 'Active'), ('Inactive', 'Inactive'), ('Discontinued', 'Discontinued')], default='Active')
+    STATUS_CHOICES = [
+        ('Available', 'Available'),
+        ('Unavailable', 'Unavailable'),
+        ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
+        ('Discontinued', 'Discontinued'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Available')
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def is_available(self):
+        return self.status in ['Available', 'Active']
+
     def __str__(self):
         return self.name
+

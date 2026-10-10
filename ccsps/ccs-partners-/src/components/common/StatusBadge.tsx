@@ -7,7 +7,7 @@ interface StatusBadgeProps {
 export const StatusBadge: React.FC<StatusBadgeProps> = ({ status = '' }) => {
   const normalized = (status || '').toLowerCase();
 
-  if (['delivered', 'paid', 'approved', 'present', 'active', 'in stock', 'resolved'].includes(normalized)) {
+  if (['delivered', 'paid', 'approved', 'present', 'active', 'available', 'in stock', 'resolved'].includes(normalized)) {
     return (
       <span className="inline-flex items-center px-2 py-0.5 text-xs font-semibold bg-[#defbe6] text-[#0e6027] border border-[#a7f0ba]">
         <span className="w-1.5 h-1.5 rounded-full bg-[#198038] mr-1.5" />
@@ -34,7 +34,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status = '' }) => {
     );
   }
 
-  if (['cancelled', 'rejected', 'absent', 'out of stock', 'overdue', 'inactive', 'high', 'closed'].includes(normalized)) {
+  if (['cancelled', 'rejected', 'absent', 'unavailable', 'out of stock', 'overdue', 'inactive', 'high', 'closed'].includes(normalized)) {
     return (
       <span className="inline-flex items-center px-2 py-0.5 text-xs font-semibold bg-[#fff1f1] text-[#750e13] border border-[#ffb3b8]">
         <span className="w-1.5 h-1.5 rounded-full bg-[#da1e28] mr-1.5" />

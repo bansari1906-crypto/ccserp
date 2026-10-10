@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, UserRole, Order, OrderStatus, Expense, Dealer, Distributor, Product, AttendanceRecord } from './types';
+import { User, UserRole, Order, OrderStatus, Expense, Dealer, Distributor, Product, AttendanceRecord, NotificationItem } from './types';
 import { INITIAL_DEALERS, INITIAL_PRODUCTS } from './data/mockData';
 import {
   authApi,
@@ -7,7 +7,8 @@ import {
   distributorsApi,
   productsApi,
   ordersApi,
-  hrApi
+  hrApi,
+  notificationsApi
 } from './api/client';
 import { realtimeService } from './services/websocket';
 
@@ -85,7 +86,7 @@ export default function App() {
     isOpen: false,
     mode: 'start',
   });
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
@@ -185,7 +186,7 @@ export default function App() {
   }, [currentUser, activeAttendance]);
 
   // Unread Notification Count
-  const unreadNotificationsCount = notifications.filter((n) => !n.read).length;
+  const unreadNotificationsCount = notifications.filter((n) => !n.isRead).length;
 
   // Fetch real enterprise data from Django REST Backend
   const loadBackendData = async () => {
@@ -194,12 +195,13 @@ export default function App() {
     try {
       const [
         fetchedOrders,
-        fetchedDealers,
-        fetchedDistributors,
-        fetchedProducts,
-        fetchedExpenses,
-        fetchedAttendance,
-        activeAttendanceRes
+        dealersList,
+        distributorsList,
+        productsList,
+        expensesList,
+        attendanceList,
+        activeAttendanceRes,
+        notificationsList
       ] = await Promise.all([
         ordersApi.getAll().catch((err) => { console.error("Orders API error:", err); return []; }),
         dealersApi.getAll().catch((err) => { console.error("Dealers API error:", err); return INITIAL_DEALERS; }),
@@ -208,14 +210,16 @@ export default function App() {
         hrApi.getExpenses().catch((err) => { console.error("Expenses API error:", err); return []; }),
         hrApi.getAttendance().catch((err) => { console.error("Attendance API error:", err); return []; }),
         hrApi.getActiveAttendance().catch(() => ({ active: false, completed: false, attendance: null })),
+        notificationsApi.getAll().catch((err) => { console.error("Notifications API error:", err); return []; }),
       ]);
 
       if (fetchedOrders) setOrders(fetchedOrders);
-      if (fetchedDealers && fetchedDealers.length > 0) setDealers(fetchedDealers);
-      if (fetchedDistributors) setDistributors(fetchedDistributors);
-      if (fetchedProducts && fetchedProducts.length > 0) setProducts(fetchedProducts);
-      if (fetchedExpenses) setExpenses(fetchedExpenses);
-      if (fetchedAttendance) setAttendance(fetchedAttendance as any);
+      if (dealersList && dealersList.length > 0) setDealers(dealersList);
+      if (distributorsList) setDistributors(distributorsList);
+      if (productsList && productsList.length > 0) setProducts(productsList);
+      if (expensesList) setExpenses(expensesList);
+      if (attendanceList) setAttendance(attendanceList as any);
+      if (notificationsList) setNotifications(notificationsList);
       if (activeAttendanceRes && activeAttendanceRes.attendance) {
         setActiveAttendance(activeAttendanceRes.attendance);
       } else {
@@ -246,8 +250,27 @@ export default function App() {
     realtimeService.connect();
 
     const unsubscribe = realtimeService.subscribe('*', (payload, event) => {
-      console.log(`[ERP Realtime] Auto-syncing due to event: ${event.event || event.type}`, payload);
-      loadBackendData();
+      const eventName = event.event || event.type;
+      console.log(`[ERP Realtime] Event: ${eventName}`, payload);
+      if (eventName === 'notification.created') {
+        setNotifications((prev) => [
+          {
+            id: String(payload.id || `notif-${Date.now()}`),
+            title: payload.title || 'System Alert',
+            message: payload.message || '',
+            type: payload.type || 'System',
+            eventType: payload.event_type,
+            referenceId: payload.reference_id,
+            referenceType: payload.reference_type,
+            destination: payload.destination,
+            isRead: Boolean(payload.is_read),
+            createdAt: payload.created_at || new Date().toISOString(),
+          },
+          ...prev.filter((n) => n.id !== String(payload.id)),
+        ]);
+      } else {
+        loadBackendData();
+      }
     });
 
     return () => {
@@ -255,27 +278,19 @@ export default function App() {
     };
   }, [currentUser]);
 
-  // Handle Logout
+  // Handle Logout: Clean session, detach push token and reset state completely
   const handleLogout = () => {
+    notificationsApi.unregisterDeviceToken().catch(() => {});
     authApi.logout();
     setCurrentUser(null);
-  };
-
-  const handleUserRoleChange = (roleId: string) => {
-    const uppercaseRole = (roleId || '').toUpperCase();
-    let targetRole: UserRole = 'ADMIN';
-    if (uppercaseRole.includes('DEALER')) targetRole = 'DEALER';
-    else if (uppercaseRole.includes('DISTRIBUTOR') || uppercaseRole.includes('EMPLOYEE')) targetRole = 'DISTRIBUTOR';
-    else if (uppercaseRole.includes('WAREHOUSE')) targetRole = 'WAREHOUSE';
-
-    if (currentUser) {
-      const updatedUser: User = { ...currentUser, role: targetRole };
-      setCurrentUser(updatedUser);
-      localStorage.setItem('ccs_user', JSON.stringify(updatedUser));
-    }
     setActiveTab('dashboard');
     setSelectedOrder(null);
     setSelectedDealer(null);
+    setAttendance([]);
+    setActiveAttendance(null);
+    setOrders([]);
+    setExpenses([]);
+    setNotifications([]);
   };
 
   const handleCreateOrderSubmit = async (newOrder: Order) => {
@@ -299,60 +314,54 @@ export default function App() {
 
     // Redirect user to orders list
     setActiveTab('orders');
-
-    // Create notification
-    const newNotif = {
-      id: `NOTIF-${Date.now()}`,
-      title: `New Order ${finalOrder.orderNumber}`,
-      message: `Order submitted for ${finalOrder.dealerName} totaling ₹${finalOrder.grandTotal.toLocaleString('en-IN')}`,
-      timestamp: 'Just now',
-      read: false,
-      type: 'order' as const,
-    };
-    setNotifications((prev) => [newNotif, ...prev]);
   };
 
   const handleAddProduct = async (productData: Partial<Product>) => {
     try {
       const newProd = await productsApi.create(productData);
       setProducts((prev) => [newProd, ...prev]);
-    } catch (e) {
-      const fallbackProd: Product = {
-        id: `p-${Date.now()}`,
-        code: productData.code || `PRD-${Math.floor(100 + Math.random() * 900)}`,
-        name: productData.name || 'New Product',
-        technicalName: productData.technicalName || '',
-        category: productData.category || 'Fertilizers',
-        packSize: productData.packSize || '1 Ltr',
-        mrp: productData.mrp || 1000,
-        dealerPrice: productData.dealerPrice || 800,
-        distributorPrice: productData.distributorPrice || 700,
-        stock: productData.stock || 100,
-        reservedStock: 0,
-        warehouse: 'Pune Central Warehouse',
-        recommendedCrops: ['All Crops'],
-        dosage: '2ml per liter',
-        description: 'New product formulation.',
-        imageUrl: productData.imageUrl || 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300',
-        status: 'In Stock',
-      };
-      setProducts((prev) => [fallbackProd, ...prev]);
+    } catch (e: any) {
+      console.error("Failed to create product:", e);
+      alert(e?.message || "Failed to create product");
+      throw e;
+    }
+  };
+
+  const handleUpdateProduct = async (id: string, productData: Partial<Product>) => {
+    try {
+      const updated = await productsApi.update(id, productData);
+      setProducts((prev) => prev.map((p) => (p.id === id ? { ...p, ...updated } : p)));
+    } catch (e: any) {
+      console.error("Failed to update product:", e);
+      throw e;
+    }
+  };
+
+  const handleDeleteProduct = async (id: string) => {
+    try {
+      await productsApi.delete(id);
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+    } catch (e: any) {
+      console.error("Failed to delete product:", e);
+      throw e;
     }
   };
 
   const handleUpdateOrderStatus = async (orderId: string, newStatus: Order['status']) => {
     try {
       await ordersApi.updateStatus(orderId, newStatus);
-    } catch (e) {
-      console.warn("Status update API notice:", e);
-    }
-    setOrders((prev) =>
-      prev.map((ord) => (ord.id === orderId ? { ...ord, status: newStatus } : ord))
-    );
-    if (selectedOrder && selectedOrder.id === orderId) {
-      setSelectedOrder({ ...selectedOrder, status: newStatus });
+      setOrders((prev) =>
+        prev.map((ord) => (ord.id === orderId ? { ...ord, status: newStatus } : ord))
+      );
+      if (selectedOrder && selectedOrder.id === orderId) {
+        setSelectedOrder({ ...selectedOrder, status: newStatus });
+      }
+    } catch (e: any) {
+      console.error("Status update API notice:", e);
+      alert(e?.message || `Failed to update order status to ${newStatus}`);
     }
   };
+
 
   // Business Workflow Stage 2: Office/Admin Bilty Upload
   // Attaches transport bilty number and PDF receipt to an approved order,
@@ -464,8 +473,49 @@ export default function App() {
     );
   };
 
-  const handleMarkAllNotificationsRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  const handleMarkAllNotificationsRead = async () => {
+    try {
+      await notificationsApi.markAllRead();
+    } catch (e) {
+      console.warn("Failed to mark all notifications read:", e);
+    }
+    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
+  };
+
+  const handleNotificationClick = async (notif: NotificationItem) => {
+    if (!notif.isRead) {
+      try {
+        await notificationsApi.markRead(notif.id);
+      } catch (e) {
+        console.warn("Failed to mark notification read:", e);
+      }
+      setNotifications((prev) =>
+        prev.map((n) => (n.id === notif.id ? { ...n, isRead: true } : n))
+      );
+    }
+    setIsNotificationOpen(false);
+
+    // Contextual navigation
+    const dest = notif.destination;
+    if (dest) {
+      if (dest === 'orders' || dest.startsWith('order')) {
+        setActiveTab('orders');
+        if (notif.referenceId) {
+          const found = orders.find((o) => o.id === notif.referenceId);
+          if (found) setSelectedOrder(found);
+        }
+      } else if (dest === 'attendance') {
+        setActiveTab('attendance');
+      } else if (dest === 'expenses') {
+        setActiveTab('expenses');
+      } else if (dest === 'dispatch') {
+        setActiveTab('dispatch');
+      } else if (dest === 'products') {
+        setActiveTab('products');
+      } else {
+        setActiveTab(dest);
+      }
+    }
   };
 
   const handleSelectSearchResult = (type: string, item: any) => {
@@ -513,47 +563,10 @@ export default function App() {
       );
     }
 
-    const currentRole = (currentUser.role || 'ADMIN').toLowerCase();
+    const currentRole = (currentUser.role || 'ADMIN').toString().toUpperCase();
 
-    // 1. DEALER ROLE VIEWS (EXACTLY 9 APPROVED PORTAL ITEMS)
-    if (currentRole === 'dealer') {
-      if (selectedOrder) {
-        return (
-          <AdminOrderDetail
-            order={selectedOrder}
-            onBack={() => setSelectedOrder(null)}
-            onUpdateStatus={handleUpdateOrderStatus}
-          />
-        );
-      }
-
-      switch (activeTab) {
-        case 'dashboard':
-          return <DealerDashboard currentUser={currentUser} orders={orders} onOpenInvoices={() => setActiveTab('invoices')} />;
-        case 'profile':
-          return <DealerProfileView currentUser={currentUser} dealer={selectedDealer || undefined} />;
-        case 'product-details':
-        case 'products':
-          return (
-            <DealerProductsView
-              products={products}
-            />
-          );
-        case 'orders':
-          return <DealerOrderHistoryView orders={orders} currentUser={currentUser} />;
-        case 'payments':
-          return <DealerPaymentsView currentUser={currentUser} />;
-        case 'invoices':
-          return <DealerInvoicesView orders={orders} currentUser={currentUser} />;
-        case 'support':
-          return <SupportView currentUser={currentUser} />;
-        default:
-          return <DealerDashboard currentUser={currentUser} orders={orders} onOpenInvoices={() => setActiveTab('invoices')} />;
-      }
-    }
-
-    // 2. DISTRIBUTOR / EMPLOYEE ROLE VIEWS (EXACTLY APPROVED FLOW)
-    if (currentRole === 'distributor' || currentRole === 'employee') {
+    // 1. EMPLOYEE ROLE VIEWS (Field Sales & Attendance Portal)
+    if (currentRole === 'EMPLOYEE') {
       if (selectedOrder) {
         return (
           <AdminOrderDetail
@@ -605,11 +618,6 @@ export default function App() {
                 setSelectedDealer(dealer);
                 setActiveTab('dealer-profile');
               }}
-              onSwitchToDealerPortal={(dealer) => {
-                handleUserRoleChange('DEALER');
-                setSelectedDealer(dealer);
-                setActiveTab('profile');
-              }}
             />
           );
         case 'orders':
@@ -627,7 +635,15 @@ export default function App() {
           return <AdminReports />;
         case 'product-details':
         case 'products':
-          return <AdminProducts products={products} onAddProduct={handleAddProduct} />;
+          return (
+            <AdminProducts
+              products={products}
+              onAddProduct={handleAddProduct}
+              onUpdateProduct={handleUpdateProduct}
+              onDeleteProduct={handleDeleteProduct}
+              userRole={currentUser?.role}
+            />
+          );
         case 'monthly-sales-plan':
           return <MonthlySalesPlanView currentUser={currentUser || undefined} />;
         case 'monthly-collection-plan':
@@ -664,6 +680,38 @@ export default function App() {
               onTabChange={(tab) => setActiveTab(tab)}
             />
           );
+      }
+    }
+
+    // 2. DISTRIBUTOR ROLE VIEWS (Distributor Business Portal)
+    if (currentRole === 'DISTRIBUTOR') {
+      if (selectedOrder) {
+        return (
+          <AdminOrderDetail
+            order={selectedOrder}
+            onBack={() => setSelectedOrder(null)}
+            onUpdateStatus={handleUpdateOrderStatus}
+          />
+        );
+      }
+
+      switch (activeTab) {
+        case 'profile':
+          return <DealerProfileView currentUser={currentUser} dealer={selectedDealer || undefined} />;
+        case 'product-details':
+        case 'products':
+          return <DealerProductsView products={products} />;
+        case 'orders':
+          return <DealerOrderHistoryView orders={orders} currentUser={currentUser} />;
+        case 'payments':
+          return <DealerPaymentsView currentUser={currentUser} />;
+        case 'invoices':
+          return <DealerInvoicesView orders={orders} currentUser={currentUser} />;
+        case 'support':
+          return <SupportView currentUser={currentUser} />;
+        case 'dashboard':
+        default:
+          return <DealerDashboard currentUser={currentUser} orders={orders} onOpenInvoices={() => setActiveTab('invoices')} />;
       }
     }
 
@@ -796,7 +844,15 @@ export default function App() {
           />
         );
       case 'products':
-        return <AdminProducts products={products} onAddProduct={handleAddProduct} />;
+        return (
+          <AdminProducts
+            products={products}
+            onAddProduct={handleAddProduct}
+            onUpdateProduct={handleUpdateProduct}
+            onDeleteProduct={handleDeleteProduct}
+            userRole={currentUser?.role}
+          />
+        );
       case 'attendance':
         return <AdminAttendance currentUser={currentUser} attendanceRecords={attendance} onRefresh={loadBackendData} />;
       case 'expenses':
@@ -871,8 +927,6 @@ export default function App() {
         onOpenSearch={() => setIsSearchOpen(true)}
         onOpenNotifications={() => setIsNotificationOpen(true)}
         onOpenSupport={() => setIsSupportOpen(true)}
-        onUserChange={handleUserRoleChange}
-        onRoleChange={handleUserRoleChange}
         activeTab={activeTab}
         canGoBack={Boolean(selectedOrder || (activeTab && activeTab !== 'dashboard'))}
         onGoBack={() => {
@@ -944,6 +998,7 @@ export default function App() {
         onClose={() => setIsNotificationOpen(false)}
         notifications={notifications}
         onMarkAllRead={handleMarkAllNotificationsRead}
+        onNotificationClick={handleNotificationClick}
       />
 
       <SupportModal isOpen={isSupportOpen} onClose={() => setIsSupportOpen(false)} />
@@ -960,28 +1015,16 @@ export default function App() {
               if (selfieModalConfig.mode === 'start') {
                 const rec = await hrApi.clockIn(data);
                 setActiveAttendance(rec);
+                setAttendance((prev) => [rec, ...prev.filter((a) => a.id !== rec.id)]);
               } else {
                 const rec = await hrApi.clockOut(data);
                 setActiveAttendance(rec);
+                setAttendance((prev) => [rec, ...prev.filter((a) => a.id !== rec.id)]);
               }
-            } catch (err: any) {
-              console.warn("Attendance sync error (fallback active):", err);
-              // Graceful fallback to avoid sticking on Saving...
-              const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-              setActiveAttendance((prev) => ({
-                id: prev?.id || `att-${Date.now()}`,
-                employeeId: currentUser?.id || '1',
-                employeeName: currentUser?.name || 'Employee',
-                date: new Date().toISOString().split('T')[0],
-                status: 'Present',
-                checkIn: prev?.checkIn || nowTime,
-                checkOut: selfieModalConfig.mode === 'end' ? nowTime : undefined,
-                currentLocation: data.location || 'Location captured (Depot Office)',
-                loginImage: data.photo || prev?.loginImage,
-                logoutImage: selfieModalConfig.mode === 'end' ? data.photo : prev?.logoutImage,
-              }));
-            } finally {
               await loadBackendData();
+            } catch (err: any) {
+              console.error("Attendance submission error:", err);
+              throw err;
             }
           }}
         />

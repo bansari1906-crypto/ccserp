@@ -1,3 +1,4 @@
+from decimal import Decimal
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from django.db.models import Count, Sum
@@ -25,7 +26,7 @@ class DealerViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request):
-        users = User.objects.filter(role=UserRole.DEALER).select_related('dealer_profile')
+        users = User.objects.filter(role__in=[UserRole.DISTRIBUTOR, UserRole.DEALER]).select_related('dealer_profile')
         results = []
         for user in users:
             dp = getattr(user, 'dealer_profile', None)
@@ -37,8 +38,8 @@ class DealerViewSet(viewsets.ViewSet):
                 "id": str(user.id),
                 "dealer_code": user.ccs_id or f"DLR-{user.id}",
                 "code": user.ccs_id or f"DLR-{user.id}",
-                "company_name": dp.company_name if (dp and dp.company_name) else (user.username or 'Dealer'),
-                "name": dp.company_name if (dp and dp.company_name) else (user.username or 'Dealer'),
+                "company_name": dp.company_name if (dp and dp.company_name) else (user.username or 'Distributor'),
+                "name": dp.company_name if (dp and dp.company_name) else (user.username or 'Distributor'),
                 "contact_person": f"{user.first_name} {user.last_name}".strip() or user.username,
                 "phone": user.phone or '',
                 "email": user.email,
@@ -61,9 +62,9 @@ class DealerViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         try:
-            user = User.objects.get(id=pk, role=UserRole.DEALER)
+            user = User.objects.get(id=pk, role__in=[UserRole.DISTRIBUTOR, UserRole.DEALER])
         except (User.DoesNotExist, ValueError):
-            return Response({"error": "Dealer not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Distributor not found"}, status=status.HTTP_404_NOT_FOUND)
             
         dp = getattr(user, 'dealer_profile', None)
         orders_qs = Order.objects.filter(dealer=user)
@@ -102,6 +103,15 @@ class DealerViewSet(viewsets.ViewSet):
         contact_person = data.get('contact_person', data.get('ownerName', ''))
         phone = data.get('phone', '')
         
+        # Enforce that only Admins can create or specify credit limits
+        if 'credit_limit' in data:
+            user_role = getattr(request.user, 'role', '')
+            if user_role not in [UserRole.SUPER_ADMIN, UserRole.ADMIN, 'Admin', 'Super Admin']:
+                return Response(
+                    {"error": "Permission denied: Only administrators can create or set distributor credit limits."},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+
         if not email:
             email = f"dealer_{User.objects.count() + 1}@ccs.com"
             
@@ -126,8 +136,23 @@ class DealerViewSet(viewsets.ViewSet):
         dp.city = data.get('city', dp.city)
         dp.state = data.get('state', dp.state)
         dp.address = data.get('address', dp.address)
+        
+        # Enforce: Non-admin cannot specify or create credit limits
+        user_role = getattr(request.user, 'role', '')
         if 'credit_limit' in data:
-            dp.credit_limit = data['credit_limit']
+            if user_role not in [UserRole.SUPER_ADMIN, UserRole.ADMIN, 'Admin', 'Super Admin']:
+                return Response(
+                    {"error": "Permission denied: Only administrators can create or configure distributor credit limits."},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            dp.credit_limit = Decimal(str(data['credit_limit']))
+            from apps.wallet.models import Wallet
+            wallet, _ = Wallet.objects.get_or_create(dealer=user)
+            wallet.credit_limit = dp.credit_limit
+            wallet.save()
+        elif created:
+            dp.credit_limit = Decimal('0.00')
+
         dp.save()
 
         return Response({
@@ -149,6 +174,49 @@ class DealerViewSet(viewsets.ViewSet):
             "total_sales": 0.0,
             "loyalty_points": dp.loyalty_points
         }, status=status.HTTP_201_CREATED)
+
+    def update(self, request, pk=None):
+        return self._handle_update(request, pk, partial=False)
+
+    def partial_update(self, request, pk=None):
+        return self._handle_update(request, pk, partial=True)
+
+    def _handle_update(self, request, pk=None, partial=False):
+        try:
+            user = User.objects.get(id=pk, role__in=[UserRole.DEALER, UserRole.DISTRIBUTOR])
+        except (User.DoesNotExist, ValueError):
+            return Response({"error": "Distributor not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        data = request.data
+        user_role = getattr(request.user, 'role', '')
+
+        # Enforce: Non-admin cannot modify credit limit
+        if 'credit_limit' in data:
+            if user_role not in [UserRole.SUPER_ADMIN, UserRole.ADMIN, 'Admin', 'Super Admin']:
+                return Response(
+                    {"error": "Permission denied: Only administrators can modify distributor credit limits."},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+
+        dp, _ = DealerProfile.objects.get_or_create(user=user)
+
+        if 'credit_limit' in data and user_role in [UserRole.SUPER_ADMIN, UserRole.ADMIN, 'Admin', 'Super Admin']:
+            new_limit = Decimal(str(data['credit_limit']))
+            dp.credit_limit = new_limit
+            from apps.wallet.models import Wallet
+            Wallet.objects.filter(dealer=user).update(credit_limit=new_limit)
+
+        if 'company_name' in data:
+            dp.company_name = data['company_name']
+        if 'city' in data:
+            dp.city = data['city']
+        if 'state' in data:
+            dp.state = data['state']
+        if 'address' in data:
+            dp.address = data['address']
+        dp.save()
+
+        return self.retrieve(request, pk=pk)
 
 class DistributorViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]

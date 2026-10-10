@@ -1,4 +1,4 @@
-import { User, UserRole, Order, Dealer, Distributor, Product, AttendanceRecord, Expense } from '../types';
+import { User, UserRole, Order, Dealer, Distributor, Product, AttendanceRecord, Expense, NotificationItem } from '../types';
 import { INITIAL_DEALERS, INITIAL_PRODUCTS } from '../data/mockData';
 
 const getBaseUrl = (): string => {
@@ -8,6 +8,13 @@ const getBaseUrl = (): string => {
     (import.meta as any).env?.VITE_APP_API_URL;
   if (envUrl) {
     return envUrl.replace(/\/+$/, '');
+  }
+
+  if (typeof window !== 'undefined') {
+    const customServer = localStorage.getItem('api_server_url') || localStorage.getItem('ccs_api_url');
+    if (customServer) {
+      return customServer.replace(/\/+$/, '');
+    }
   }
 
   const isNativeApp =
@@ -21,8 +28,14 @@ const getBaseUrl = (): string => {
     (window.location.hostname.includes('chitracropsciencepartners.com') ||
       window.location.hostname.includes('hostingerapp.com'));
 
-  if (isNativeApp || isHostingerDomain) {
-    return 'https://gen-crawford-constitutional-medical.trycloudflare.com/api';
+  // On native Android/Capacitor, localhost points to the device itself.
+  // Connect to the local Wi-Fi backend IP (or configured server).
+  if (isNativeApp) {
+    return 'http://192.168.1.4:8000/api';
+  }
+
+  if (isHostingerDomain) {
+    return '/api';
   }
 
   return '/api';
@@ -66,15 +79,73 @@ export async function apiFetch(url: string, options: RequestInit = {}): Promise<
     ...(options.headers as any),
   };
 
-  let res: Response;
-  try {
-    res = await fetch(url, {
-      ...options,
-      headers,
-      credentials: 'include',
-    });
-  } catch (err: any) {
-    console.error('Fetch network error:', err);
+  const customServer = typeof window !== 'undefined' ? (localStorage.getItem('api_server_url') || localStorage.getItem('ccs_api_url')) : null;
+  const prodApi = 'https://chitracropsciencepartners.com/api';
+  const localWifi = 'http://192.168.1.4:8000/api';
+  const emulatorUrl = 'http://10.0.2.2:8000/api';
+  const localhostUrl = 'http://localhost:8000/api';
+
+  // Extract relative subpath after /api
+  let subpath = '';
+  if (url.includes('/api/')) {
+    subpath = '/' + url.split('/api/')[1];
+  } else if (url.startsWith('/api')) {
+    subpath = url.replace(/^\/api/, '');
+  }
+
+  const candidateUrls: string[] = [];
+  // 1. Prioritize requested URL
+  candidateUrls.push(url);
+
+  // 2. Candidate fallbacks for mobile / cross-origin connectivity
+  if (subpath) {
+    if (customServer) {
+      candidateUrls.push(`${customServer.replace(/\/+$/, '')}${subpath}`);
+    }
+    candidateUrls.push(`${localWifi}${subpath}`);
+    candidateUrls.push(`${prodApi}${subpath}`);
+    candidateUrls.push(`${emulatorUrl}${subpath}`);
+    candidateUrls.push(`${localhostUrl}${subpath}`);
+    candidateUrls.push(`/api${subpath}`);
+  }
+
+  const uniqueUrls = Array.from(new Set(candidateUrls));
+  let res: Response | null = null;
+  let lastError: any = null;
+  let htmlResponseEndpoint: string | null = null;
+
+  for (const targetUrl of uniqueUrls) {
+    try {
+      const resp = await fetch(targetUrl, {
+        ...options,
+        headers,
+        credentials: 'include',
+      });
+      const contentType = resp.headers.get('content-type') || '';
+      // If server returned 200 with HTML (e.g. Hostinger SPA fallback), it's not the Django backend
+      if (resp.ok && contentType.includes('text/html')) {
+        htmlResponseEndpoint = targetUrl;
+        console.warn(`Endpoint ${targetUrl} returned HTML (SPA frontend fallback), not Django API. Trying next candidate...`);
+        continue;
+      }
+      // If server returned 502/503/504 Bad Gateway / Service Unavailable, failover
+      if (resp.status >= 502 && resp.status <= 504) {
+        console.warn(`Endpoint ${targetUrl} returned ${resp.status}. Trying next candidate...`);
+        continue;
+      }
+      res = resp;
+      break;
+    } catch (err: any) {
+      console.warn(`Endpoint ${targetUrl} failed:`, err);
+      lastError = err;
+    }
+  }
+
+  if (!res) {
+    console.error('All candidate endpoints failed. Last error:', lastError);
+    if (htmlResponseEndpoint) {
+      throw new Error(`Unable to connect to attendance server. Production server at chitracropsciencepartners.com is currently serving frontend static assets only; the Django backend API is unreachable. Please ensure the backend server is running and accessible.`);
+    }
     throw new Error('Unable to connect to attendance server. Please ensure the backend server is running and try again.');
   }
 
@@ -146,10 +217,8 @@ async function handleResponse<T>(response: Response): Promise<T> {
 // 1. AUTH API
 export const authApi = {
   login: async (username: string, password: string): Promise<{ access_token: string; user: User }> => {
-    const res = await fetch(`${BASE_URL}/auth/login/`, {
+    const res = await apiFetch(`${BASE_URL}/auth/login/`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Bypass-Tunnel-Reminder': 'true' },
-      credentials: 'include',
       body: JSON.stringify({ email_or_username: username, password }),
     });
     const data = await handleResponse<{ access_token: string; refresh_token?: string; user: any }>(res);
@@ -159,12 +228,13 @@ export const authApi = {
       localStorage.setItem('refresh_token', data.refresh_token);
     }
 
-    // Normalize role string to uppercase ('ADMIN', 'DISTRIBUTOR', 'DEALER', 'WAREHOUSE')
+    // Normalize role string to uppercase ('ADMIN', 'EMPLOYEE', 'DISTRIBUTOR', 'WAREHOUSE')
     let normalizedRole: UserRole = 'ADMIN';
     const roleStr = (data.user.role || '').toUpperCase();
-    if (roleStr.includes('DEALER')) normalizedRole = 'DEALER';
-    else if (roleStr.includes('DISTRIBUTOR') || roleStr.includes('EMPLOYEE')) normalizedRole = 'DISTRIBUTOR';
+    if (roleStr.includes('EMPLOYEE')) normalizedRole = 'EMPLOYEE';
+    else if (roleStr.includes('DISTRIBUTOR')) normalizedRole = 'DISTRIBUTOR';
     else if (roleStr.includes('WAREHOUSE')) normalizedRole = 'WAREHOUSE';
+    else if (roleStr.includes('ADMIN')) normalizedRole = 'ADMIN';
 
     const userObj: User = {
       id: String(data.user.id),
@@ -187,9 +257,10 @@ export const authApi = {
       const data = await handleResponse<any>(res);
       let normalizedRole: UserRole = 'ADMIN';
       const roleStr = (data.role || '').toUpperCase();
-      if (roleStr.includes('DEALER')) normalizedRole = 'DEALER';
-      else if (roleStr.includes('DISTRIBUTOR') || roleStr.includes('EMPLOYEE')) normalizedRole = 'DISTRIBUTOR';
+      if (roleStr.includes('EMPLOYEE')) normalizedRole = 'EMPLOYEE';
+      else if (roleStr.includes('DISTRIBUTOR')) normalizedRole = 'DISTRIBUTOR';
       else if (roleStr.includes('WAREHOUSE')) normalizedRole = 'WAREHOUSE';
+      else if (roleStr.includes('ADMIN')) normalizedRole = 'ADMIN';
 
       const userObj: User = {
         id: String(data.id),
@@ -212,9 +283,11 @@ export const authApi = {
   logout: () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('ccs_access_token');
+    localStorage.removeItem('token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user');
     localStorage.removeItem('ccs_user');
+    sessionStorage.clear();
   },
 
   getStoredUser: (): User | null => {
@@ -363,64 +436,134 @@ export const productsApi = {
       if (!Array.isArray(rawData) || rawData.length === 0) {
         return INITIAL_PRODUCTS;
       }
-      return rawData.map((p: any) => ({
-        id: String(p.id),
-        code: p.code || `PRD-${p.id}`,
-        name: p.name,
-        technicalName: p.technical_name || p.name,
-        category: p.category?.name || p.category || 'Fertilizers',
-        packSize: p.packing || p.pack_size || '1 Liter',
-        mrp: Number(p.mrp || 1200),
-        dealerPrice: Number(p.dealer_price || 950),
-        distributorPrice: Number(p.distributor_price || 850),
-        stock: Number(p.stock || 100),
-        reservedStock: 0,
-        warehouse: 'Main Warehouse',
-        recommendedCrops: p.recommended_crops ? (Array.isArray(p.recommended_crops) ? p.recommended_crops : [p.recommended_crops]) : ['Wheat', 'Paddy', 'Cotton'],
-        dosage: p.dosage || '2ml per liter of water',
-        description: p.description || 'Premium crop science formula.',
-        imageUrl: p.image || 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300',
-        status: p.stock > 10 ? 'In Stock' : p.stock > 0 ? 'Low Stock' : 'Out of Stock',
-      }));
+      return rawData.map((p: any) => {
+        const isAvail = p.status === 'Available' || p.status === 'Active';
+        const displayStatus = isAvail ? 'Available' : 'Unavailable';
+        return {
+          id: String(p.id),
+          code: p.barcode || p.code || `PRD-${String(p.id).slice(0, 8).toUpperCase()}`,
+          name: p.name,
+          technicalName: p.technical_name || p.name,
+          category: p.category_name || (typeof p.category === 'object' ? p.category?.name : p.category) || 'General',
+          packSize: p.pack_size || p.packing || 'Standard',
+          mrp: Number(p.mrp !== undefined && p.mrp !== null ? p.mrp : 0),
+          dealerPrice: Number(p.dealer_price !== undefined && p.dealer_price !== null ? p.dealer_price : (p.price || 0)),
+          distributorPrice: Number(p.distributor_price !== undefined && p.distributor_price !== null ? p.distributor_price : 0),
+          gst: Number(p.gst !== undefined && p.gst !== null ? p.gst : 18),
+          stock: Number(p.stock !== undefined && p.stock !== null ? p.stock : 0),
+          reservedStock: 0,
+          warehouse: 'Main Warehouse',
+          recommendedCrops: p.recommended_crops ? (Array.isArray(p.recommended_crops) ? p.recommended_crops : [p.recommended_crops]) : ['Wheat', 'Paddy', 'Cotton'],
+          dosage: p.dosage || '2ml per liter of water',
+          description: p.description || p.technical_name || 'Crop protection formulation.',
+          imageUrl: p.image_url || p.image || 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300',
+          status: displayStatus,
+          is_available: isAvail,
+        };
+      });
     } catch {
       return INITIAL_PRODUCTS;
     }
   },
 
   create: async (productData: Partial<Product>): Promise<Product> => {
+    const isAvail = productData.status !== 'Unavailable' && productData.status !== 'Inactive';
     const res = await fetch(`${BASE_URL}/products/`, {
       method: 'POST',
       headers: getHeaders(),
       body: JSON.stringify({
         name: productData.name,
-        technical_name: productData.technicalName,
-        mrp: productData.mrp,
-        dealer_price: productData.dealerPrice,
-        packing: productData.packSize,
-        stock: productData.stock || 100,
-        status: 'Active'
+        technical_name: productData.technicalName || '',
+        category: productData.category || 'Fertilizers',
+        pack_size: productData.packSize || '1 Ltr',
+        packing: productData.packSize || '1 Ltr',
+        barcode: productData.code || '',
+        mrp: productData.mrp || 0,
+        dealer_price: productData.dealerPrice || 0,
+        distributor_price: productData.distributorPrice || (productData.dealerPrice ? Number(productData.dealerPrice) * 0.9 : 0),
+        gst: productData.gst !== undefined ? productData.gst : 18,
+        status: isAvail ? 'Available' : 'Unavailable'
       })
     });
     const p = await handleResponse<any>(res);
+    const savedAvail = p.status === 'Available' || p.status === 'Active';
     return {
       id: String(p.id),
-      code: p.code || `PRD-${p.id}`,
+      code: p.barcode || p.code || `PRD-${String(p.id).slice(0, 8).toUpperCase()}`,
       name: p.name,
       technicalName: p.technical_name || p.name,
-      category: 'Fertilizers',
-      packSize: p.packing || '1 Ltr',
-      mrp: Number(p.mrp),
-      dealerPrice: Number(p.dealer_price),
-      distributorPrice: Number(p.dealer_price * 0.9),
-      stock: Number(p.stock),
+      category: p.category_name || (typeof p.category === 'object' ? p.category?.name : p.category) || 'Fertilizers',
+      packSize: p.pack_size || p.packing || '1 Ltr',
+      mrp: Number(p.mrp || 0),
+      dealerPrice: Number(p.dealer_price || 0),
+      distributorPrice: Number(p.distributor_price || 0),
+      gst: Number(p.gst || 18),
+      stock: 0,
       reservedStock: 0,
       warehouse: 'Main Warehouse',
       recommendedCrops: ['All Crops'],
       dosage: '2ml per liter',
       description: p.description || '',
-      imageUrl: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300',
-      status: 'In Stock'
+      imageUrl: p.image_url || 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300',
+      status: savedAvail ? 'Available' : 'Unavailable',
+      is_available: savedAvail,
     };
+  },
+
+  update: async (id: string, productData: Partial<Product>): Promise<Product> => {
+    const payload: any = {};
+    if (productData.name !== undefined) payload.name = productData.name;
+    if (productData.technicalName !== undefined) payload.technical_name = productData.technicalName;
+    if (productData.category !== undefined) payload.category = productData.category;
+    if (productData.packSize !== undefined) {
+      payload.pack_size = productData.packSize;
+      payload.packing = productData.packSize;
+    }
+    if (productData.code !== undefined) payload.barcode = productData.code;
+    if (productData.mrp !== undefined) payload.mrp = productData.mrp;
+    if (productData.dealerPrice !== undefined) payload.dealer_price = productData.dealerPrice;
+    if (productData.distributorPrice !== undefined) payload.distributor_price = productData.distributorPrice;
+    if (productData.gst !== undefined) payload.gst = productData.gst;
+    if (productData.status !== undefined) {
+      payload.status = (productData.status === 'Available' || productData.status === 'Active') ? 'Available' : 'Unavailable';
+    }
+
+    const res = await fetch(`${BASE_URL}/products/${id}/`, {
+      method: 'PATCH',
+      headers: getHeaders(),
+      body: JSON.stringify(payload)
+    });
+    const p = await handleResponse<any>(res);
+    const savedAvail = p.status === 'Available' || p.status === 'Active';
+    return {
+      id: String(p.id),
+      code: p.barcode || p.code || `PRD-${String(p.id).slice(0, 8).toUpperCase()}`,
+      name: p.name,
+      technicalName: p.technical_name || p.name,
+      category: p.category_name || (typeof p.category === 'object' ? p.category?.name : p.category) || 'Fertilizers',
+      packSize: p.pack_size || p.packing || '1 Ltr',
+      mrp: Number(p.mrp || 0),
+      dealerPrice: Number(p.dealer_price || 0),
+      distributorPrice: Number(p.distributor_price || 0),
+      gst: Number(p.gst || 18),
+      stock: 0,
+      reservedStock: 0,
+      warehouse: 'Main Warehouse',
+      recommendedCrops: ['All Crops'],
+      dosage: '2ml per liter',
+      description: p.description || '',
+      imageUrl: p.image_url || 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300',
+      status: savedAvail ? 'Available' : 'Unavailable',
+      is_available: savedAvail,
+    };
+  },
+
+  delete: async (id: string): Promise<any> => {
+    const res = await fetch(`${BASE_URL}/products/${id}/`, {
+      method: 'DELETE',
+      headers: getHeaders()
+    });
+    return handleResponse(res);
   }
 };
 
@@ -465,68 +608,51 @@ export const ordersApi = {
   },
 
   create: async (orderPayload: { dealerId: string; items: { productId: string; quantity: number; rate: number }[]; remarks?: string }): Promise<Order> => {
-    try {
-      const res = await fetch(`${BASE_URL}/orders/`, {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify({
-          dealer: orderPayload.dealerId,
-          items: orderPayload.items.map(i => ({
-            product: i.productId,
-            quantity: i.quantity,
-            rate: i.rate
-          })),
-          remarks: orderPayload.remarks || ''
-        }),
-      });
-      const o = await handleResponse<any>(res);
-      return {
-        id: String(o.id),
-        orderNumber: o.order_number || `ORD-${o.id}`,
-        date: new Date().toISOString().split('T')[0],
-        dealerId: String(orderPayload.dealerId),
-        dealerName: o.dealer_name || 'Dealer',
-        dealerCode: 'DLR-101',
-        dealerCity: 'Location',
-        distributorId: '1',
-        distributorName: 'Self',
-        items: [],
-        subtotal: Number(o.subtotal || 0),
-        discount: 0,
-        tax: Number(o.gst_total || 0),
-        grandTotal: Number(o.grand_total || 0),
-        status: (o.status || 'Pending Approval') as any,
-        paymentStatus: 'Pending',
-        remarks: orderPayload.remarks,
-        createdAt: new Date().toISOString(),
-      };
-    } catch (e) {
-      console.warn("Backend order creation fallback:", e);
-      const rawSubtotal = orderPayload.items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
-      const gst = Math.round(rawSubtotal * 0.18);
-      const orderId = `ord-${Date.now()}`;
-      return {
-        id: orderId,
-        orderNumber: `#ORD-${Math.floor(100 + Math.random() * 900)}`,
-        date: new Date().toISOString().split('T')[0],
-        dealerId: orderPayload.dealerId,
-        dealerName: 'Agri Solutions Ltd',
-        dealerCode: 'ASL-092',
-        dealerCity: 'Pune',
-        distributorId: 'dist-1',
-        distributorName: 'Chitra Sales Corp',
-        items: [],
-        subtotal: rawSubtotal,
-        discount: 0,
-        tax: gst,
-        grandTotal: rawSubtotal + gst,
-        status: 'Pending Approval',
-        paymentStatus: 'Pending',
-        remarks: orderPayload.remarks || '',
-        createdAt: new Date().toISOString(),
-      };
-    }
+    const res = await apiFetch(`${BASE_URL}/orders/`, {
+      method: 'POST',
+      body: JSON.stringify({
+        dealer: orderPayload.dealerId,
+        items: orderPayload.items.map(i => ({
+          product: i.productId,
+          quantity: i.quantity,
+          rate: i.rate
+        })),
+        remarks: orderPayload.remarks || ''
+      }),
+    });
+    const o = await handleResponse<any>(res);
+    return {
+      id: String(o.id),
+      orderNumber: o.order_number || `ORD-${o.id}`,
+      date: (o.created_at || '').split('T')[0] || new Date().toISOString().split('T')[0],
+      dealerId: String(orderPayload.dealerId),
+      dealerName: o.dealer_name || 'Dealer',
+      dealerCode: 'DLR-101',
+      dealerCity: 'Location',
+      distributorId: '1',
+      distributorName: 'Self',
+      items: (o.items || []).map((i: any) => ({
+        id: String(i.id),
+        productId: String(i.product?.id || i.product || ''),
+        productName: i.product_name || i.product?.name || '',
+        productCode: i.product_code || i.product?.code || '',
+        packSize: i.pack_size || i.packing || '',
+        quantity: Number(i.quantity || 0),
+        dealerPrice: Number(i.rate || 0),
+        mrp: Number(i.rate * 1.2),
+        subtotal: Number(i.total || 0),
+      })),
+      subtotal: Number(o.subtotal || 0),
+      discount: 0,
+      tax: Number(o.gst_total || 0),
+      grandTotal: Number(o.grand_total || 0),
+      status: (o.status || 'Pending Approval') as any,
+      paymentStatus: 'Pending',
+      remarks: orderPayload.remarks,
+      createdAt: o.created_at || new Date().toISOString(),
+    };
   },
+
 
   updateStatus: async (orderId: string, status: string): Promise<any> => {
     if (status === 'Approved') {
@@ -681,6 +807,7 @@ const mapBackendAttendanceToRecord = (a: any, index = 1): AttendanceRecord => {
     currentLocationTimestamp: a.current_location_timestamp,
     isActive: Boolean(a.is_active && !a.check_out),
     loginImage: resolvePhotoUrl(a.check_in_photo),
+    backCameraImage: resolvePhotoUrl(a.back_camera_photo),
     logoutImage: resolvePhotoUrl(a.check_out_photo),
   };
 };
@@ -708,7 +835,7 @@ export const hrApi = {
     }
   },
 
-  clockIn: async (data: { location?: string; latitude?: number; longitude?: number; photo?: string }): Promise<AttendanceRecord> => {
+  clockIn: async (data: { location?: string; latitude?: number; longitude?: number; photo?: string; backCameraPhoto?: string }): Promise<AttendanceRecord> => {
     const res = await apiFetch(`${BASE_URL}/hr/attendance/`, {
       method: 'POST',
       body: JSON.stringify({
@@ -716,18 +843,10 @@ export const hrApi = {
         check_in_location: data.location || 'Current Location',
         check_in_latitude: data.latitude,
         check_in_longitude: data.longitude,
-        check_in_photo: data.photo || ''
+        check_in_photo: data.photo || '',
+        back_camera_photo: data.backCameraPhoto || ''
       })
     });
-    // Duplicate protection: if already recorded today, backend returns existing attendance record
-    if (res.status === 400) {
-      try {
-        const errData = await res.clone().json();
-        if (errData.already_recorded && errData.attendance) {
-          return mapBackendAttendanceToRecord(errData.attendance);
-        }
-      } catch {}
-    }
     const a = await handleResponse<any>(res);
     return mapBackendAttendanceToRecord(a);
   },
@@ -754,23 +873,15 @@ export const hrApi = {
         check_out_photo: data.photo || ''
       })
     });
-    // Duplicate protection: if already checked out today, backend returns existing record
-    if (res.status === 400) {
-      try {
-        const errData = await res.clone().json();
-        if (errData.attendance) {
-          return mapBackendAttendanceToRecord(errData.attendance);
-        }
-      } catch {}
-    }
     const a = await handleResponse<any>(res);
     return mapBackendAttendanceToRecord(a);
   },
 
   getExpenses: async (): Promise<Expense[]> => {
-    const res = await fetch(`${BASE_URL}/hr/expenses/`, { headers: getHeaders() });
-    const rawData = await handleResponse<any[]>(res);
-    return rawData.map((e: any, idx: number) => {
+    const res = await apiFetch(`${BASE_URL}/hr/expenses/`);
+    const rawData = await handleResponse<any>(res);
+    const rawArray = Array.isArray(rawData) ? rawData : (rawData?.results || []);
+    return rawArray.map((e: any, idx: number) => {
       const startingKm = e.starting_km !== null && e.starting_km !== undefined ? Number(e.starting_km) : undefined;
       const endingKm = e.ending_km !== null && e.ending_km !== undefined ? Number(e.ending_km) : undefined;
       const totalKm = e.total_km !== null && e.total_km !== undefined ? Number(e.total_km) : (
@@ -843,6 +954,7 @@ export const hrApi = {
       category: data.category || 'Travel',
       amount: data.amount,
       description: data.remarks || '',
+      remarks: data.remarks || '',
       date: new Date().toISOString().split('T')[0]
     };
 
@@ -860,27 +972,44 @@ export const hrApi = {
     if (data.courier !== undefined && data.courier !== '') payload.courier = Number(data.courier);
     if (data.photocopy !== undefined && data.photocopy !== '') payload.photocopy = Number(data.photocopy);
     if (data.other_charge !== undefined && data.other_charge !== '') payload.other_charge = Number(data.other_charge);
+    if (data.bill) payload.bill = data.bill;
 
-    const res = await fetch(`${BASE_URL}/hr/expenses/`, {
+    const res = await apiFetch(`${BASE_URL}/hr/expenses/`, {
       method: 'POST',
-      headers: getHeaders(),
       body: JSON.stringify(payload)
     });
     const e = await handleResponse<any>(res);
     return {
       id: String(e.id),
-      employeeId: String(e.user?.id || '1'),
-      employeeName: e.user?.username || 'Employee',
+      employeeId: String(e.employee || e.user?.id || '1'),
+      employeeName: e.employee_name || e.user?.username || 'Employee',
       date: e.date || new Date().toISOString().split('T')[0],
       type: (e.category || data.category || 'Travel') as any,
       amount: Number(e.amount),
+      totalAmount: Number(e.amount),
+      approvalAmount: e.status === 'Approved' ? Number(e.amount) : 0,
       startingKm: e.starting_km !== null ? Number(e.starting_km) : undefined,
       endingKm: e.ending_km !== null ? Number(e.ending_km) : undefined,
       totalKm: e.total_km !== null ? Number(e.total_km) : undefined,
       kmRate: e.km_rate !== null ? Number(e.km_rate) : undefined,
       kmAmount: e.km_amount !== null ? Number(e.km_amount) : 0,
-      remarks: e.description || e.remarks || '',
-      status: 'Pending'
+      busTrainCarFair: e.bus_train_car_fair ? Number(e.bus_train_car_fair) : 0,
+      fairCab: e.fair_cab ? Number(e.fair_cab) : 0,
+      fairAuto: e.fair_auto ? Number(e.fair_auto) : 0,
+      otherVehicleFair: e.other_vehicle_fair ? Number(e.other_vehicle_fair) : 0,
+      food: e.food ? Number(e.food) : 0,
+      laundry: e.laundry ? Number(e.laundry) : 0,
+      phoneBill: e.phone_bill ? Number(e.phone_bill) : 0,
+      internetBill: e.internet_bill ? Number(e.internet_bill) : 0,
+      localConveyance: e.local_conveyance ? Number(e.local_conveyance) : 0,
+      courier: e.courier ? Number(e.courier) : 0,
+      photocopy: e.photocopy ? Number(e.photocopy) : 0,
+      otherCharge: e.other_charge ? Number(e.other_charge) : 0,
+      remarks: e.remarks || e.description || data.remarks || '',
+      remark: e.remarks || e.description || data.remarks || '',
+      status: (e.status || 'Pending') as any,
+      billUrl: e.bill || undefined,
+      proofImage: e.bill || undefined,
     };
   },
 
@@ -1003,3 +1132,74 @@ export const adminApi = {
     return handleResponse(res);
   }
 };
+
+// 9. NOTIFICATIONS API
+export const notificationsApi = {
+  getAll: async (): Promise<NotificationItem[]> => {
+    try {
+      const res = await apiFetch(`${BASE_URL}/notifications/`);
+      const rawData = await handleResponse<any[]>(res);
+      const list = Array.isArray(rawData) ? rawData : (rawData as any)?.results || [];
+      return list.map((n: any) => ({
+        id: String(n.id),
+        title: n.title,
+        message: n.message,
+        type: n.type || 'System',
+        eventType: n.event_type,
+        referenceId: n.reference_id,
+        referenceType: n.reference_type,
+        destination: n.destination,
+        isRead: Boolean(n.is_read),
+        createdAt: n.created_at || new Date().toISOString(),
+      }));
+    } catch (e) {
+      console.warn("Could not fetch notifications from backend:", e);
+      return [];
+    }
+  },
+
+  getUnreadCount: async (): Promise<number> => {
+    try {
+      const res = await apiFetch(`${BASE_URL}/notifications/unread_count/`);
+      const data = await handleResponse<{ unread_count: number }>(res);
+      return data.unread_count || 0;
+    } catch {
+      return 0;
+    }
+  },
+
+  markRead: async (id: string): Promise<any> => {
+    const res = await apiFetch(`${BASE_URL}/notifications/${id}/mark_read/`, { method: 'POST' });
+    return handleResponse(res);
+  },
+
+  markAllRead: async (): Promise<any> => {
+    const res = await apiFetch(`${BASE_URL}/notifications/mark_all_read/`, { method: 'POST' });
+    return handleResponse(res);
+  },
+
+  registerDeviceToken: async (token: string, platform = 'android'): Promise<any> => {
+    try {
+      const res = await apiFetch(`${BASE_URL}/notifications/devices/`, {
+        method: 'POST',
+        body: JSON.stringify({ token, platform })
+      });
+      return handleResponse(res);
+    } catch (e) {
+      console.warn("Could not register device push token:", e);
+    }
+  },
+
+  unregisterDeviceToken: async (token?: string): Promise<any> => {
+    try {
+      const res = await apiFetch(`${BASE_URL}/notifications/devices/unregister/`, {
+        method: 'POST',
+        body: JSON.stringify(token ? { token } : {})
+      });
+      return handleResponse(res);
+    } catch (e) {
+      console.warn("Could not unregister device push token:", e);
+    }
+  }
+};
+

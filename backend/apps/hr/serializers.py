@@ -48,7 +48,12 @@ class DealerVisitSerializer(serializers.ModelSerializer):
 class ExpenseSerializer(serializers.ModelSerializer):
     employee_name = serializers.CharField(source='employee.username', read_only=True)
     approved_by_name = serializers.CharField(source='approved_by.username', read_only=True)
-    
+    remarks = serializers.CharField(source='description', required=False, allow_blank=True, allow_null=True)
+    approval_amount = serializers.SerializerMethodField()
+
+    def get_approval_amount(self, obj):
+        return float(obj.amount) if obj.status == 'Approved' else 0.0
+
     class Meta:
         model = Expense
         fields = '__all__'
@@ -56,4 +61,5 @@ class ExpenseSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'date': {'required': False},
             'amount': {'required': False},
+            'description': {'required': False, 'allow_blank': True},
         }

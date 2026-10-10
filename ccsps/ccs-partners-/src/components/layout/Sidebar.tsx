@@ -33,13 +33,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onCloseMobile,
 }) => {
   const rawRole = (role || currentUser?.role || 'ADMIN').toString().toUpperCase();
-  const currentRole: UserRole = rawRole.includes('DEALER')
-    ? 'DEALER'
+  const currentRole: UserRole = rawRole.includes('WAREHOUSE')
+    ? 'WAREHOUSE'
+    : rawRole.includes('ADMIN')
+    ? 'ADMIN'
     : rawRole.includes('DISTRIBUTOR')
     ? 'DISTRIBUTOR'
-    : rawRole.includes('WAREHOUSE')
-    ? 'WAREHOUSE'
-    : 'ADMIN';
+    : 'EMPLOYEE';
 
   const currentActive = activeView || activeTab || 'dashboard';
 
@@ -60,11 +60,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
         { id: 'settings', label: 'Settings', icon: 'settings' },
         { id: 'logout', label: 'Logout', icon: 'logout' },
       ];
-    } else if (currentRole === 'DISTRIBUTOR') {
+    } else if (currentRole === 'EMPLOYEE') {
       return [
         { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
-        { id: 'visit-site', label: 'Visit Site', icon: 'pin_drop' },
         { id: 'attendance', label: 'My Attendance', icon: 'event_available' },
+        { id: 'visit-site', label: 'Visit Site', icon: 'pin_drop' },
         { id: 'create-order', label: 'Order Now', icon: 'add_shopping_cart' },
         { id: 'orders', label: 'Order List', icon: 'history' },
         { id: 'expenses', label: 'Expense List', icon: 'receipt_long' },
@@ -77,24 +77,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
         { id: 'support', label: 'Support', icon: 'headset_mic' },
         { id: 'logout', label: 'Logout', icon: 'logout' },
       ];
-    } else if (currentRole === 'WAREHOUSE') {
-      // WAREHOUSE PORTAL (5 EXPLICIT ITEMS: Dashboard, Orders, Order List, Support, Logout)
+    } else if (currentRole === 'DISTRIBUTOR') {
       return [
         { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
-        { id: 'orders', label: 'Orders', icon: 'local_shipping' },
-        { id: 'order-list', label: 'Order List', icon: 'format_list_bulleted' },
+        { id: 'products', label: 'Products Catalog', icon: 'inventory_2' },
+        { id: 'create-order', label: 'Place Order', icon: 'add_shopping_cart' },
+        { id: 'orders', label: 'My Orders', icon: 'shopping_cart' },
+        { id: 'payments', label: 'Payments / Ledger', icon: 'payments' },
+        { id: 'invoices', label: 'Invoices', icon: 'description' },
+        { id: 'profile', label: 'My Profile', icon: 'person' },
         { id: 'support', label: 'Support', icon: 'headset_mic' },
         { id: 'logout', label: 'Logout', icon: 'logout' },
       ];
     } else {
-      // DEALER PORTAL (CLEAN 8 ITEMS)
+      // WAREHOUSE PORTAL (Clean warehouse management items)
       return [
         { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
-        { id: 'products', label: 'Products', icon: 'inventory_2' },
-        { id: 'orders', label: 'Orders', icon: 'shopping_cart' },
-        { id: 'payments', label: 'Payments', icon: 'payments' },
-        { id: 'invoices', label: 'Invoices', icon: 'description' },
-        { id: 'profile', label: 'Profile', icon: 'person' },
+        { id: 'orders', label: 'Ready to Dispatch', icon: 'local_shipping' },
+        { id: 'order-list', label: 'Dispatched Orders', icon: 'format_list_bulleted' },
         { id: 'support', label: 'Support', icon: 'headset_mic' },
         { id: 'logout', label: 'Logout', icon: 'logout' },
       ];

@@ -12,7 +12,9 @@
   "dependencies": {
     "@ant-design/colors": "^8.0.1",
     "@ant-design/icons": "^6.3.2",
+    "@capacitor/camera": "^8.2.5",
     "@capacitor/core": "^8.5.2",
+    "@capacitor/geolocation": "^8.2.3",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",

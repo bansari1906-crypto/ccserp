@@ -27,6 +27,7 @@ class Attendance(models.Model):
     is_active = models.BooleanField(default=True)
     
     check_in_photo = models.ImageField(upload_to='attendance_photos/', null=True, blank=True)
+    back_camera_photo = models.ImageField(upload_to='attendance_photos/', null=True, blank=True)
     check_out_photo = models.ImageField(upload_to='attendance_photos/', null=True, blank=True)
     
     working_hours = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate, useLocation } from 'react-router-dom';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,12 +12,15 @@ import Footer from './Footer';
 import Loader from 'components/Loader';
 import Breadcrumbs from 'components/@extended/Breadcrumbs';
 import ScrollTop from 'components/ScrollTop';
+import useAuth from 'hooks/useAuth';
 
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
 export default function DashboardLayout() {
+  const { isAuthenticated, loading } = useAuth();
+  const location = useLocation();
   const { menuMasterLoading } = useGetMenuMaster();
   const downXL = useMediaQuery((theme) => theme.breakpoints.down('xl'));
 
@@ -26,7 +29,11 @@ export default function DashboardLayout() {
     handlerDrawerOpen(!downXL);
   }, [downXL]);
 
-  if (menuMasterLoading) return <Loader />;
+  if (loading || menuMasterLoading) return <Loader />;
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
 
   return (
     <Box sx={{ display: 'flex', width: '100%' }}>

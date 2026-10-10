@@ -123,9 +123,15 @@ class AdminService:
             user.kyc_profile.kyc_status = KYCStatus.APPROVED
             user.kyc_profile.save()
             
-        if user.role == 'Dealer':
+        if user.role in [UserRole.DISTRIBUTOR, 'Dealer']:
             from apps.wallet.models import Wallet
-            Wallet.objects.get_or_create(dealer=user, defaults={'credit_limit': credit_limit})
+            wallet, _ = Wallet.objects.get_or_create(dealer=user)
+            wallet.credit_limit = credit_limit
+            wallet.save()
+            from .models import DealerProfile
+            dp, _ = DealerProfile.objects.get_or_create(user=user)
+            dp.credit_limit = credit_limit
+            dp.save()
             
         # Send Email
         send_mail(

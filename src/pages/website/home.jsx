@@ -1,5 +1,5 @@
-import { Box, Button, Container, Grid, Typography, Stack, Card, CardContent, CardMedia, Avatar } from '@mui/material';
-import { ArrowRightOutlined, CheckCircleFilled, SafetyCertificateOutlined, ExperimentOutlined, TrophyOutlined, TeamOutlined } from '@ant-design/icons';
+import { Box, Button, Container, Grid, Typography, Stack, Card, CardContent, CardMedia, Avatar, Paper, Divider } from '@mui/material';
+import { ArrowRightOutlined, CheckCircleFilled, SafetyCertificateOutlined, ExperimentOutlined, TrophyOutlined, TeamOutlined, AndroidOutlined, LoginOutlined, DownloadOutlined, SafetyOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -39,16 +39,16 @@ export default function Home() {
   return (
     <Box>
       <Helmet>
-        <title>Chitra Crop Science | Premium Agricultural Inputs & Crop Solutions</title>
-        <meta name="description" content="Chitra Crop Science delivers world-class water-soluble fertilizers, bio-stimulants, and crop protection chemicals. We empower Indian farmers to achieve unprecedented yields." />
-        <meta property="og:title" content="Chitra Crop Science | Premium Agricultural Inputs" />
-        <meta property="og:description" content="Empowering Indian farmers with ISO certified agro-chemicals, fertilizers, and bio-stimulants." />
+        <title>Chitra Crop Science | CCS Connect ERP — Official Partner Portal</title>
+        <meta name="description" content="Official enterprise portal for Chitra Crop Science partners. Login to CCS Connect ERP and download the official Android APK for order management, verified pricing, dual-camera attendance, and warehouse logistics." />
+        <meta property="og:title" content="Chitra Crop Science — CCS Connect ERP" />
+        <meta property="og:description" content="Official enterprise platform for Chitra Crop Science distributors, field officers, and logistics." />
       </Helmet>
 
       {/* Hero Section */}
       <Box sx={{
         position: 'relative',
-        minHeight: '90vh',
+        minHeight: '92vh',
         display: 'flex',
         alignItems: 'center',
         backgroundImage: 'url(https://images.unsplash.com/photo-1592982537447-6f23f81eb5d5?auto=format&fit=crop&w=1920&q=80)',
@@ -59,26 +59,71 @@ export default function Home() {
           content: '""',
           position: 'absolute',
           top: 0, left: 0, right: 0, bottom: 0,
-          background: 'linear-gradient(90deg, rgba(17,24,39,0.95) 0%, rgba(17,24,39,0.4) 100%)',
+          background: 'linear-gradient(90deg, rgba(17,24,39,0.96) 0%, rgba(17,24,39,0.5) 100%)',
           zIndex: 1
         }
       }}>
         <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 2, py: { xs: 8, md: 0 } }}>
           <Grid container>
-            <Grid item xs={12} md={7} lg={6}>
-              <Box sx={{ mb: 2, display: 'inline-flex', alignItems: 'center', bgcolor: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', px: 2, py: 0.5, borderRadius: 5 }}>
-                <Typography variant="body2" color="#4ade80" fontWeight="bold">🌱 Chitra Crop Science</Typography>
+            <Grid item xs={12} md={8} lg={7}>
+              <Box sx={{ mb: 2.5, display: 'inline-flex', alignItems: 'center', bgcolor: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.3)', px: 2, py: 0.7, borderRadius: 5 }}>
+                <Typography variant="body2" color="#4ade80" fontWeight="bold">🌱 Chitra Crop Science • CCS Connect ERP</Typography>
               </Box>
-              <Typography variant="h1" fontWeight="900" color="white" sx={{ fontSize: { xs: '3rem', md: '4.5rem' }, lineHeight: 1.1, mb: 3 }}>
-                Premium Agricultural <br/><Box component="span" color="primary.main">Inputs.</Box>
+              <Typography variant="h1" fontWeight="900" color="white" sx={{ fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem' }, lineHeight: 1.1, mb: 2.5 }}>
+                Enterprise Platform for <br/><Box component="span" sx={{ color: '#4ade80' }}>Agriculture Partners.</Box>
               </Typography>
-              <Typography variant="h6" color="#9ca3af" sx={{ mb: 5, lineHeight: 1.6, fontWeight: 400, maxWidth: 600 }}>
-                We deliver world-class water-soluble fertilizers, bio-stimulants, and crop protection chemicals. Empowering Indian farmers to achieve unprecedented yields.
+              <Typography variant="h6" color="#d1d5db" sx={{ mb: 4.5, lineHeight: 1.6, fontWeight: 400, maxWidth: 640 }}>
+                Welcome to the official Chitra Crop Science business portal. Access verified product availability, wholesale pricing, dual-camera attendance, order management, and real-time dispatch tracking.
               </Typography>
-              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                <Button component={Link} to="/products" variant="contained" color="primary" size="large" sx={{ px: 4, py: 1.5, fontSize: '1.1rem', borderRadius: 8 }} endIcon={<ArrowRightOutlined />}>Explore Products</Button>
-                <Button component={Link} to="/become-dealer" variant="outlined" size="large" sx={{ px: 4, py: 1.5, fontSize: '1.1rem', color: 'white', borderColor: 'white', borderRadius: 8, '&:hover': { borderColor: 'primary.main', bgcolor: 'rgba(46,125,50,0.1)' } }}>Become a Dealer</Button>
+
+              {/* TWO PROMINENT PRIMARY ACTIONS: LOGIN & DOWNLOAD ANDROID APP */}
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2.5} sx={{ mb: 4 }}>
+                <Button 
+                  component={Link} 
+                  to="/login" 
+                  variant="contained" 
+                  color="primary" 
+                  size="large" 
+                  sx={{ 
+                    px: 4.5, 
+                    py: 1.8, 
+                    fontSize: '1.15rem', 
+                    borderRadius: 2.5, 
+                    fontWeight: 800,
+                    boxShadow: '0 10px 25px -5px rgba(46, 125, 50, 0.5)',
+                    '&:hover': { bgcolor: '#1b5e20' }
+                  }} 
+                  startIcon={<LoginOutlined style={{ fontSize: '22px' }} />}
+                >
+                  Login to CCS Connect
+                </Button>
+
+                <Button 
+                  component="a" 
+                  href="/downloads/CCS-Connect.apk" 
+                  download="CCS-Connect.apk"
+                  variant="contained" 
+                  size="large" 
+                  sx={{ 
+                    px: 4, 
+                    py: 1.8, 
+                    fontSize: '1.15rem', 
+                    borderRadius: 2.5, 
+                    fontWeight: 800,
+                    bgcolor: '#16a34a',
+                    color: 'white',
+                    boxShadow: '0 10px 25px -5px rgba(22, 163, 74, 0.5)',
+                    '&:hover': { bgcolor: '#15803d' }
+                  }} 
+                  startIcon={<AndroidOutlined style={{ fontSize: '24px' }} />}
+                >
+                  Download Android App
+                </Button>
               </Stack>
+
+              <Typography variant="caption" sx={{ color: '#9ca3af', display: 'flex', alignItems: 'center', gap: 1 }}>
+                <CheckCircleFilled style={{ color: '#4ade80' }} /> Secure role-based portal for Admin, Employees, Distributors & Warehouse
+              </Typography>
             </Grid>
           </Grid>
         </Container>
@@ -96,6 +141,156 @@ export default function Home() {
               </Grid>
             ))}
           </Grid>
+        </Container>
+      </Box>
+
+      {/* CCS Connect Platform & Mobile App Section */}
+      <Box sx={{ py: 10, bgcolor: '#f0fdf4', borderBottom: '1px solid #bbf7d0' }}>
+        <Container maxWidth="xl">
+          <Box textAlign="center" mb={6}>
+            <Box sx={{ display: 'inline-flex', alignItems: 'center', bgcolor: '#dcfce7', border: '1px solid #86efac', px: 2, py: 0.5, borderRadius: 5, mb: 1.5 }}>
+              <Typography variant="body2" color="#15803d" fontWeight="bold">⚡ Enterprise Business Portal</Typography>
+            </Box>
+            <Typography variant="h2" fontWeight="800" sx={{ color: '#14532d', fontSize: { xs: '2rem', md: '2.75rem' }, mb: 1.5 }}>
+              CCS Connect ERP System
+            </Typography>
+            <Typography variant="body1" color="#475569" sx={{ maxWidth: 720, mx: 'auto', fontSize: '1.1rem' }}>
+              One central database powering our business operations. Available via secure web login and the dedicated Android mobile application.
+            </Typography>
+          </Box>
+
+          {/* 4 Role Capabilities Grid */}
+          <Grid container spacing={3} mb={6}>
+            <Grid item xs={12} sm={6} md={3}>
+              <Paper elevation={0} sx={{ p: 3, height: '100%', bgcolor: 'white', border: '1px solid #e2e8f0', borderRadius: 3 }}>
+                <Box sx={{ width: 44, height: 44, borderRadius: 2, bgcolor: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1d4ed8', fontSize: 22, mb: 2 }}>
+                  <AppstoreOutlined />
+                </Box>
+                <Typography variant="h6" fontWeight="bold" color="#0f172a" gutterBottom>1. Admin Control</Typography>
+                <Typography variant="body2" color="#64748b" lineHeight={1.6}>
+                  Master product catalog pricing, instant Availability toggle, availability-based order approvals, and credit management.
+                </Typography>
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3}>
+              <Paper elevation={0} sx={{ p: 3, height: '100%', bgcolor: 'white', border: '1px solid #e2e8f0', borderRadius: 3 }}>
+                <Box sx={{ width: 44, height: 44, borderRadius: 2, bgcolor: '#f0fdf4', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#15803d', fontSize: 22, mb: 2 }}>
+                  <SafetyOutlined />
+                </Box>
+                <Typography variant="h6" fontWeight="bold" color="#0f172a" gutterBottom>2. Field Sales</Typography>
+                <Typography variant="body2" color="#64748b" lineHeight={1.6}>
+                  GPS-tagged dual-photo attendance (front selfie & rear worksite), daily visit logs, distributor order intake, and expense records.
+                </Typography>
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3}>
+              <Paper elevation={0} sx={{ p: 3, height: '100%', bgcolor: 'white', border: '1px solid #e2e8f0', borderRadius: 3 }}>
+                <Box sx={{ width: 44, height: 44, borderRadius: 2, bgcolor: '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#b45309', fontSize: 22, mb: 2 }}>
+                  <TrophyOutlined />
+                </Box>
+                <Typography variant="h6" fontWeight="bold" color="#0f172a" gutterBottom>3. Distributors</Typography>
+                <Typography variant="body2" color="#64748b" lineHeight={1.6}>
+                  Wholesale price catalog, instant order booking, payment ledgers, invoice downloads, and live dispatch tracking.
+                </Typography>
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3}>
+              <Paper elevation={0} sx={{ p: 3, height: '100%', bgcolor: 'white', border: '1px solid #e2e8f0', borderRadius: 3 }}>
+                <Box sx={{ width: 44, height: 44, borderRadius: 2, bgcolor: '#f3e8ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#7e22ce', fontSize: 22, mb: 2 }}>
+                  <CheckCircleFilled />
+                </Box>
+                <Typography variant="h6" fontWeight="bold" color="#0f172a" gutterBottom>4. Warehouse</Typography>
+                <Typography variant="body2" color="#64748b" lineHeight={1.6}>
+                  Stock packing lists, LR / Bilty generation, logistics vehicle tracking, and final authorized dispatch operations.
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+
+          {/* Download & Web Login Banner */}
+          <Paper elevation={0} sx={{ p: { xs: 4, md: 6 }, bgcolor: '#14532d', color: 'white', borderRadius: 4, boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
+            <Grid container spacing={4} alignItems="center">
+              <Grid item xs={12} md={7}>
+                <Box sx={{ display: 'inline-flex', alignItems: 'center', bgcolor: 'rgba(255,255,255,0.15)', px: 1.5, py: 0.5, borderRadius: 2, mb: 2 }}>
+                  <AndroidOutlined style={{ marginRight: 6, fontSize: 16 }} />
+                  <Typography variant="caption" fontWeight="bold">OFFICIAL ANDROID APP & WEB PORTAL</Typography>
+                </Box>
+                <Typography variant="h3" fontWeight="900" color="white" gutterBottom sx={{ fontSize: { xs: '1.75rem', md: '2.5rem' } }}>
+                  Connect from Any Device
+                </Typography>
+                <Typography variant="body1" sx={{ color: '#d1fae5', mb: 3, lineHeight: 1.7, fontSize: '1.05rem' }}>
+                  Use your registered User ID and Password to sign in. The web portal and the Android APK connect to the same central database, ensuring your orders, attendance, and catalog are always synchronized.
+                </Typography>
+
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                  <Button
+                    component={Link}
+                    to="/login"
+                    variant="contained"
+                    sx={{
+                      bgcolor: 'white',
+                      color: '#14532d',
+                      px: 3.5,
+                      py: 1.4,
+                      fontWeight: 800,
+                      borderRadius: 2,
+                      '&:hover': { bgcolor: '#f0fdf4' }
+                    }}
+                    startIcon={<LoginOutlined />}
+                  >
+                    Login to Web Portal
+                  </Button>
+
+                  <Button
+                    component="a"
+                    href="/downloads/CCS-Connect.apk"
+                    download="CCS-Connect.apk"
+                    variant="outlined"
+                    sx={{
+                      color: 'white',
+                      borderColor: 'white',
+                      borderWidth: 2,
+                      px: 3.5,
+                      py: 1.4,
+                      fontWeight: 800,
+                      borderRadius: 2,
+                      '&:hover': { borderWidth: 2, borderColor: '#4ade80', bgcolor: 'rgba(74,222,128,0.1)' }
+                    }}
+                    startIcon={<AndroidOutlined />}
+                  >
+                    Download APK (Android)
+                  </Button>
+                </Stack>
+              </Grid>
+
+              {/* Android Installation Note Box */}
+              <Grid item xs={12} md={5}>
+                <Paper elevation={0} sx={{ p: 3, bgcolor: 'rgba(0,0,0,0.25)', borderRadius: 3, border: '1px solid rgba(255,255,255,0.2)' }}>
+                  <Typography variant="subtitle1" fontWeight="bold" color="#4ade80" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <AndroidOutlined /> Android Installation Guide
+                  </Typography>
+                  <Divider sx={{ borderColor: 'rgba(255,255,255,0.15)', my: 1.5 }} />
+                  <Stack spacing={1.2}>
+                    <Typography variant="caption" sx={{ color: '#f3f4f6', display: 'block' }}>
+                      <strong>1. Download:</strong> Tap &ldquo;Download APK&rdquo; to save <code>CCS-Connect.apk</code>.
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#f3f4f6', display: 'block' }}>
+                      <strong>2. Open File:</strong> Locate the APK in your notification bar or Downloads folder.
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#f3f4f6', display: 'block' }}>
+                      <strong>3. Allow Source:</strong> If prompted by Android security, enable &ldquo;Allow from this source&rdquo;.
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#f3f4f6', display: 'block' }}>
+                      <strong>4. Install & Login:</strong> Complete installation and sign in with your User ID & Password.
+                    </Typography>
+                  </Stack>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Paper>
         </Container>
       </Box>
 

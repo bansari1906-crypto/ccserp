@@ -1,11 +1,12 @@
 /**
- * Utility to simulate a real-time Daily Working Timeline for Field Sales.
- * Since we don't have a backend to auto-link timeline events yet,
- * we use localStorage to mock this flow so it feels exactly like the final app.
+ * Utility for Daily Working Timeline and Attendance state.
+ * Connects directly to backend API and attendanceService.
  */
 
+import { submitStartDay, submitCheckOut, fetchActiveAttendance } from '../services/attendanceService';
+
 const STORAGE_KEY = 'ccs_daily_working_timeline';
-const CHECKIN_KEY = 'ccs_daily_checked_in';
+const CONFIRMED_ATTENDANCE_KEY = 'ccs_attendance_confirmed_state';
 
 export const getTimeline = () => {
   const data = localStorage.getItem(STORAGE_KEY);
@@ -18,7 +19,6 @@ export const saveTimeline = (events) => {
 
 export const clearTimeline = () => {
   localStorage.removeItem(STORAGE_KEY);
-  localStorage.removeItem(CHECKIN_KEY);
 };
 
 export const addTimelineEvent = (type, details) => {
@@ -30,17 +30,23 @@ export const addTimelineEvent = (type, details) => {
     ...details
   };
   
-  // Keep chronological order
   events.push(newEvent);
   saveTimeline(events);
   
   return newEvent;
 };
 
-import api from 'api/client';
+export const checkIn = async (location, selfie, battery, notes, backPhoto) => {
+  const [latStr, lngStr] = (location || '').split(',').map((s) => parseFloat(s.trim()));
+  
+  const res = await submitStartDay({
+    latitude: !isNaN(latStr) ? latStr : 23.0,
+    longitude: !isNaN(lngStr) ? lngStr : 72.0,
+    location: location || 'GPS Verified',
+    frontSelfie: selfie,
+    backPhoto: backPhoto || selfie
+  });
 
-export const checkIn = async (location, selfie, battery, notes) => {
-  localStorage.setItem(CHECKIN_KEY, 'true');
   const event = addTimelineEvent('Check In', {
     status: 'Running',
     location: location || 'GPS Verified',
@@ -48,47 +54,37 @@ export const checkIn = async (location, selfie, battery, notes) => {
     battery,
     remarks: notes
   });
-  
-  try {
-    const formData = new FormData();
-    formData.append('date', new Date().toISOString().split('T')[0]);
-    formData.append('check_in', new Date().toLocaleTimeString('en-GB', { hour12: false }));
-    formData.append('check_in_location', location || 'GPS Verified');
-    if (selfie) {
-      // In a real app this would be a file object
-    }
-    await api.post('/hr/attendance/', formData);
-  } catch (err) {
-    console.error("Failed to sync check-in", err);
-  }
-  
-  return event;
+
+  return { event, attendance: res.attendance };
 };
 
 export const checkOut = async (remarks, tomorrowPlan) => {
-  localStorage.setItem(CHECKIN_KEY, 'false');
+  const res = await submitCheckOut({
+    remarks: remarks || 'End of working day'
+  });
+
   const event = addTimelineEvent('Check Out', {
     status: 'Completed',
     remarks,
     tomorrowPlan
   });
-  
-  try {
-    await api.post('/hr/attendance/check_out/', {
-      check_out_location: 'GPS Verified'
-    });
-  } catch (err) {
-    console.error("Failed to sync check-out", err);
-  }
-  
-  return event;
+
+  return { event, attendance: res.attendance };
 };
 
 export const isCheckedIn = () => {
-  return localStorage.getItem(CHECKIN_KEY) === 'true';
+  const cached = localStorage.getItem(CONFIRMED_ATTENDANCE_KEY);
+  if (cached) {
+    try {
+      const parsed = JSON.parse(cached);
+      return Boolean(parsed.active && !parsed.completed);
+    } catch {
+      return false;
+    }
+  }
+  return false;
 };
 
-// Auto-summarize the day based on timeline events
 export const getDaySummary = () => {
   const events = getTimeline();
   let visits = 0;
@@ -97,14 +93,14 @@ export const getDaySummary = () => {
   let collections = 0;
   let expenses = 0;
 
-  events.forEach(e => {
-    if (e.type === 'Dealer Visit') visits++;
+  events.forEach((e) => {
+    if (e.type === 'Field Visit' || e.type === 'Dealer Visit') visits++;
     if (e.type === 'Order Created' || e.type === 'Order') {
       orders++;
-      orderValue += (e.value || 0);
+      orderValue += e.value || 0;
     }
-    if (e.type === 'Collection') collections += (e.amount || 0);
-    if (e.type === 'Expense') expenses += (e.amount || 0);
+    if (e.type === 'Collection') collections += e.amount || 0;
+    if (e.type === 'Expense') expenses += e.amount || 0;
   });
 
   return { visits, orders, orderValue, collections, expenses, events };

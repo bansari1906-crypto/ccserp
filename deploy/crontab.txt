@@ -1,0 +1,9 @@
+# CCS Connect ERP - Production Crontab Entries
+# Timezone: Asia/Kolkata (IST)
+
+# 10:00 AM IST Monday through Saturday: Start Day Attendance Reminder
+0 10 * * 1-6 cd /var/www/ccs-connect/backend && /var/www/ccs-connect/backend/venv/bin/python manage.py send_start_day_reminders >> /var/log/ccs_reminders.log 2>&1
+
+# 02:00 AM IST Daily: Automated PostgreSQL Database & Media Backup (with 7-day retention)
+0 2 * * * /var/www/ccs-connect/deploy/backup/backup_production.sh >> /var/log/ccs_backup_cron.log 2>&1
+

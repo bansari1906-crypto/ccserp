@@ -245,6 +245,11 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^http://localhost:\d+$",
     r"^http://127\.0\.0\.1:\d+$",
     r"^https:\/\/.*\.vercel\.app$",
+    r"^http:\/\/192\.168\.\d+\.\d+(:\d+)?$",
+    r"^http:\/\/10\.0\.2\.2(:\d+)?$",
+    r"^capacitor:\/\/localhost$",
+    r"^https:\/\/localhost$",
+    r"^http:\/\/localhost$",
 ]
 
 _env_csrf = [o.strip() for o in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',') if o.strip()]
@@ -257,6 +262,9 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:5173',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
+    'capacitor://localhost',
+    'https://localhost',
+    'http://localhost',
 ] + _env_csrf
 
 # ==============================================================================

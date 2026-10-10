@@ -50,14 +50,21 @@ res = client_emp.post('/api/hr/attendance/', {
     'check_in_location': 'Pune Depot (18.5204° N, 73.8567° E)',
     'check_in_latitude': 18.5204,
     'check_in_longitude': 73.8567,
-    'check_in_photo': dummy_b64
+    'check_in_photo': dummy_b64,
+    'back_camera_photo': dummy_b64
 }, format='json')
-print("\n[TEST 2: Clock-In / Start Day]")
+print("\n[TEST 2: Clock-In / Start Day with Front Selfie & Back Camera Photo]")
 print("Response:", res.status_code, res.data.get('status'), res.data.get('check_in'), res.data.get('current_location'))
 assert res.status_code == 201
 attendance_id = res.data.get('id')
 assert res.data.get('status') == 'Working'
 assert res.data.get('is_active') is True
+
+# Directly verify DB record in PostgreSQL / SQLite
+att_db = Attendance.objects.get(id=attendance_id)
+assert att_db.check_in_photo, "Front selfie was not saved to DB"
+assert att_db.back_camera_photo, "Back camera photo was not saved to DB"
+print(f"DB Confirmation: Front photo: {att_db.check_in_photo.name}, Back photo: {att_db.back_camera_photo.name}")
 
 # Test 3: Active session check after clock in
 res = client_emp.get('/api/hr/attendance/active/')

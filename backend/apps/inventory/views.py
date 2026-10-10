@@ -12,6 +12,11 @@ class WarehouseViewSet(viewsets.ModelViewSet):
     serializer_class = WarehouseSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def initial(self, request, *args, **kwargs):
+        super().initial(request, *args, **kwargs)
+        if request.user.role not in [UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.WAREHOUSE]:
+            self.permission_denied(request, message="Unauthorized. Only Warehouse staff and Admin can access Warehouse inventory.")
+
     def get_queryset(self):
         # Auto-initialize default warehouse if none exists
         if not Warehouse.objects.exists():
@@ -26,6 +31,11 @@ class GodownViewSet(viewsets.ModelViewSet):
     queryset = Godown.objects.all()
     serializer_class = GodownSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def initial(self, request, *args, **kwargs):
+        super().initial(request, *args, **kwargs)
+        if request.user.role not in [UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.WAREHOUSE]:
+            self.permission_denied(request, message="Unauthorized. Only Warehouse staff and Admin can access Godown inventory.")
     
     def get_queryset(self):
         qs = super().get_queryset()

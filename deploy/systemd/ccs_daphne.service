@@ -5,13 +5,13 @@ Requires=postgresql.service redis.service
 
 [Service]
 Type=simple
-User=ccs
-Group=ccs
-WorkingDirectory=/var/www/ccs_connect/backend
-EnvironmentFile=/etc/ccs_connect/production.env
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/ccs-connect/backend
+EnvironmentFile=/var/www/ccs-connect/backend/.env
 
 # Daphne command serving ASGI application over local TCP port 8000
-ExecStart=/var/www/ccs_connect/backend/venv/bin/daphne \
+ExecStart=/var/www/ccs-connect/backend/venv/bin/daphne \
     -b 127.0.0.1 \
     -p 8000 \
     --access-log /var/log/ccs_connect/daphne_access.log \

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography, Paper, InputAdornment, IconButton, Alert, CircularProgress, Link as MuiLink } from '@mui/material';
 import { LockOutlined, EyeOutlined, EyeInvisibleOutlined, UserOutlined, AndroidOutlined } from '@ant-design/icons';
 // @ts-ignore
@@ -38,10 +38,12 @@ export function LoginPage() {
         navigate('/admin/dashboard');
       } else if (role.includes('warehouse')) {
         navigate('/warehouse/dispatch');
-      } else if (role.includes('distributor') || role.includes('employee') || role.includes('sales')) {
+      } else if (role.includes('employee') || role.includes('sales')) {
         navigate('/field/dashboard');
-      } else {
+      } else if (role.includes('distributor')) {
         navigate('/dealer/dashboard');
+      } else {
+        navigate('/field/dashboard');
       }
     } catch (err: any) {
       if (err?.response?.data?.error) {
@@ -114,7 +116,7 @@ export function LoginPage() {
           <form onSubmit={handleLogin}>
             <TextField
               fullWidth
-              label="Email / Username / Mobile"
+              label="User ID / Username / Email"
               variant="outlined"
               margin="normal"
               value={identifier}
@@ -150,10 +152,10 @@ export function LoginPage() {
               required
             />
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2, mb: 3 }}>
-              <MuiLink component={Link} to="/forgot-password" variant="body2" sx={{ color: 'primary.main', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>
-                Forgot Password / OTP Login
-              </MuiLink>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 1, mb: 3 }}>
+              <Typography variant="caption" color="textSecondary">
+                User ID & Password only. No OTP or role selection required.
+              </Typography>
             </Box>
 
             <Button
@@ -165,10 +167,13 @@ export function LoginPage() {
               disabled={loading}
               sx={{ py: 1.5, mb: 2, fontWeight: 'bold', fontSize: '1.1rem' }}
             >
-              {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'}
+              {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In to CCS Connect'}
             </Button>
 
             <Box sx={{ textAlign: 'center', mt: 2, pt: 2, borderTop: '1px solid #e2e8f0' }}>
+              <Typography variant="caption" color="textSecondary" sx={{ display: 'block', mb: 1 }}>
+                Android User? Use the official mobile client:
+              </Typography>
               <MuiLink
                 href="/downloads/CCS-Connect.apk"
                 download="CCS-Connect.apk"
@@ -177,13 +182,13 @@ export function LoginPage() {
                   alignItems: 'center',
                   gap: 1,
                   color: '#16a34a',
-                  fontWeight: 600,
-                  fontSize: '0.875rem',
+                  fontWeight: 700,
+                  fontSize: '0.9rem',
                   textDecoration: 'none',
                   '&:hover': { textDecoration: 'underline', color: '#15803d' }
                 }}
               >
-                <AndroidOutlined style={{ fontSize: '18px' }} /> Download Android App (APK)
+                <AndroidOutlined style={{ fontSize: '20px' }} /> Download Android App (APK)
               </MuiLink>
             </Box>
           </form>

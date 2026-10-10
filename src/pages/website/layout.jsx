@@ -46,10 +46,18 @@ export default function WebsiteLayout() {
         <Container maxWidth="xl">
           <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 0, sm: 2 } }}>
             <Stack direction="row" alignItems="center" spacing={1.5} component={RouterLink} to="/" sx={{ textDecoration: 'none', color: 'primary.main' }}>
-              <img src="/logo.png" alt="CCS" style={{ height: 45 }} onError={(e) => e.target.style.display='none'} />
-              <Typography variant="h4" fontWeight="800" sx={{ letterSpacing: '-0.5px' }}>CCS Partners</Typography>
+              <img src="/logo.png" alt="CCS" style={{ height: 42 }} onError={(e) => e.target.style.display='none'} />
+              <Box>
+                <Typography variant="h5" fontWeight="900" sx={{ letterSpacing: '-0.5px', color: '#16a34a', lineHeight: 1.1 }}>
+                  Chitra Crop Science
+                </Typography>
+                <Typography variant="caption" fontWeight="700" sx={{ color: '#4b5563', letterSpacing: '0.5px', display: 'block', fontSize: '0.75rem' }}>
+                  CCS CONNECT ERP
+                </Typography>
+              </Box>
             </Stack>
             
+            {/* Desktop Navigation & Actions */}
             <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
               {navItems.map((item) => (
                 <Button 
@@ -60,7 +68,7 @@ export default function WebsiteLayout() {
                     color: location.pathname === item.path ? 'primary.main' : 'text.primary',
                     fontWeight: 600,
                     textTransform: 'none',
-                    fontSize: '1rem',
+                    fontSize: '0.95rem',
                     '&:hover': { color: 'primary.main', bgcolor: 'transparent' }
                   }}
                 >
@@ -99,7 +107,34 @@ export default function WebsiteLayout() {
                   px: 2.5
                 }}
               >
-                Partner Login
+                Login to CCS Connect
+              </Button>
+            </Stack>
+
+            {/* Mobile Actions: Prominent Login & Download */}
+            <Stack direction="row" spacing={1} sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}>
+              <Button
+                component="a"
+                href="/downloads/CCS-Connect.apk"
+                download="CCS-Connect.apk"
+                variant="outlined"
+                color="success"
+                size="small"
+                startIcon={<AndroidOutlined />}
+                sx={{ fontWeight: 700, textTransform: 'none', px: 1.2, py: 0.5, fontSize: '0.75rem' }}
+              >
+                APK
+              </Button>
+
+              <Button
+                component={RouterLink}
+                to="/login"
+                variant="contained"
+                color="primary"
+                size="small"
+                sx={{ fontWeight: 700, textTransform: 'none', px: 1.5, py: 0.5, fontSize: '0.75rem' }}
+              >
+                Login
               </Button>
             </Stack>
           </Toolbar>

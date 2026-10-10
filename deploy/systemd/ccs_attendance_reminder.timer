@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer for CCS Connect 10:00 AM Asia/Kolkata Start Day Reminder Job
+
+[Timer]
+# Fires at 10:00:00 AM Indian Standard Time (Asia/Kolkata) every day
+OnCalendar=*-*-* 10:00:00 Asia/Kolkata
+Persistent=true
+
+[Install]
+WantedBy=timers.target

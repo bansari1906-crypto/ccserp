@@ -31,38 +31,38 @@ const pendingPaymentsList = [
   { id: 'INV-1024', dealer: 'Shree Krishna Agro Center', amount: 45000, due: 'Due Today' },
 ];
 
+import { fetchActiveAttendance } from '../../services/attendanceService';
+import StartDayDialog from '../../components/attendance/StartDayDialog';
+import EndDayDialog from '../../components/attendance/EndDayDialog';
+
 export default function DistributorDashboard({ data }) {
   const navigate = useNavigate();
-  const [isCheckedIn, setIsCheckedIn] = useState(false);
-  const [location, setLocation] = useState('');
+  const [activeAtt, setActiveAtt] = useState({ active: false, completed: false, attendance: null });
+  const [startDialogOpen, setStartDialogOpen] = useState(false);
+  const [endDialogOpen, setEndDialogOpen] = useState(false);
   
+  const loadAttendance = async () => {
+    try {
+      const res = await fetchActiveAttendance();
+      setActiveAtt(res);
+    } catch (err) {
+      console.warn('DistributorDashboard attendance fetch error:', err);
+    }
+  };
+
   useEffect(() => {
-    // Check if already checked in from local storage or context (mocking for now)
-    const status = localStorage.getItem('field_checked_in') === 'true';
-    setIsCheckedIn(status);
+    loadAttendance();
   }, []);
 
+  const isCheckedIn = activeAtt.active;
+  const isCompleted = activeAtt.completed;
+  const currentAtt = activeAtt.attendance;
+
   const handleCheckInOut = () => {
-    if (!isCheckedIn) {
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          pos => {
-            setLocation(`${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`);
-            setIsCheckedIn(true);
-            localStorage.setItem('field_checked_in', 'true');
-            alert('Successfully Checked In for the day!');
-          },
-          err => {
-            alert('Please enable location access to check in.');
-          }
-        );
-      } else {
-        alert('Geolocation is not supported by your browser.');
-      }
+    if (isCheckedIn) {
+      setEndDialogOpen(true);
     } else {
-      setIsCheckedIn(false);
-      localStorage.setItem('field_checked_in', 'false');
-      alert('Successfully Checked Out. Dont forget to submit your Daily Report!');
+      setStartDialogOpen(true);
     }
   };
 
@@ -70,25 +70,30 @@ export default function DistributorDashboard({ data }) {
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* Check In / Out Hero Banner */}
       <Grid item xs={12}>
-        <MainCard sx={{ bgcolor: isCheckedIn ? 'success.lighter' : 'primary.lighter', borderColor: isCheckedIn ? 'success.main' : 'primary.main', borderStyle: 'solid', borderWidth: 2 }}>
+        <MainCard sx={{ bgcolor: isCheckedIn ? 'success.lighter' : isCompleted ? '#f8fafc' : 'primary.lighter', borderColor: isCheckedIn ? 'success.main' : isCompleted ? '#94a3b8' : 'primary.main', borderStyle: 'solid', borderWidth: 2 }}>
           <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="center" spacing={2}>
             <Box>
-              <Typography variant="h4" color={isCheckedIn ? 'success.dark' : 'primary.dark'}>
-                {isCheckedIn ? "You are currently Checked In (Field Work Active)" : "Ready to start your day in the field?"}
+              <Typography variant="h4" color={isCheckedIn ? 'success.dark' : isCompleted ? 'textPrimary' : 'primary.dark'} fontWeight={800}>
+                {isCheckedIn ? "You are currently Checked In (Field Work Active)" : isCompleted ? "Field Shift Completed Today" : "Ready to start your day in the field?"}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary" mt={0.5}>
-                {isCheckedIn ? `Started at ${new Date().toLocaleTimeString()} • Location: ${location}` : "Please check in to start logging visits and expenses."}
+                {isCheckedIn 
+                  ? `Started at ${currentAtt?.check_in || 'Morning'} • Location: ${currentAtt?.check_in_location || 'GPS Verified'}` 
+                  : isCompleted 
+                  ? `Completed at ${currentAtt?.check_out || 'Today'} (${currentAtt?.working_hours || 0}h recorded)` 
+                  : "Please check in to start logging field visits and orders."}
               </Typography>
             </Box>
             <Button 
               variant="contained" 
-              color={isCheckedIn ? "error" : "primary"}
+              color={isCheckedIn ? "error" : isCompleted ? "inherit" : "primary"}
               size="large"
+              disabled={isCompleted}
               onClick={handleCheckInOut}
               startIcon={isCheckedIn ? <LogoutOutlined /> : <CheckCircleOutlined />}
               sx={{ px: 4, py: 1.5, fontSize: '1.1rem', borderRadius: 2 }}
             >
-              {isCheckedIn ? "Check Out / End Day" : "Check In / Start Day"}
+              {isCheckedIn ? "Check Out / End Day" : isCompleted ? "Shift Ended" : "Start Day / Check In"}
             </Button>
           </Stack>
         </MainCard>
@@ -170,6 +175,18 @@ export default function DistributorDashboard({ data }) {
           </List>
         </MainCard>
       </Grid>
+
+      {/* Dialogs */}
+      <StartDayDialog 
+        open={startDialogOpen} 
+        onClose={() => setStartDialogOpen(false)} 
+        onSuccess={() => loadAttendance()} 
+      />
+      <EndDayDialog 
+        open={endDialogOpen} 
+        onClose={() => setEndDialogOpen(false)} 
+        onSuccess={() => loadAttendance()} 
+      />
     </Grid>
   );
 }

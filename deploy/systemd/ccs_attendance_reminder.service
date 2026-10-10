@@ -1,0 +1,13 @@
+[Unit]
+Description=CCS Connect - 10 AM Start Day Attendance Reminder Job
+After=network.target postgresql.service redis.service
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/ccs-connect/backend
+EnvironmentFile=/var/www/ccs-connect/backend/.env
+ExecStart=/var/www/ccs-connect/backend/venv/bin/python manage.py send_start_day_reminders
+StandardOutput=journal
+StandardError=journal

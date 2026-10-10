@@ -18,17 +18,47 @@ from .serializers import AttendanceSerializer, DealerVisitSerializer, ExpenseSer
 def save_base64_image(image_data, prefix="attendance"):
     if not image_data or not isinstance(image_data, str):
         return None
-    if "base64," in image_data:
-        try:
-            fmt, imgstr = image_data.split(";base64,")
-            ext = fmt.split("/")[-1].lower()
-            if ext == "jpeg":
-                ext = "jpg"
-            file_name = f"{prefix}_{uuid.uuid4().hex[:8]}.{ext}"
-            return ContentFile(base64.b64decode(imgstr), name=file_name)
-        except Exception:
+    image_str = image_data.strip()
+    if not image_str:
+        return None
+
+    ext = "jpg"
+    raw_b64 = image_str
+
+    if ";base64," in image_str:
+        header, raw_b64 = image_str.split(";base64,", 1)
+        if "png" in header.lower():
+            ext = "png"
+        elif "webp" in header.lower():
+            ext = "webp"
+        elif "jpeg" in header.lower() or "jpg" in header.lower():
+            ext = "jpg"
+    elif image_str.startswith("data:") and "," in image_str:
+        header, raw_b64 = image_str.split(",", 1)
+        if "png" in header.lower():
+            ext = "png"
+        elif "webp" in header.lower():
+            ext = "webp"
+        elif "jpeg" in header.lower() or "jpg" in header.lower():
+            ext = "jpg"
+
+    try:
+        decoded_bytes = base64.b64decode(raw_b64)
+        if not decoded_bytes:
             return None
-    return None
+
+        # Detect format from magic bytes if not already specified
+        if decoded_bytes.startswith(b'\x89PNG\r\n\x1a\n'):
+            ext = "png"
+        elif decoded_bytes.startswith(b'\xff\xd8\xff'):
+            ext = "jpg"
+        elif decoded_bytes.startswith(b'RIFF') and b'WEBP' in decoded_bytes[:16]:
+            ext = "webp"
+
+        file_name = f"{prefix}_{uuid.uuid4().hex[:10]}.{ext}"
+        return ContentFile(decoded_bytes, name=file_name)
+    except Exception:
+        return None
 
 class LocationTrackViewSet(viewsets.ModelViewSet):
     serializer_class = LocationTrackSerializer
@@ -62,8 +92,8 @@ class HRBaseViewSet(viewsets.ModelViewSet):
 
     def initial(self, request, *args, **kwargs):
         super().initial(request, *args, **kwargs)
-        if request.user.role == UserRole.DEALER:
-            self.permission_denied(request, message="Dealers are not allowed to access HR modules.")
+        if request.user.role not in [UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.EMPLOYEE]:
+            self.permission_denied(request, message="Unauthorized. Only Employees and Admins can access HR modules.")
 
     def perform_create(self, serializer):
         serializer.save(employee=self.request.user)
@@ -96,9 +126,23 @@ class AttendanceViewSet(HRBaseViewSet):
         check_in_location = request.data.get('check_in_location') or request.data.get('location') or 'Current Location'
         latitude = request.data.get('check_in_latitude') or request.data.get('latitude')
         longitude = request.data.get('check_in_longitude') or request.data.get('longitude')
-        photo_raw = request.data.get('check_in_photo') or request.data.get('photo')
         
-        photo_file = save_base64_image(photo_raw, prefix="checkin")
+        photo_raw = request.data.get('check_in_photo') or request.data.get('photo')
+        back_photo_raw = request.data.get('back_camera_photo') or request.data.get('back_photo')
+        
+        photo_file = save_base64_image(photo_raw, prefix="checkin_front")
+        back_photo_file = save_base64_image(back_photo_raw, prefix="checkin_back")
+        
+        # Support multipart file uploads directly if provided
+        if not photo_file and 'check_in_photo' in request.FILES:
+            photo_file = request.FILES['check_in_photo']
+        elif not photo_file and 'photo' in request.FILES:
+            photo_file = request.FILES['photo']
+            
+        if not back_photo_file and 'back_camera_photo' in request.FILES:
+            back_photo_file = request.FILES['back_camera_photo']
+        elif not back_photo_file and 'back_photo' in request.FILES:
+            back_photo_file = request.FILES['back_photo']
 
         attendance = Attendance(
             employee=request.user,
@@ -116,6 +160,8 @@ class AttendanceViewSet(HRBaseViewSet):
         )
         if photo_file:
             attendance.check_in_photo = photo_file
+        if back_photo_file:
+            attendance.back_camera_photo = back_photo_file
             
         attendance.save()
 
@@ -283,9 +329,25 @@ class ExpenseViewSet(HRBaseViewSet):
     def get_queryset(self):
         user = self.request.user
         qs = Expense.objects.select_related('employee', 'approved_by').order_by('-date', '-created_at')
-        if user.role in [UserRole.SUPER_ADMIN, UserRole.ADMIN]:
-            return qs
-        return qs.filter(employee=user)
+        if user.role not in [UserRole.SUPER_ADMIN, UserRole.ADMIN]:
+            qs = qs.filter(employee=user)
+
+        status_param = self.request.query_params.get('status')
+        if status_param and status_param != 'All':
+            qs = qs.filter(status=status_param)
+
+        month_param = self.request.query_params.get('month')
+        if month_param and month_param != 'All Months':
+            try:
+                if '-' in month_param:
+                    year, month = month_param.split('-')[:2]
+                    qs = qs.filter(date__year=int(year), date__month=int(month))
+                else:
+                    qs = qs.filter(date__month=int(month_param))
+            except (ValueError, TypeError):
+                pass
+
+        return qs
 
     def perform_create(self, serializer):
         user = self.request.user
@@ -313,6 +375,15 @@ class ExpenseViewSet(HRBaseViewSet):
             extra_kwargs['km_amount'] = km_amount
         elif serializer.validated_data.get('km_rate') is None:
             extra_kwargs['km_rate'] = assigned_rate
+
+        # Support base64 or file upload for bill
+        bill_raw = self.request.data.get('bill') or self.request.data.get('bill_image') or self.request.data.get('proof_image')
+        if bill_raw:
+            bill_file = save_base64_image(bill_raw, prefix="expense_bill")
+            if bill_file:
+                extra_kwargs['bill'] = bill_file
+        elif 'bill' in self.request.FILES:
+            extra_kwargs['bill'] = self.request.FILES['bill']
 
         # If amount not explicitly passed or 0, auto-sum km_amount + breakdown fares
         if not serializer.validated_data.get('amount'):

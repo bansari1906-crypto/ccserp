@@ -6,7 +6,7 @@ import api from 'api/client';
 
 import AdminDashboard from './AdminDashboard';
 import FieldDashboard from './FieldDashboard';
-import DealerDashboard from './DealerDashboard';
+import EmployeeDashboard from './EmployeeDashboard';
 
 export default function DashboardDefault() {
   const { user } = useAuth();
@@ -63,16 +63,20 @@ export default function DashboardDefault() {
     );
   }
 
-  // Route to the specific role dashboard
-  const role = user?.role;
+  // Route strictly according to the 4 final system roles:
+  // 1. Admin
+  // 2. Employee
+  // 3. Distributor
+  // 4. Warehouse
+  const role = (user?.role || '').toLowerCase();
   
-  if (role === 'Super Admin' || role === 'Admin') {
+  if (role.includes('admin')) {
     return <AdminDashboard data={data} />;
-  } else if (role === 'Distributor' || role === 'Employee' || role === 'Sales Manager') {
+  } else if (role.includes('employee') || role.includes('sales')) {
+    return <EmployeeDashboard data={data} />;
+  } else if (role.includes('distributor')) {
     return <FieldDashboard data={data} />;
-  } else if (role === 'Dealer') {
-    return <DealerDashboard data={data} />;
   }
 
-  return <DealerDashboard data={data} />;
+  return <EmployeeDashboard data={data} />;
 }

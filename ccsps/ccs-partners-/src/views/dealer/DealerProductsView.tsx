@@ -85,10 +85,18 @@ export const DealerProductsView: React.FC<DealerProductsViewProps> = ({
                 alt={prod.name}
                 className="max-h-full max-w-full object-contain filter drop-shadow-sm"
               />
-              <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-[#dcfce7] text-[#14532d] text-[10px] font-bold border border-[#86efac] rounded-full">
+              <span className={`absolute top-2.5 left-2.5 px-2 py-0.5 text-[10px] font-bold rounded-full border ${
+                (prod.is_available ?? (prod.status === 'Available' || prod.status === 'Active'))
+                  ? 'bg-[#dcfce7] text-[#14532d] border-[#86efac]'
+                  : 'bg-[#fee2e2] text-[#991b1b] border-[#fca5a5]'
+              }`}>
+                {(prod.is_available ?? (prod.status === 'Available' || prod.status === 'Active')) ? 'Available' : 'Unavailable'}
+              </span>
+              <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-[#f1f5f9] text-[#334155] text-[10px] font-bold border border-[#cbd5e1] rounded-full">
                 {prod.category}
               </span>
             </div>
+
 
             {/* Product Metadata Content */}
             <div className="p-4 flex-1 flex flex-col justify-between space-y-3">

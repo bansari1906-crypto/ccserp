@@ -1,47 +1,90 @@
-# Logs
-logs
+# ==============================================================================
+# CCS CONNECT ERP — GITIGNORE SPECIFICATION
+# ==============================================================================
+
+# Logs & System
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 lerna-debug.log*
+.system_generated/
+*.system_generated/
 
-node_modules
-dist
-dist-ssr
+# Dependency directories
+node_modules/
+**/node_modules/
+venv/
+**/venv/
+env/
+**/env/
+
+# Build & Bundler output
+dist/
+dist-ssr/
+**/dist/
+**/dist-ssr/
+.vite/
+**/.vite/
 *.local
+
+# Environment variables & Secrets
 .env
 *.env
 *.env.*
+!*.env.example
+!*.env.template
+!env.production.template
+
+# Security keys & Keystores & Certificates
+*.keystore
+*.jks
+*.p12
+*.pem
+*.key
+*.crt
 
 # Python / Django
 __pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 *.sqlite3
 db.sqlite3
+**/db.sqlite3
 media/
+**/media/
 staticfiles/
+**/staticfiles/
 backups/
+**/backups/
 *.dump
+*.sql
 *.rdb
 *.bak
+*.tar.gz
+*.tgz
+*dump*.json
+database_backup_*.json
 
-# Editor directories and files
+# Sensitive local setup & login verification scripts (contain real account credentials)
+backend/setup_live_accounts.py
+backend/verify_logins.py
+
+# Editor & OS files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-# Temporary export folders
-ccserp/
-cloudflared.exe
-*.zip
+# Android / Mobile Builds
 android/.gradle/
 android/build/
 android/app/build/
@@ -49,8 +92,11 @@ android/local.properties
 android/captures/
 android/.cxx/
 *.apk
-dist/
-dist-ssr/
-ccsps/ccs-partners-/dist/
+*.aab
+
+# Cloudflared & Temp zips
+cloudflared.exe
+*.zip
 .git_sub_bak/
 **/.git_sub_bak/
+ccserp/

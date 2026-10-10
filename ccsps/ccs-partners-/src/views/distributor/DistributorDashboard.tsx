@@ -109,7 +109,7 @@ export const DistributorDashboard: React.FC<DistributorDashboardProps> = ({
                 {isWorking ? (
                   <span className="px-2 py-0.5 bg-[#dcfce7] text-[#15803d] font-extrabold text-[10px] border border-[#86efac] rounded-full flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] animate-pulse" />
-                    Working
+                    Started / Checked In
                   </span>
                 ) : isCompleted ? (
                   <span className="px-2 py-0.5 bg-[#ccfbf1] text-[#0f766e] font-extrabold text-[10px] border border-[#5eead4] rounded-full flex items-center gap-1">

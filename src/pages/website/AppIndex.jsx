@@ -5,8 +5,7 @@ export default function AppIndex() {
   const isNativeApp = typeof window !== 'undefined' && (
     window.location.protocol === 'capacitor:' || 
     Boolean(window.Capacitor?.isNativePlatform?.()) ||
-    (window.location.hostname === 'localhost' && !import.meta.env.DEV) ||
-    window.location.hostname.includes('partners')
+    (window.location.hostname === 'localhost' && !import.meta.env.DEV)
   );
 
   if (isNativeApp) {

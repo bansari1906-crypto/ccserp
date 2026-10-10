@@ -127,32 +127,74 @@ class UserManagementListView(APIView):
         username = request.data.get('username')
         password = request.data.get('password', 'ccs12345') # Default password
         phone = request.data.get('phone', '')
-        role = request.data.get('role', 'Employee')
+        raw_role = request.data.get('role', 'Employee').upper()
+        role_map = {
+            'ADMIN': UserRole.ADMIN,
+            'EMPLOYEE': UserRole.EMPLOYEE,
+            'DISTRIBUTOR': UserRole.DISTRIBUTOR,
+            'WAREHOUSE': UserRole.WAREHOUSE,
+        }
+        if raw_role not in role_map:
+            return Response(
+                {"error": f"Invalid role '{raw_role}'. Allowed roles are: ADMIN, EMPLOYEE, DISTRIBUTOR, WAREHOUSE. (Dealer role is discontinued)"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        role = role_map[raw_role]
         
+        name = request.data.get('name', '').strip()
+        first_name = name
+        last_name = ''
+        if ' ' in name:
+            parts = name.split(' ', 1)
+            first_name, last_name = parts[0], parts[1]
+
+        email = request.data.get('email')
+        if not email:
+            email = f"{username.lower()}@chitracropscience.com"
+
         try:
-            user = AuthService.register_user(email=email, username=username, password=password, phone=phone, role=role)
-            user.status = UserStatus.APPROVED
-            user.is_active = True
-            user.joining_date = request.data.get('joining_date')
+            user = User.objects.create(
+                username=username,
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                phone=phone,
+                role=role,
+                status=UserStatus.APPROVED,
+                is_active=request.data.get('is_active', True),
+                is_verified=True,
+                is_staff=(role == UserRole.ADMIN),
+                is_superuser=(role == UserRole.ADMIN),
+                joining_date=request.data.get('joining_date')
+            )
+            user.set_password(password)
             user.save()
             
             # Update Profiles
+            from ..models import KYCProfile
+            KYCProfile.objects.get_or_create(user=user)
+
             if role == UserRole.DISTRIBUTOR:
                 profile, _ = DistributorProfile.objects.get_or_create(user=user)
+                profile.company_name = name or username
                 profile.state = request.data.get('state')
                 profile.district = request.data.get('district')
                 profile.territory = request.data.get('territory')
                 profile.monthly_sales_plan = request.data.get('monthly_sales_plan', 0.00) or 0.00
                 profile.monthly_collection_plan = request.data.get('monthly_collection_plan', 0.00) or 0.00
                 profile.save()
-            elif role in ['Employee', 'EMPLOYEE']:
+            elif role == UserRole.EMPLOYEE:
                 profile, _ = EmployeeProfile.objects.get_or_create(user=user)
+                profile.designation = request.data.get('designation', 'Field Executive')
                 profile.state = request.data.get('state')
                 profile.district = request.data.get('district')
                 profile.territory = request.data.get('territory')
                 profile.monthly_sales_plan = request.data.get('monthly_sales_plan', 0.00) or 0.00
                 profile.monthly_collection_plan = request.data.get('monthly_collection_plan', 0.00) or 0.00
                 profile.save()
+            elif role == UserRole.ADMIN:
+                from ..models import AdminProfile
+                AdminProfile.objects.get_or_create(user=user)
                 
             from ..serializers import UserSerializer
             return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)

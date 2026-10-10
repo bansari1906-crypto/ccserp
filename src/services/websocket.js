@@ -41,7 +41,7 @@ class WebSocketService {
     );
 
     if (isNativeApp) {
-      return `wss://acid-everywhere-equation-network.trycloudflare.com/ws/events/?token=${encodeURIComponent(token)}`;
+      return `wss://chitracropsciencepartners.com/ws/events/?token=${encodeURIComponent(token)}`;
     }
 
     if (import.meta.env.DEV) {

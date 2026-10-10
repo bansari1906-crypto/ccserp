@@ -9,6 +9,8 @@ interface DistributorDashboardProps {
   dealers?: Dealer[];
   onSelectOrder?: (order: Order) => void;
   onCreateOrder?: () => void;
+  onCheckIn?: () => void;
+  activeAttendance?: any;
 }
 
 export const DistributorDashboard: React.FC<DistributorDashboardProps> = ({
@@ -17,6 +19,8 @@ export const DistributorDashboard: React.FC<DistributorDashboardProps> = ({
   dealers = [],
   onSelectOrder,
   onCreateOrder,
+  onCheckIn,
+  activeAttendance,
 }) => {
   const distributorOrders = (orders || []).filter(
     (o) => o && (o.distributorId === currentUser?.id || o.distributorName === currentUser?.businessName)
@@ -92,13 +96,22 @@ export const DistributorDashboard: React.FC<DistributorDashboardProps> = ({
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-[#e2e8f0] hover:border-[#2E7D32] transition-all cursor-pointer shadow-xs hover:shadow-md flex items-center gap-3">
-          <div className="w-11 h-11 bg-[#E8F5E9] text-[#1B5E20] rounded-full flex items-center justify-center font-bold text-lg">
-            ✓
+        <div 
+          onClick={onCheckIn}
+          className="bg-white p-5 rounded-2xl border border-[#e2e8f0] hover:border-[#2E7D32] transition-all cursor-pointer shadow-xs hover:shadow-md flex items-center gap-3"
+        >
+          <div className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg ${activeAttendance?.active ? 'bg-[#E8F5E9] text-[#1B5E20]' : 'bg-[#eff6ff] text-[#2563eb]'}`}>
+            {activeAttendance?.active ? '✓' : '📍'}
           </div>
           <div>
-            <div className="font-bold text-[#1B5E20] text-sm">Daily Field Check-in</div>
-            <div className="text-xs text-[#2E7D32] font-bold">✓ Checked in at 08:55 AM (Palanpur Hub)</div>
+            <div className="font-bold text-[#1B5E20] text-sm">Daily Field Check-in (Start Day)</div>
+            <div className={`text-xs font-bold ${activeAttendance?.active ? 'text-[#2E7D32]' : 'text-[#2563eb]'}`}>
+              {activeAttendance?.active 
+                ? `✓ Checked in at ${activeAttendance?.attendance?.check_in || 'Morning'}` 
+                : activeAttendance?.completed
+                ? `✓ Shift Ended (${activeAttendance?.attendance?.working_hours || 0}h)`
+                : 'Click to start day with GPS verification'}
+            </div>
           </div>
         </div>
 

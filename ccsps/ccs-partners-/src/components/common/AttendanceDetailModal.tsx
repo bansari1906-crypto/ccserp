@@ -113,30 +113,40 @@ export const AttendanceDetailModal: React.FC<AttendanceDetailModalProps> = ({
           </div>
 
           {/* Photos */}
-          {(record.loginImage || record.logoutImage) && (
+          {(record.loginImage || record.backCameraImage || record.logoutImage) && (
             <div>
               <h4 className="text-xs font-bold text-[#0f172a] mb-2 flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-[16px] text-[#64748b]">photo_library</span>
-                Check-In & Check-Out Photos
+                Verified Attendance Photos
               </h4>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {record.loginImage && (
                   <div className="border border-[#e2e8f0] rounded-lg p-2 bg-[#f8fafc]">
-                    <span className="text-[10px] font-bold text-[#64748b] block mb-1">Check-In Photo</span>
+                    <span className="text-[10px] font-bold text-[#16a34a] block mb-1">📷 Front Selfie</span>
                     <img
                       src={record.loginImage}
-                      alt="Check-In"
-                      className="w-full h-36 object-cover rounded-md border border-[#cbd5e1]"
+                      alt="Front Selfie"
+                      className="w-full h-32 object-cover rounded-md border border-[#cbd5e1]"
+                    />
+                  </div>
+                )}
+                {record.backCameraImage && (
+                  <div className="border border-[#e2e8f0] rounded-lg p-2 bg-[#f8fafc]">
+                    <span className="text-[10px] font-bold text-[#0284c7] block mb-1">📷 Back Camera Photo</span>
+                    <img
+                      src={record.backCameraImage}
+                      alt="Back Camera Photo"
+                      className="w-full h-32 object-cover rounded-md border border-[#cbd5e1]"
                     />
                   </div>
                 )}
                 {record.logoutImage && (
                   <div className="border border-[#e2e8f0] rounded-lg p-2 bg-[#f8fafc]">
-                    <span className="text-[10px] font-bold text-[#64748b] block mb-1">Check-Out Photo</span>
+                    <span className="text-[10px] font-bold text-[#dc2626] block mb-1">📷 Check-Out Photo</span>
                     <img
                       src={record.logoutImage}
                       alt="Check-Out"
-                      className="w-full h-36 object-cover rounded-md border border-[#cbd5e1]"
+                      className="w-full h-32 object-cover rounded-md border border-[#cbd5e1]"
                     />
                   </div>
                 )}

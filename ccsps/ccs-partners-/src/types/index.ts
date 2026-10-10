@@ -1,4 +1,4 @@
-export type UserRole = 'ADMIN' | 'DISTRIBUTOR' | 'DEALER' | 'WAREHOUSE';
+export type UserRole = 'ADMIN' | 'EMPLOYEE' | 'DISTRIBUTOR' | 'WAREHOUSE';
 
 export interface User {
   id: string;
@@ -130,19 +130,21 @@ export interface Product {
   code: string;
   name: string;
   technicalName: string;
-  category: 'Fertilizers' | 'Pesticides' | 'Seeds' | 'Bio Products' | 'Fungicides';
+  category: string;
   packSize: string;
   mrp: number;
   dealerPrice: number;
-  distributorPrice: number;
-  stock: number;
-  reservedStock: number;
-  warehouse: string;
-  recommendedCrops: string[];
-  dosage: string;
-  description: string;
-  imageUrl: string;
-  status: 'In Stock' | 'Low Stock' | 'Out of Stock';
+  distributorPrice?: number;
+  gst?: number;
+  stock?: number;
+  reservedStock?: number;
+  warehouse?: string;
+  recommendedCrops?: string[];
+  dosage?: string;
+  description?: string;
+  imageUrl?: string;
+  status: 'Available' | 'Unavailable' | string;
+  is_available?: boolean;
 }
 
 export interface AttendanceRecord {
@@ -170,6 +172,7 @@ export interface AttendanceRecord {
   currentLocationTimestamp?: string;
   isActive?: boolean;
   loginImage?: string;
+  backCameraImage?: string;
   logoutImage?: string;
   reason?: string;
 }
@@ -264,3 +267,17 @@ export interface LedgerEntry {
   credit: number;
   balance: number;
 }
+
+export interface NotificationItem {
+  id: string;
+  title: string;
+  message: string;
+  type: string;
+  eventType?: string;
+  referenceId?: string;
+  referenceType?: string;
+  destination?: string;
+  isRead: boolean;
+  createdAt: string;
+}
+

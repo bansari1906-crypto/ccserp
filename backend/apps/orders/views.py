@@ -30,20 +30,20 @@ class OrderViewSet(viewsets.ModelViewSet):
                 OrderStatus.DISPATCHED,
                 OrderStatus.DELIVERED
             ])
-        elif user.role == UserRole.DEALER:
+        elif user.role in [UserRole.DISTRIBUTOR, UserRole.DEALER]:
             return qs.filter(dealer=user)
-        else: # Distributor / Employee
+        else: # Employee
             return qs.filter(created_by=user)
 
     def create(self, request, *args, **kwargs):
         data = request.data
-        if request.user.role == UserRole.DEALER:
+        if request.user.role in [UserRole.DISTRIBUTOR, UserRole.DEALER]:
             dealer_id = request.user.id
         else:
-            dealer_id = data.get('dealer')
+            dealer_id = data.get('dealer') or data.get('dealer_id')
             if not dealer_id:
                 from apps.accounts.models import User
-                first_dealer = User.objects.filter(role=UserRole.DEALER).first()
+                first_dealer = User.objects.filter(role__in=[UserRole.DISTRIBUTOR, UserRole.DEALER]).first()
                 dealer_id = first_dealer.id if first_dealer else request.user.id
         items_data = data.get('items', [])
         
@@ -63,21 +63,33 @@ class OrderViewSet(viewsets.ModelViewSet):
         grand_total = Decimal('0.00')
         
         for item in items_data:
-            product = Product.objects.filter(id=item['product']).first() or Product.objects.first()
-            if not product:
+            product_id = item.get('product') or item.get('product_id')
+            if not product_id:
                 order.delete()
-                return Response({"error": "Product not found."}, status=status.HTTP_400_BAD_REQUEST)
-            qty = int(item['quantity'])
-            
-            # Use provided rate or fallback to dealer_price
-            rate = Decimal(str(item.get('rate', product.dealer_price)))
-            discount = Decimal(str(item.get('discount', '0.00')))
-            
-            # Prevent ordering if out of stock
-            if product.stock < qty:
+                return Response({"error": "Product ID is required for each order item."}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                product = Product.objects.get(id=product_id)
+            except (Product.DoesNotExist, ValueError):
                 order.delete()
-                return Response({"error": f"Product {product.name} is out of stock (Available: {product.stock})."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error": f"Product with ID '{product_id}' was not found."}, status=status.HTTP_400_BAD_REQUEST)
+
+            if not product.is_available:
+                order.delete()
+                return Response({"error": f"Product '{product.name}' is currently Unavailable ({product.status}) and cannot be ordered."}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                qty = int(item.get('quantity', 0))
+            except (ValueError, TypeError):
+                qty = 0
+
+            if qty <= 0:
+                order.delete()
+                return Response({"error": f"Quantity for product '{product.name}' must be at least 1."}, status=status.HTTP_400_BAD_REQUEST)
                 
+            # Enforce backend authoritative rate: NEVER trust frontend rate
+            rate = Decimal(str(product.dealer_price if product.dealer_price and product.dealer_price > 0 else product.mrp))
+            discount = Decimal('0.00')
             base_price = rate * qty - discount
             gst = base_price * (product.gst / Decimal('100.00'))
             total = base_price + gst
@@ -119,13 +131,18 @@ class OrderViewSet(viewsets.ModelViewSet):
         if order.status not in [OrderStatus.PENDING_APPROVAL, OrderStatus.DRAFT, OrderStatus.SUBMITTED]:
             return Response({"error": f"Can only approve orders in Pending Approval status. Current: {order.status}"}, status=status.HTTP_400_BAD_REQUEST)
             
-        # Deduct inventory
+        # Validate that every ordered product is still available
+        unavailable_products = []
         for item in order.items.all():
             product = item.product
-            if product.stock < item.quantity:
-                return Response({"error": f"Insufficient stock for {product.name} (Need {item.quantity}, Have {product.stock})."}, status=status.HTTP_400_BAD_REQUEST)
-            product.stock -= item.quantity
-            product.save()
+            if not product.is_available:
+                unavailable_products.append(f"{product.name} ({product.status})")
+
+        if unavailable_products:
+            return Response({
+                "error": f"Cannot approve order: The following product(s) are currently Unavailable: {', '.join(unavailable_products)}. Please resolve product availability before approval.",
+                "unavailable_products": unavailable_products
+            }, status=status.HTTP_400_BAD_REQUEST)
             
         order.status = OrderStatus.APPROVED
         order.save()
@@ -152,7 +169,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             target_user_ids=[str(order.dealer_id), str(order.created_by_id) if order.created_by_id else None]
         )
 
-        return Response({"message": "Order approved successfully and inventory updated.", "status": order.status})
+        return Response({"message": "Order approved successfully.", "status": order.status})
 
     @action(detail=True, methods=['post'])
     def reject(self, request, pk=None):
@@ -311,6 +328,30 @@ class OrderViewSet(viewsets.ModelViewSet):
             target_user_ids=[str(order.dealer_id), str(order.created_by_id) if order.created_by_id else None]
         )
 
+        from apps.notifications.services import notify_roles, notify_user
+        from apps.notifications.models import NotificationType
+        notify_roles(
+            roles=['Admin', 'Warehouse'],
+            title="LR Saved",
+            message=f"LR #{order.lr_number} generated for Order #{order.order_number} via {order.transport_details}. Status remains Ready to Dispatch.",
+            type=NotificationType.DISPATCH,
+            event_type='order.lr_saved',
+            reference_id=str(order.id),
+            reference_type='order',
+            destination='dispatch'
+        )
+        if order.dealer:
+            notify_user(
+                user=order.dealer,
+                title="LR Generated",
+                message=f"LR #{order.lr_number} generated for your order #{order.order_number} via {order.transport_details}.",
+                type=NotificationType.DISPATCH,
+                event_type='order.lr_saved',
+                reference_id=str(order.id),
+                reference_type='order',
+                destination='orders'
+            )
+
         return Response({
             "message": "LR Generated successfully. Ready for final authorized dispatch.",
             "status": order.status,
@@ -416,7 +457,7 @@ class InvoiceViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if user.role in [UserRole.SUPER_ADMIN, UserRole.ADMIN]:
             return Invoice.objects.all().order_by('-generated_at')
-        elif user.role == UserRole.DEALER:
+        elif user.role in [UserRole.DISTRIBUTOR, UserRole.DEALER]:
             return Invoice.objects.filter(order__dealer=user).order_by('-generated_at')
         return Invoice.objects.none()
         

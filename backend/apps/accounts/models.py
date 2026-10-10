@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 class UserRole(models.TextChoices):
     SUPER_ADMIN = 'Super Admin', _('Super Admin')
     ADMIN = 'Admin', _('Admin')
+    EMPLOYEE = 'Employee', _('Employee')
     DISTRIBUTOR = 'Distributor', _('Distributor')
     DEALER = 'Dealer', _('Dealer')
     WAREHOUSE = 'Warehouse', _('Warehouse')
@@ -27,7 +28,7 @@ class User(AbstractUser):
     ccs_id = models.CharField(max_length=50, unique=True, blank=True, null=True)
     email = models.EmailField(_('email address'), unique=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
-    role = models.CharField(max_length=20, choices=UserRole.choices, default=UserRole.DEALER)
+    role = models.CharField(max_length=20, choices=UserRole.choices, default=UserRole.EMPLOYEE)
     status = models.CharField(max_length=20, choices=UserStatus.choices, default=UserStatus.PENDING)
     is_verified = models.BooleanField(default=False)
     joining_date = models.DateField(blank=True, null=True)
@@ -43,24 +44,34 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if self.status == UserStatus.APPROVED and not self.ccs_id:
-            # Generate CCS ID
-            last_user = User.objects.filter(role=self.role, ccs_id__isnull=False).order_by('-created_at').first()
-            last_id = 0
-            if last_user and last_user.ccs_id:
-                try:
-                    last_id = int(last_user.ccs_id.split('-')[-1])
-                except ValueError:
-                    pass
-            new_id = last_id + 1
-            
             prefix = "EMP"
-            if self.role == UserRole.DEALER:
-                prefix = "DL"
-            elif self.role == UserRole.DISTRIBUTOR:
+            if self.role == UserRole.DISTRIBUTOR:
                 prefix = "DIST"
-            
-            self.ccs_id = f"CCS-{prefix}-{new_id:04d}"
-            
+            elif self.role == UserRole.WAREHOUSE:
+                prefix = "WH"
+            elif self.role in [UserRole.ADMIN, UserRole.SUPER_ADMIN]:
+                prefix = "ADM"
+            elif self.role == UserRole.DEALER:
+                prefix = "DL"
+
+            last_id = 0
+            existing_ids = User.objects.filter(ccs_id__startswith=f"CCS-{prefix}-").values_list('ccs_id', flat=True)
+            for cid in existing_ids:
+                try:
+                    num = int(cid.split('-')[-1])
+                    if num > last_id:
+                        last_id = num
+                except (ValueError, IndexError):
+                    pass
+
+            new_id = last_id + 1
+            candidate_id = f"CCS-{prefix}-{new_id:04d}"
+            while User.objects.filter(ccs_id=candidate_id).exists():
+                new_id += 1
+                candidate_id = f"CCS-{prefix}-{new_id:04d}"
+
+            self.ccs_id = candidate_id
+
         super().save(*args, **kwargs)
 
 class DealerProfile(models.Model):

@@ -30,15 +30,11 @@ const getBaseUrl = (): string => {
 
   // On native Android/Capacitor, localhost points to the device itself.
   // Connect to the official production server API.
-  if (isNativeApp) {
-    return 'https://chitracropsciencepartners.com/api';
+  if (isNativeApp || isHostingerDomain) {
+    return 'https://docs-organizational-beverages-improve.trycloudflare.com/api';
   }
 
-  if (isHostingerDomain) {
-    return '/api';
-  }
-
-  return '/api';
+  return 'https://docs-organizational-beverages-improve.trycloudflare.com/api';
 };
 
 const BASE_URL = getBaseUrl();

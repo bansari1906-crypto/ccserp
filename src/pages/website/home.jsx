@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 // @ts-ignore
-import api from 'api/client';
+import api, { APK_DOWNLOAD_URL } from 'api/client';
 import { products as mockProducts } from 'data/ccsMock';
 
 const stats = [
@@ -100,7 +100,7 @@ export default function Home() {
 
                 <Button 
                   component="a" 
-                  href="/downloads/CCS-Connect.apk" 
+                  href={APK_DOWNLOAD_URL} 
                   download="CCS-Connect.apk"
                   variant="contained" 
                   size="large" 
@@ -246,7 +246,7 @@ export default function Home() {
 
                   <Button
                     component="a"
-                    href="/downloads/CCS-Connect.apk"
+                    href={APK_DOWNLOAD_URL}
                     download="CCS-Connect.apk"
                     variant="outlined"
                     sx={{

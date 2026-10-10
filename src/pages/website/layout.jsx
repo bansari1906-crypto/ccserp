@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Outlet, Link as RouterLink, useLocation } from 'react-router-dom';
 import { Box, AppBar, Toolbar, Typography, Button, Container, Stack, Grid, IconButton, Divider, Link as MuiLink } from '@mui/material';
 import { FacebookOutlined, TwitterOutlined, InstagramOutlined, LinkedinOutlined, EnvironmentOutlined, PhoneOutlined, MailOutlined, AndroidOutlined } from '@ant-design/icons';
+import { APK_DOWNLOAD_URL } from '../../api/client';
 
 export default function WebsiteLayout() {
   const [scrolled, setScrolled] = useState(false);
@@ -78,7 +79,7 @@ export default function WebsiteLayout() {
               
               <Button
                 component="a"
-                href="/downloads/CCS-Connect.apk"
+                href={APK_DOWNLOAD_URL}
                 download="CCS-Connect.apk"
                 variant="outlined"
                 color="success"
@@ -115,7 +116,7 @@ export default function WebsiteLayout() {
             <Stack direction="row" spacing={1} sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}>
               <Button
                 component="a"
-                href="/downloads/CCS-Connect.apk"
+                href={APK_DOWNLOAD_URL}
                 download="CCS-Connect.apk"
                 variant="outlined"
                 color="success"
@@ -181,7 +182,7 @@ export default function WebsiteLayout() {
               <Stack spacing={2}>
                 <MuiLink component={RouterLink} to="/contact" sx={{ color: '#9ca3af', textDecoration: 'none', '&:hover': { color: 'primary.light' } }}>Contact Support</MuiLink>
                 <MuiLink 
-                  href="/downloads/CCS-Connect.apk" 
+                  href={APK_DOWNLOAD_URL} 
                   download="CCS-Connect.apk" 
                   sx={{ 
                     color: '#4ade80', 

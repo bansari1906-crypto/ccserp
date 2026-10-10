@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography, Paper, InputAdornment, IconButton, Alert, CircularProgress, Link as MuiLink } from '@mui/material';
 import { LockOutlined, EyeOutlined, EyeInvisibleOutlined, UserOutlined, AndroidOutlined } from '@ant-design/icons';
 // @ts-ignore
-import api from '../../api/client';
+import api, { APK_DOWNLOAD_URL } from '../../api/client';
 // @ts-ignore
 import useAuth from '../../hooks/useAuth';
 
@@ -175,7 +175,7 @@ export function LoginPage() {
                 Android User? Use the official mobile client:
               </Typography>
               <MuiLink
-                href="/downloads/CCS-Connect.apk"
+                href={APK_DOWNLOAD_URL}
                 download="CCS-Connect.apk"
                 sx={{
                   display: 'inline-flex',

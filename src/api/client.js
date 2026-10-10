@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const DEFAULT_PROD_API = 'https://chitracropsciencepartners.com/api';
+export const LIVE_BACKEND_URL = 'https://docs-organizational-beverages-improve.trycloudflare.com';
+export const LIVE_API_URL = `${LIVE_BACKEND_URL}/api`;
+export const APK_DOWNLOAD_URL = 
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_APK_URL) || 
+  `${LIVE_BACKEND_URL}/downloads/CCS-Connect.apk`;
 
 const isNativeApp = typeof window !== 'undefined' && (
   window.location.protocol === 'capacitor:' || 
@@ -8,10 +12,18 @@ const isNativeApp = typeof window !== 'undefined' && (
   (window.location.hostname === 'localhost' && !import.meta.env.DEV)
 );
 
-const API_URL = 
-  import.meta.env.VITE_API_URL || 
-  import.meta.env.VITE_APP_API_URL || 
-  (isNativeApp ? DEFAULT_PROD_API : (import.meta.env.DEV ? 'http://localhost:8000/api' : '/api'));
+const getApiUrl = () => {
+  if (typeof window !== 'undefined') {
+    const custom = localStorage.getItem('api_server_url') || localStorage.getItem('ccs_api_url');
+    if (custom) return custom.replace(/\/+$/, '');
+  }
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  if (import.meta.env.VITE_APP_API_URL) return import.meta.env.VITE_APP_API_URL;
+  if (import.meta.env.DEV) return 'http://localhost:8000/api';
+  return LIVE_API_URL;
+};
+
+const API_URL = getApiUrl();
 
 const client = axios.create({
   baseURL: API_URL,

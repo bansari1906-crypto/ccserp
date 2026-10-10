@@ -1,0 +1,54 @@
+name: Build and Deploy Frontend to Hostinger Branch
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite.config.ts'
+      - 'index.html'
+      - '.github/workflows/deploy-hostinger.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Root Frontend (Marketing + Portals)
+        run: npm run build
+
+      - name: Verify Build Artifacts and Exclude Large Binaries
+        run: |
+          test -f dist/index.html || { echo "ERROR: dist/index.html was not generated"; exit 1; }
+          # Exclude >100MB APK files from git tracking (APK uploaded directly to server)
+          rm -rf dist/downloads/*.apk 2>/dev/null || true
+          echo "Verified dist build output:"
+          ls -la dist/
+
+      - name: Deploy Compiled Frontend to hostinger-deploy Branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: hostinger-deploy
+          folder: dist
+          clean: true
+          commit-message: "deploy: automated production build for Hostinger [skip ci]"

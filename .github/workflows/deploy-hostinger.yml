@@ -37,8 +37,8 @@ jobs:
       - name: Build CCS Partners ERP Portal
         working-directory: ccsps/ccs-partners-
         env:
-          VITE_API_URL: https://docs-organizational-beverages-improve.trycloudflare.com/api
-          VITE_APK_URL: https://docs-organizational-beverages-improve.trycloudflare.com/downloads/CCS-Connect.apk
+          VITE_API_URL: https://chitracropsciencepartners.com/api
+          VITE_APK_URL: https://chitracropsciencepartners.com/downloads/CCS-Connect.apk
         run: npm run build
 
       - name: Verify Build Artifacts and Exclude Large Binaries

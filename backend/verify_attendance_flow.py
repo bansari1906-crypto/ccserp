@@ -5,7 +5,7 @@ import json
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ccs_backend.settings')
 django.setup()
 
-from apps.accounts.models import User, UserRole
+from apps.accounts.models import User, UserRole, UserStatus
 from apps.hr.models import Attendance, LocationTrack
 from rest_framework.test import APIClient
 from datetime import date
@@ -14,9 +14,9 @@ print("=== VERIFYING ATTENDANCE BACKEND WORKFLOW ===")
 
 # Clean up today's test records for distributor to test cleanly
 today = date.today()
-emp = User.objects.filter(role=UserRole.DISTRIBUTOR).first()
+emp = User.objects.filter(role=UserRole.EMPLOYEE, status=UserStatus.APPROVED).first()
 if not emp:
-    emp = User.objects.create(email="testemp@ccs.com", username="testemp", role=UserRole.DISTRIBUTOR)
+    emp = User.objects.create(email="testemp@ccs.com", username="testemp", role=UserRole.EMPLOYEE)
     emp.set_password("Testing@123")
     emp.save()
 

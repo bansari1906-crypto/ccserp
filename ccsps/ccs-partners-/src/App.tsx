@@ -716,7 +716,7 @@ export default function App() {
     }
 
     // 3. WAREHOUSE ROLE VIEWS
-    if (currentRole === 'warehouse') {
+    if (currentRole === 'WAREHOUSE') {
       if (selectedOrder) {
         return (
           <WarehouseOrderDetail

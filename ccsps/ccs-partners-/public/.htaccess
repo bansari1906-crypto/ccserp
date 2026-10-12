@@ -6,11 +6,8 @@
   RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^downloads/.*\.apk$ - [L]
 
-  # Fallback: Redirect missing APK to live backend tunnel
-  RewriteRule ^downloads/.*\.apk$ https://docs-organizational-beverages-improve.trycloudflare.com/downloads/CCS-Connect.apk [R=302,L]
-
-  # Route API requests to live backend tunnel
-  RewriteRule ^api/(.*)$ https://docs-organizational-beverages-improve.trycloudflare.com/api/$1 [R=307,L]
+  # Route API requests to live backend endpoint (Configurable in Hostinger or Reverse Proxy)
+  # RewriteRule ^api/(.*)$ https://BACKEND_HOST/api/$1 [P,L]
 
   # Serve existing files and directories directly
   RewriteCond %{REQUEST_FILENAME} -f [OR]

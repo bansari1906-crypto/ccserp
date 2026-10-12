@@ -154,6 +154,8 @@ def run_backup(retention_days: int = 7) -> dict:
         with tarfile.open(media_tar, "w:gz") as tar:
             for root, dirs, files in os.walk(MEDIA_DIR):
                 for f in files:
+                    if f.endswith('.apk'):
+                        continue
                     file_path = Path(root) / f
                     arcname = file_path.relative_to(MEDIA_DIR.parent)
                     tar.add(file_path, arcname=arcname)

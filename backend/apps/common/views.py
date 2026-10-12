@@ -179,3 +179,25 @@ class CompanyProfileViewSet(viewsets.ModelViewSet):
         if CompanyProfile.objects.exists():
             return Response({"error": "Profile already exists"}, status=400)
         return super().create(request, *args, **kwargs)
+
+
+class HealthCheckView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        from django.db import connection
+        db_ok = False
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT 1")
+                db_ok = bool(cursor.fetchone())
+        except Exception:
+            db_ok = False
+
+        status_code = 200 if db_ok else 503
+        return Response({
+            "status": "healthy" if db_ok else "unhealthy",
+            "database": "connected" if db_ok else "error",
+            "service": "ccs-connect-erp"
+        }, status=status_code)
+

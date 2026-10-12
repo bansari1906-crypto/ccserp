@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const LIVE_BACKEND_URL = 'https://docs-organizational-beverages-improve.trycloudflare.com';
+export const LIVE_BACKEND_URL = 'https://chitracropsciencepartners.com';
 export const LIVE_API_URL = `${LIVE_BACKEND_URL}/api`;
 export const APK_DOWNLOAD_URL = 
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_APK_URL) || 

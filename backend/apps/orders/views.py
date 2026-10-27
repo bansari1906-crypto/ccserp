@@ -87,8 +87,8 @@ class OrderViewSet(viewsets.ModelViewSet):
                 order.delete()
                 return Response({"error": f"Quantity for product '{product.name}' must be at least 1."}, status=status.HTTP_400_BAD_REQUEST)
                 
-            # Enforce backend authoritative rate: NEVER trust frontend rate
-            rate = Decimal(str(product.dealer_price if product.dealer_price and product.dealer_price > 0 else product.mrp))
+            # Enforce full master case pricing: rate = case_price, qty = number of cases
+            rate = Decimal(str(product.case_price))
             discount = Decimal('0.00')
             base_price = rate * qty - discount
             gst = base_price * (product.gst / Decimal('100.00'))

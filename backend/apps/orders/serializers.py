@@ -7,11 +7,24 @@ class OrderItemSerializer(serializers.ModelSerializer):
     product_code = serializers.SerializerMethodField()
     pack_size = serializers.CharField(source='product.pack_size', read_only=True)
     packing = serializers.CharField(source='product.packing', read_only=True)
+    bottles_per_case = serializers.SerializerMethodField()
+    case_size = serializers.SerializerMethodField()
+    total_bottles = serializers.SerializerMethodField()
 
     def get_product_code(self, obj):
         if not obj.product:
             return "PRD-01"
         return getattr(obj.product, 'code', None) or getattr(obj.product, 'barcode', None) or f"PRD-{str(obj.product.id)[:6].upper()}"
+
+    def get_bottles_per_case(self, obj):
+        return obj.product.bottles_per_case if obj.product else 10
+
+    def get_case_size(self, obj):
+        return obj.product.case_size if obj.product else "10 units/case"
+
+    def get_total_bottles(self, obj):
+        bpc = obj.product.bottles_per_case if obj.product else 10
+        return obj.quantity * bpc
     
     class Meta:
         model = OrderItem

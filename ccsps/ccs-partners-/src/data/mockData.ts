@@ -11,6 +11,7 @@ import {
   Complaint,
   LedgerEntry,
 } from '../types';
+import { EXCEL_PRODUCTS } from './excelProducts';
 
 export const CURRENT_USER_ADMIN: User = {
   id: 'u-admin-1',
@@ -48,6 +49,7 @@ export const CURRENT_USER_DEALER: User = {
 };
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...EXCEL_PRODUCTS,
   {
     id: 'p-test-workflow-1',
     code: 'PRD-TEST-MAX',

@@ -25,6 +25,9 @@ class ProductSerializer(serializers.ModelSerializer):
     code = serializers.SerializerMethodField()
     price = serializers.SerializerMethodField()
     is_available = serializers.BooleanField(read_only=True)
+    bottles_per_case = serializers.SerializerMethodField()
+    case_size = serializers.SerializerMethodField()
+    case_price = serializers.SerializerMethodField()
     
     class Meta:
         model = Product
@@ -37,6 +40,15 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_price(self, obj):
         return float(obj.dealer_price)
+
+    def get_bottles_per_case(self, obj):
+        return obj.bottles_per_case
+
+    def get_case_size(self, obj):
+        return obj.case_size
+
+    def get_case_price(self, obj):
+        return float(obj.case_price)
 
     def to_internal_value(self, data):
         data = data.copy() if hasattr(data, 'copy') else dict(data)

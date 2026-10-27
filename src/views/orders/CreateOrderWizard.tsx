@@ -17,7 +17,7 @@ export const CreateOrderWizard: React.FC<CreateOrderWizardProps> = ({
   const [selectedDealerId, setSelectedDealerId] = useState(dealers[0]?.id || 'd-1');
   const [paymentTerms, setPaymentTerms] = useState<string>('Credit 30 Days');
   const [remarks, setRemarks] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Quantities map: productId -> number
   const [cartItems, setCartItems] = useState<{ [productId: string]: number }>({
@@ -36,9 +36,15 @@ export const CreateOrderWizard: React.FC<CreateOrderWizardProps> = ({
     }
   };
 
-  const filteredProducts = products.filter(
-    (p) => categoryFilter === 'All' || p.category === categoryFilter
-  );
+  const filteredProducts = products.filter((p) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase().trim();
+    return (
+      (p.name || '').toLowerCase().includes(q) ||
+      (p.code || '').toLowerCase().includes(q) ||
+      (p.category || '').toLowerCase().includes(q)
+    );
+  });
 
   const orderItemsList: OrderItem[] = Object.entries(cartItems)
     .map(([pId, rawQty]): OrderItem | null => {
@@ -164,29 +170,28 @@ export const CreateOrderWizard: React.FC<CreateOrderWizardProps> = ({
             )}
           </div>
 
-          {/* Product Catalog Picker */}
-          <div className="bg-white border border-[#e0e0e0] shadow-xs">
-            <div className="p-3 bg-[#f4f4f4] border-b border-[#e0e0e0] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-              <span className="font-bold text-xs text-[#161616] uppercase tracking-wider">
-                2. Add Chemical SKUs & Quantities
-              </span>
-              <div className="flex gap-1 flex-wrap">
-                {['All', 'Fertilizers', 'Pesticides', 'Seeds', 'Bio Products', 'Fungicides'].map((cat) => (
-                  <button
-                    type="button"
-                    key={cat}
-                    onClick={() => setCategoryFilter(cat)}
-                    className={`px-2 py-1 text-[10px] font-bold border transition-colors cursor-pointer ${
-                      categoryFilter === cat
-                        ? 'bg-[#0f62fe] text-white border-[#0f62fe]'
-                        : 'bg-white text-[#525252] border-[#e0e0e0] hover:bg-[#e0e0e0]'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
+            {/* Product Catalog Picker */}
+            <div className="bg-white border border-[#e0e0e0] shadow-xs">
+              <div className="p-3 bg-[#f4f4f4] border-b border-[#e0e0e0] space-y-2.5">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                  <span className="font-bold text-xs text-[#161616] uppercase tracking-wider">
+                    2. Add Chemical SKUs & Quantities
+                  </span>
+                  <span className="text-[11px] text-[#525252]">
+                    Showing {filteredProducts.length} of {products.length} products
+                  </span>
+                </div>
+
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search products by Name, SKU, Technical Name..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-[#e0e0e0] text-xs text-[#161616] placeholder-[#8d8d8d] focus:outline-none focus:border-[#0f62fe]"
+                  />
+                </div>
               </div>
-            </div>
 
             <div className="divide-y divide-[#e0e0e0] max-h-96 overflow-y-auto">
               {filteredProducts.map((p) => {

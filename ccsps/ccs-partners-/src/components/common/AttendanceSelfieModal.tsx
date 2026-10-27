@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getCurrentGpsPosition, GpsLocationResult } from '../../services/locationService';
-import { captureFrontSelfie, captureBackCameraPhoto } from '../../services/cameraService';
+import { captureBackCameraPhoto } from '../../services/cameraService';
 
 interface AttendanceSelfieModalProps {
   isOpen: boolean;
@@ -24,14 +24,12 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
   employeeName = 'Employee',
   onSubmit,
 }) => {
-  const [frontPhoto, setFrontPhoto] = useState<string | null>(null);
   const [backPhoto, setBackPhoto] = useState<string | null>(null);
 
   const [gpsData, setGpsData] = useState<GpsLocationResult | null>(null);
   const [isDetectingGps, setIsDetectingGps] = useState(false);
   const [gpsError, setGpsError] = useState<string | null>(null);
 
-  const [isCapturingFront, setIsCapturingFront] = useState(false);
   const [isCapturingBack, setIsCapturingBack] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
 
@@ -67,7 +65,6 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      setFrontPhoto(null);
       setBackPhoto(null);
       setGpsData(null);
       setGpsError(null);
@@ -77,21 +74,6 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
       fetchGps();
     }
   }, [isOpen]);
-
-  const handleTakeFrontSelfie = async () => {
-    setIsCapturingFront(true);
-    setCameraError(null);
-    try {
-      const photo = await captureFrontSelfie();
-      setFrontPhoto(photo);
-    } catch (err: any) {
-      if (!err.message?.includes('cancelled')) {
-        setCameraError(err.message || 'Failed to capture front selfie.');
-      }
-    } finally {
-      setIsCapturingFront(false);
-    }
-  };
 
   const handleTakeBackPhoto = async () => {
     setIsCapturingBack(true);
@@ -112,8 +94,7 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
     gpsData &&
     gpsData.latitude &&
     gpsData.longitude &&
-    frontPhoto &&
-    (isStart ? backPhoto : true) &&
+    backPhoto &&
     !isSubmitting
   );
 
@@ -122,11 +103,7 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
       setSubmitError('Real GPS location is required. Please verify GPS before submitting.');
       return;
     }
-    if (!frontPhoto) {
-      setSubmitError('Front Camera Selfie is required.');
-      return;
-    }
-    if (isStart && !backPhoto) {
+    if (!backPhoto) {
       setSubmitError('Back Camera Photo is required to verify work site / field location.');
       return;
     }
@@ -135,8 +112,8 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
     setSubmitError(null);
     try {
       await onSubmit({
-        photo: frontPhoto,
-        backCameraPhoto: backPhoto || undefined,
+        photo: backPhoto,
+        backCameraPhoto: backPhoto,
         location: gpsData.formattedText,
         latitude: gpsData.latitude,
         longitude: gpsData.longitude,
@@ -247,64 +224,8 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
             </div>
           )}
 
-          {/* 2. Dual Camera Actions & Previews */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {/* Front Camera Selfie Card */}
-            <div className="border border-[#cbd5e1] rounded-lg p-3 bg-white flex flex-col justify-between space-y-2.5">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-xs text-[#0f172a] flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[18px] text-[#16a34a]">face</span>
-                  📷 FRONT SELFIE
-                </span>
-                {frontPhoto && (
-                  <span className="px-1.5 py-0.5 bg-[#dcfce7] text-[#15803d] font-bold text-[10px] rounded">
-                    ✓ Captured
-                  </span>
-                )}
-              </div>
-
-              {/* Preview or Capture Button */}
-              <div className="relative w-full aspect-4/3 bg-[#0f172a] rounded-lg overflow-hidden flex items-center justify-center border border-[#e2e8f0]">
-                {frontPhoto ? (
-                  <img
-                    src={frontPhoto}
-                    alt="Front Selfie Preview"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="p-4 text-center text-[#94a3b8] space-y-1">
-                    <span className="material-symbols-outlined text-[36px] text-[#475569]">
-                      account_box
-                    </span>
-                    <p className="text-[10px] text-[#cbd5e1]">Front camera selfie required</p>
-                  </div>
-                )}
-              </div>
-
-              {frontPhoto ? (
-                <button
-                  type="button"
-                  onClick={handleTakeFrontSelfie}
-                  disabled={isCapturingFront || isSubmitting}
-                  className="w-full py-2 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#334155] border border-[#cbd5e1] font-bold text-xs rounded-md cursor-pointer flex items-center justify-center gap-1.5"
-                >
-                  <span className="material-symbols-outlined text-[16px]">cached</span>
-                  Retake Front Selfie
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={handleTakeFrontSelfie}
-                  disabled={isCapturingFront || isSubmitting}
-                  className="w-full py-2.5 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold text-xs rounded-md shadow-xs flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
-                >
-                  <span className="material-symbols-outlined text-[18px]">photo_camera</span>
-                  {isCapturingFront ? 'Opening Camera...' : 'Take Front Selfie'}
-                </button>
-              )}
-            </div>
-
-            {/* Back Camera Photo Card */}
+          {/* 2. Mandatory Back Camera Photo Card */}
+          <div className="w-full">
             <div className="border border-[#cbd5e1] rounded-lg p-3 bg-white flex flex-col justify-between space-y-2.5">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-xs text-[#0f172a] flex items-center gap-1.5">
@@ -318,8 +239,8 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
                 )}
               </div>
 
-              {/* Preview or Capture Button */}
-              <div className="relative w-full aspect-4/3 bg-[#0f172a] rounded-lg overflow-hidden flex items-center justify-center border border-[#e2e8f0]">
+              {/* Preview or Empty Placeholder */}
+              <div className="relative w-full aspect-16/9 bg-[#0f172a] rounded-lg overflow-hidden flex items-center justify-center border border-[#e2e8f0]">
                 {backPhoto ? (
                   <img
                     src={backPhoto}
@@ -331,7 +252,7 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
                     <span className="material-symbols-outlined text-[36px] text-[#475569]">
                       landscape
                     </span>
-                    <p className="text-[10px] text-[#cbd5e1]">Rear worksite / field photo required</p>
+                    <p className="text-[11px] text-[#cbd5e1]">Rear worksite / field photo required</p>
                   </div>
                 )}
               </div>
@@ -341,7 +262,7 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
                   type="button"
                   onClick={handleTakeBackPhoto}
                   disabled={isCapturingBack || isSubmitting}
-                  className="w-full py-2 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#334155] border border-[#cbd5e1] font-bold text-xs rounded-md cursor-pointer flex items-center justify-center gap-1.5"
+                  className="w-full py-2 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#334155] border border-[#cbd5e1] font-bold text-xs rounded-md cursor-pointer flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <span className="material-symbols-outlined text-[16px]">cached</span>
                   Retake Back Photo
@@ -351,7 +272,7 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
                   type="button"
                   onClick={handleTakeBackPhoto}
                   disabled={isCapturingBack || isSubmitting}
-                  className="w-full py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs rounded-md shadow-xs flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  className="w-full py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs rounded-md shadow-xs flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 transition-colors"
                 >
                   <span className="material-symbols-outlined text-[18px]">add_a_photo</span>
                   {isCapturingBack ? 'Opening Rear Camera...' : 'Take Back Camera Photo'}
@@ -382,10 +303,6 @@ export const AttendanceSelfieModal: React.FC<AttendanceSelfieModalProps> = ({
             <div className="flex items-center gap-2">
               <span className={gpsData ? 'text-[#16a34a] font-bold' : 'text-[#94a3b8]'}>
                 {gpsData ? '✓' : '○'} Real device GPS acquired
-              </span>
-              <span>•</span>
-              <span className={frontPhoto ? 'text-[#16a34a] font-bold' : 'text-[#94a3b8]'}>
-                {frontPhoto ? '✓' : '○'} Front selfie captured
               </span>
               <span>•</span>
               <span className={backPhoto ? 'text-[#16a34a] font-bold' : 'text-[#94a3b8]'}>

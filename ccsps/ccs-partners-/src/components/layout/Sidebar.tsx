@@ -37,6 +37,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
     ? 'WAREHOUSE'
     : rawRole.includes('ADMIN')
     ? 'ADMIN'
+    : rawRole.includes('DEALER')
+    ? 'DEALER'
     : rawRole.includes('DISTRIBUTOR')
     ? 'DISTRIBUTOR'
     : 'EMPLOYEE';

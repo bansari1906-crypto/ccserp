@@ -1,4 +1,4 @@
-export type UserRole = 'ADMIN' | 'EMPLOYEE' | 'DISTRIBUTOR' | 'WAREHOUSE';
+export type UserRole = 'ADMIN' | 'EMPLOYEE' | 'DISTRIBUTOR' | 'DEALER' | 'WAREHOUSE';
 
 export interface User {
   id: string;
@@ -41,8 +41,12 @@ export interface OrderItem {
   productName: string;
   productCode: string;
   packSize: string;
-  quantity: number;
-  dealerPrice: number;
+  quantity: number; // Number of full cases
+  cases?: number;   // Number of full cases
+  bottlesPerCase?: number;
+  casePrice?: number;
+  totalBottles?: number;
+  dealerPrice: number; // Bottle / unit price
   mrp: number;
   subtotal: number;
   imageUrl?: string;
@@ -132,8 +136,12 @@ export interface Product {
   technicalName: string;
   category: string;
   packSize: string;
+  bottlesPerCase?: number;
+  casePrice?: number;
+  caseSize?: string;
+  unitLabel?: string;
   mrp: number;
-  dealerPrice: number;
+  dealerPrice: number; // Unit / Bottle price
   distributorPrice?: number;
   gst?: number;
   stock?: number;

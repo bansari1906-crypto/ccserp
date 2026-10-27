@@ -1,5 +1,6 @@
 import { User, UserRole, Order, Dealer, Distributor, Product, AttendanceRecord, Expense, NotificationItem } from '../types';
 import { INITIAL_DEALERS, INITIAL_PRODUCTS } from '../data/mockData';
+import { computeProductCasePricing } from '../utils/packaging';
 
 const getBaseUrl = (): string => {
   const envUrl =
@@ -439,15 +440,23 @@ export const productsApi = {
       return rawData.map((p: any) => {
         const isAvail = p.status === 'Available' || p.status === 'Active';
         const displayStatus = isAvail ? 'Available' : 'Unavailable';
+        const packSize = p.pack_size || p.packing || 'Standard';
+        const dealerPrice = Number(p.dealer_price !== undefined && p.dealer_price !== null ? p.dealer_price : (p.price || 0));
+        const pkg = computeProductCasePricing(dealerPrice, packSize);
+
         return {
           id: String(p.id),
           code: p.barcode || p.code || `PRD-${String(p.id).slice(0, 8).toUpperCase()}`,
           name: p.name,
           technicalName: p.technical_name || p.name,
           category: p.category_name || (typeof p.category === 'object' ? p.category?.name : p.category) || 'General',
-          packSize: p.pack_size || p.packing || 'Standard',
+          packSize: packSize,
+          bottlesPerCase: p.bottles_per_case || pkg.bottlesPerCase,
+          casePrice: p.case_price || pkg.casePrice,
+          caseSize: p.case_size || pkg.caseSize,
+          unitLabel: pkg.unitLabel,
           mrp: Number(p.mrp !== undefined && p.mrp !== null ? p.mrp : 0),
-          dealerPrice: Number(p.dealer_price !== undefined && p.dealer_price !== null ? p.dealer_price : (p.price || 0)),
+          dealerPrice: dealerPrice,
           distributorPrice: Number(p.distributor_price !== undefined && p.distributor_price !== null ? p.distributor_price : 0),
           gst: Number(p.gst !== undefined && p.gst !== null ? p.gst : 18),
           stock: Number(p.stock !== undefined && p.stock !== null ? p.stock : 0),
@@ -843,8 +852,8 @@ export const hrApi = {
         check_in_location: data.location || 'Current Location',
         check_in_latitude: data.latitude,
         check_in_longitude: data.longitude,
-        check_in_photo: data.photo || '',
-        back_camera_photo: data.backCameraPhoto || ''
+        check_in_photo: data.photo || data.backCameraPhoto || '',
+        back_camera_photo: data.backCameraPhoto || data.photo || ''
       })
     });
     const a = await handleResponse<any>(res);

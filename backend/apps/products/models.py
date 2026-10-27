@@ -88,6 +88,51 @@ class Product(models.Model):
     def is_available(self):
         return self.status in ['Available', 'Active']
 
+    @property
+    def bottles_per_case(self):
+        count, _, _, _ = get_case_packaging(self.pack_size or self.packing)
+        return count
+
+    @property
+    def case_size(self):
+        _, _, _, label = get_case_packaging(self.pack_size or self.packing)
+        return label
+
+    @property
+    def case_price(self):
+        from decimal import Decimal
+        price = self.dealer_price if self.dealer_price and self.dealer_price > 0 else self.mrp
+        return price * Decimal(str(self.bottles_per_case))
+
     def __str__(self):
         return self.name
+
+
+def get_case_packaging(pack_size):
+    norm = (pack_size or '').lower().strip()
+    if '1 l' in norm or '1 ltr' in norm or '1000 ml' in norm:
+        return 10, 'bottles', '10 L total', '10 bottles (10 L total)'
+    if '500 ml' in norm:
+        return 20, 'bottles', '10 L total', '20 bottles (10 L total)'
+    if '250 ml' in norm:
+        return 40, 'bottles', '10 L total', '40 bottles (10 L total)'
+    if '100 ml' in norm:
+        return 100, 'bottles', '10 L total', '100 bottles (10 L total)'
+    if '5 l' in norm or '5 ltr' in norm:
+        return 2, 'cans', '10 L total', '2 cans (10 L total)'
+    if '5 ml' in norm:
+        return 100, 'bottles', '0.5 L total', '100 bottles (0.5 L total)'
+    if '1 kg' in norm or '1000 gm' in norm or '1000 g' in norm:
+        return 10, 'packs', '10 Kg total', '10 packs (10 Kg total)'
+    if '500 gm' in norm or '500 g' in norm:
+        return 20, 'packs', '10 Kg total', '20 packs (10 Kg total)'
+    if '250 gm' in norm or '250 g' in norm:
+        return 40, 'packs', '10 Kg total', '40 packs (10 Kg total)'
+    if '100 gm' in norm or '100 g' in norm:
+        return 100, 'packs', '10 Kg total', '100 packs (10 Kg total)'
+    if '5 kg' in norm:
+        return 2, 'bags', '10 Kg total', '2 bags (10 Kg total)'
+    if any(k in norm for k in ['25 kg', '30 kg', '15 kg', '50 kg']):
+        return 1, 'bags', pack_size, f'1 bulk bag ({pack_size})'
+    return 10, 'units', '10 Units total', '10 units/case'
 

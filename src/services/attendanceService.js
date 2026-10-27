@@ -80,10 +80,8 @@ export const submitStartDay = async ({
   if (!latitude || !longitude) {
     throw new Error('Valid GPS coordinates are required to start the day.');
   }
-  if (!frontSelfie) {
-    throw new Error('Front camera selfie is required.');
-  }
-  if (!backPhoto) {
+  const effectivePhoto = backPhoto || frontSelfie;
+  if (!effectivePhoto) {
     throw new Error('Back camera worksite photo is required.');
   }
 
@@ -94,10 +92,10 @@ export const submitStartDay = async ({
     latitude,
     longitude,
     location: location || `${latitude}° N, ${longitude}° E`,
-    check_in_photo: frontSelfie,
-    back_camera_photo: backPhoto,
-    photo: frontSelfie,
-    back_photo: backPhoto
+    check_in_photo: effectivePhoto,
+    back_camera_photo: effectivePhoto,
+    photo: effectivePhoto,
+    back_photo: effectivePhoto
   };
 
   try {

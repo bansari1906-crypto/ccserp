@@ -26,7 +26,7 @@ import {
   ReloadOutlined
 } from '@ant-design/icons';
 import { getCurrentGpsPosition, requestLocationPermission } from '../../services/locationService';
-import { captureFrontSelfie, captureBackCameraPhoto } from '../../services/cameraService';
+import { captureBackCameraPhoto } from '../../services/cameraService';
 import { submitStartDay } from '../../services/attendanceService';
 
 export default function StartDayDialog({ open, onClose, onSuccess }) {
@@ -36,10 +36,6 @@ export default function StartDayDialog({ open, onClose, onSuccess }) {
   const [gpsError, setGpsError] = useState(null);
 
   // Photos State
-  const [frontSelfie, setFrontSelfie] = useState(null);
-  const [frontLoading, setFrontLoading] = useState(false);
-  const [frontError, setFrontError] = useState(null);
-
   const [backPhoto, setBackPhoto] = useState(null);
   const [backLoading, setBackLoading] = useState(false);
   const [backError, setBackError] = useState(null);
@@ -60,8 +56,6 @@ export default function StartDayDialog({ open, onClose, onSuccess }) {
       // Clear state when closed
       setGpsData(null);
       setGpsError(null);
-      setFrontSelfie(null);
-      setFrontError(null);
       setBackPhoto(null);
       setBackError(null);
       setSubmitting(false);
@@ -82,22 +76,6 @@ export default function StartDayDialog({ open, onClose, onSuccess }) {
       setGpsData(null);
     } finally {
       setGpsLoading(false);
-    }
-  };
-
-  // Capture Front Camera Selfie
-  const handleCaptureFront = async () => {
-    setFrontLoading(true);
-    setFrontError(null);
-    try {
-      const dataUrl = await captureFrontSelfie();
-      setFrontSelfie(dataUrl);
-    } catch (err) {
-      if (err.code !== 'CANCELLED') {
-        setFrontError(err.message || 'Failed to capture front selfie.');
-      }
-    } finally {
-      setFrontLoading(false);
     }
   };
 
@@ -123,10 +101,6 @@ export default function StartDayDialog({ open, onClose, onSuccess }) {
       setSubmitError('Real GPS coordinates must be acquired before starting the day.');
       return;
     }
-    if (!frontSelfie) {
-      setSubmitError('Please capture your front camera selfie.');
-      return;
-    }
     if (!backPhoto) {
       setSubmitError('Please capture a back camera worksite photo.');
       return;
@@ -140,7 +114,6 @@ export default function StartDayDialog({ open, onClose, onSuccess }) {
         latitude: gpsData.latitude,
         longitude: gpsData.longitude,
         location: gpsData.formattedLocation,
-        frontSelfie,
         backPhoto
       });
 
@@ -163,7 +136,7 @@ export default function StartDayDialog({ open, onClose, onSuccess }) {
     year: 'numeric'
   }).format(new Date());
 
-  const isReadyToSubmit = Boolean(gpsData && frontSelfie && backPhoto && !submitting);
+  const isReadyToSubmit = Boolean(gpsData && backPhoto && !submitting);
 
   return (
     <Dialog open={open} onClose={!submitting ? onClose : undefined} maxWidth="sm" fullWidth>
@@ -318,139 +291,71 @@ export default function StartDayDialog({ open, onClose, onSuccess }) {
             {/* 2. PHOTOS SECTION (FRONT + BACK) */}
             <Paper elevation={0} sx={{ p: 2, border: '1px solid #e2e8f0', borderRadius: 2 }}>
               <Typography variant="subtitle1" fontWeight={700} color="#0f172a" sx={{ mb: 0.5 }}>
-                2. Verification Photos (Front Selfie + Back Camera)
+                2. Verification Photo (Back Camera)
               </Typography>
               <Typography variant="caption" color="textSecondary" sx={{ display: 'block', mb: 2 }}>
-                Both photos are required to authenticate your field shift.
+                Worksite photo is required to authenticate your field shift.
               </Typography>
 
-              <Grid container spacing={2}>
-                {/* A. FRONT CAMERA SELFIE */}
-                <Grid item xs={12} sm={6}>
-                  <Box sx={{ border: '1px dashed #cbd5e1', borderRadius: 2, p: 1.5, textAlign: 'center', bgcolor: frontSelfie ? '#f8fafc' : '#ffffff' }}>
-                    <Typography variant="subtitle2" fontWeight={700} color="#1e293b" gutterBottom>
-                      Front Selfie (Self)
-                    </Typography>
+              <Box sx={{ border: '1px dashed #cbd5e1', borderRadius: 2, p: 2, textAlign: 'center', bgcolor: backPhoto ? '#f8fafc' : '#ffffff' }}>
+                <Typography variant="subtitle2" fontWeight={700} color="#1e293b" gutterBottom>
+                  Back Camera (Field/Worksite)
+                </Typography>
 
-                    {frontSelfie ? (
-                      <Box sx={{ position: 'relative', width: '100%', height: 160, mb: 1, borderRadius: 1.5, overflow: 'hidden' }}>
-                        <img
-                          src={frontSelfie}
-                          alt="Front Selfie Preview"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                        <Chip
-                          label="Front Verified"
-                          size="small"
-                          color="success"
-                          sx={{ position: 'absolute', bottom: 8, left: 8, fontWeight: 700 }}
-                        />
-                      </Box>
-                    ) : (
-                      <Box
-                        sx={{
-                          width: '100%',
-                          height: 140,
-                          borderRadius: 1.5,
-                          bgcolor: '#f1f5f9',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          mb: 1
-                        }}
-                      >
-                        <CameraOutlined style={{ fontSize: '2rem', color: '#94a3b8' }} />
-                        <Typography variant="caption" color="textSecondary" sx={{ mt: 0.5 }}>
-                          Front camera face photo
-                        </Typography>
-                      </Box>
-                    )}
-
-                    {frontError && (
-                      <Typography variant="caption" color="error" sx={{ display: 'block', mb: 1 }}>
-                        {frontError}
-                      </Typography>
-                    )}
-
-                    <Button
-                      fullWidth
-                      variant={frontSelfie ? 'outlined' : 'contained'}
-                      color={frontSelfie ? 'inherit' : 'primary'}
+                {backPhoto ? (
+                  <Box sx={{ position: 'relative', width: '100%', height: 200, mb: 1.5, borderRadius: 1.5, overflow: 'hidden' }}>
+                    <img
+                      src={backPhoto}
+                      alt="Back Photo Preview"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                    <Chip
+                      label="Field Verified"
                       size="small"
-                      startIcon={frontLoading ? <CircularProgress size={14} color="inherit" /> : <CameraOutlined />}
-                      disabled={frontLoading}
-                      onClick={handleCaptureFront}
-                      sx={{ textTransform: 'none', borderRadius: 1.5 }}
-                    >
-                      {frontLoading ? 'Opening Front...' : frontSelfie ? 'Retake Selfie' : 'Take Front Selfie'}
-                    </Button>
+                      color="success"
+                      sx={{ position: 'absolute', bottom: 8, left: 8, fontWeight: 700 }}
+                    />
                   </Box>
-                </Grid>
-
-                {/* B. BACK CAMERA PHOTO */}
-                <Grid item xs={12} sm={6}>
-                  <Box sx={{ border: '1px dashed #cbd5e1', borderRadius: 2, p: 1.5, textAlign: 'center', bgcolor: backPhoto ? '#f8fafc' : '#ffffff' }}>
-                    <Typography variant="subtitle2" fontWeight={700} color="#1e293b" gutterBottom>
-                      Back Camera (Field/Worksite)
+                ) : (
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: 160,
+                      borderRadius: 1.5,
+                      bgcolor: '#f1f5f9',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mb: 1.5
+                    }}
+                  >
+                    <CameraOutlined style={{ fontSize: '2.5rem', color: '#94a3b8' }} />
+                    <Typography variant="caption" color="textSecondary" sx={{ mt: 1 }}>
+                      Rear camera worksite / field photo required
                     </Typography>
-
-                    {backPhoto ? (
-                      <Box sx={{ position: 'relative', width: '100%', height: 160, mb: 1, borderRadius: 1.5, overflow: 'hidden' }}>
-                        <img
-                          src={backPhoto}
-                          alt="Back Photo Preview"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                        <Chip
-                          label="Field Verified"
-                          size="small"
-                          color="success"
-                          sx={{ position: 'absolute', bottom: 8, left: 8, fontWeight: 700 }}
-                        />
-                      </Box>
-                    ) : (
-                      <Box
-                        sx={{
-                          width: '100%',
-                          height: 140,
-                          borderRadius: 1.5,
-                          bgcolor: '#f1f5f9',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          mb: 1
-                        }}
-                      >
-                        <CameraOutlined style={{ fontSize: '2rem', color: '#94a3b8' }} />
-                        <Typography variant="caption" color="textSecondary" sx={{ mt: 0.5 }}>
-                          Rear camera environment photo
-                        </Typography>
-                      </Box>
-                    )}
-
-                    {backError && (
-                      <Typography variant="caption" color="error" sx={{ display: 'block', mb: 1 }}>
-                        {backError}
-                      </Typography>
-                    )}
-
-                    <Button
-                      fullWidth
-                      variant={backPhoto ? 'outlined' : 'contained'}
-                      color={backPhoto ? 'inherit' : 'secondary'}
-                      size="small"
-                      startIcon={backLoading ? <CircularProgress size={14} color="inherit" /> : <CameraOutlined />}
-                      disabled={backLoading}
-                      onClick={handleCaptureBack}
-                      sx={{ textTransform: 'none', borderRadius: 1.5 }}
-                    >
-                      {backLoading ? 'Opening Rear...' : backPhoto ? 'Retake Photo' : 'Take Back Camera Photo'}
-                    </Button>
                   </Box>
-                </Grid>
-              </Grid>
+                )}
+
+                {backError && (
+                  <Typography variant="caption" color="error" sx={{ display: 'block', mb: 1 }}>
+                    {backError}
+                  </Typography>
+                )}
+
+                <Button
+                  fullWidth
+                  variant={backPhoto ? 'outlined' : 'contained'}
+                  color={backPhoto ? 'inherit' : 'secondary'}
+                  size="small"
+                  startIcon={backLoading ? <CircularProgress size={14} color="inherit" /> : <CameraOutlined />}
+                  disabled={backLoading}
+                  onClick={handleCaptureBack}
+                  sx={{ textTransform: 'none', borderRadius: 1.5, py: 1 }}
+                >
+                  {backLoading ? 'Opening Rear...' : backPhoto ? 'Retake Photo' : 'Take Back Camera Photo'}
+                </Button>
+              </Box>
             </Paper>
 
             {/* 3. VERIFICATION CHECKLIST */}
@@ -465,14 +370,6 @@ export default function StartDayDialog({ open, onClose, onSuccess }) {
                   </Box>
                   <Typography variant="caption" color={gpsData ? 'textPrimary' : 'textSecondary'}>
                     Real GPS Coordinates Locked
-                  </Typography>
-                </Stack>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Box sx={{ color: frontSelfie ? '#2e7d32' : '#94a3b8', fontSize: '0.9rem' }}>
-                    {frontSelfie ? <CheckCircleOutlined /> : '○'}
-                  </Box>
-                  <Typography variant="caption" color={frontSelfie ? 'textPrimary' : 'textSecondary'}>
-                    Front Camera Selfie Captured
                   </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1} alignItems="center">

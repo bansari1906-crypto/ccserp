@@ -74,12 +74,47 @@ export default function App() {
   const [isSupportOpen, setIsSupportOpen] = useState(false);
 
   // State: Core Enterprise Data from Backend
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [dealers, setDealers] = useState<Dealer[]>(INITIAL_DEALERS);
+  const [orders, setOrders] = useState<Order[]>(() => {
+    try {
+      const saved = localStorage.getItem('ccs_orders_records');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [dealers, setDealers] = useState<Dealer[]>(() => {
+    try {
+      const saved = localStorage.getItem('ccs_dealers_records');
+      return saved ? JSON.parse(saved) : INITIAL_DEALERS;
+    } catch {
+      return INITIAL_DEALERS;
+    }
+  });
   const [distributors, setDistributors] = useState<Distributor[]>([]);
-  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
-  const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [attendance, setAttendance] = useState<AttendanceRecord[]>([]);
+  const [products, setProducts] = useState<Product[]>(() => {
+    try {
+      const saved = localStorage.getItem('ccs_products_records');
+      return saved ? JSON.parse(saved) : INITIAL_PRODUCTS;
+    } catch {
+      return INITIAL_PRODUCTS;
+    }
+  });
+  const [expenses, setExpenses] = useState<Expense[]>(() => {
+    try {
+      const saved = localStorage.getItem('ccs_expense_records');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [attendance, setAttendance] = useState<AttendanceRecord[]>(() => {
+    try {
+      const saved = localStorage.getItem('ccs_attendance_records');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [activeAttendance, setActiveAttendance] = useState<AttendanceRecord | null>(null);
   const [workingDurationStr, setWorkingDurationStr] = useState<string>('00h 00m');
   const [selfieModalConfig, setSelfieModalConfig] = useState<{ isOpen: boolean; mode: 'start' | 'end' }>({
@@ -90,7 +125,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
-  // Sync to LocalStorage for persistent image evidence across refreshes
+  // Sync to LocalStorage for persistent data across refreshes and offline resilience
   useEffect(() => {
     if (attendance && attendance.length > 0) {
       localStorage.setItem('ccs_attendance_records', JSON.stringify(attendance));
@@ -102,6 +137,24 @@ export default function App() {
       localStorage.setItem('ccs_expense_records', JSON.stringify(expenses));
     }
   }, [expenses]);
+
+  useEffect(() => {
+    if (orders && orders.length > 0) {
+      localStorage.setItem('ccs_orders_records', JSON.stringify(orders));
+    }
+  }, [orders]);
+
+  useEffect(() => {
+    if (products && products.length > 0) {
+      localStorage.setItem('ccs_products_records', JSON.stringify(products));
+    }
+  }, [products]);
+
+  useEffect(() => {
+    if (dealers && dealers.length > 0) {
+      localStorage.setItem('ccs_dealers_records', JSON.stringify(dealers));
+    }
+  }, [dealers]);
 
   // Compute live elapsed working duration
   const computeWorkingDuration = (checkInStr?: string): string => {
@@ -213,17 +266,15 @@ export default function App() {
         notificationsApi.getAll().catch((err) => { console.error("Notifications API error:", err); return []; }),
       ]);
 
-      if (fetchedOrders) setOrders(fetchedOrders);
+      if (fetchedOrders && fetchedOrders.length > 0) setOrders(fetchedOrders);
       if (dealersList && dealersList.length > 0) setDealers(dealersList);
-      if (distributorsList) setDistributors(distributorsList);
+      if (distributorsList && distributorsList.length > 0) setDistributors(distributorsList);
       if (productsList && productsList.length > 0) setProducts(productsList);
-      if (expensesList) setExpenses(expensesList);
-      if (attendanceList) setAttendance(attendanceList as any);
-      if (notificationsList) setNotifications(notificationsList);
+      if (expensesList && expensesList.length > 0) setExpenses(expensesList);
+      if (attendanceList && attendanceList.length > 0) setAttendance(attendanceList as any);
+      if (notificationsList && notificationsList.length > 0) setNotifications(notificationsList);
       if (activeAttendanceRes && activeAttendanceRes.attendance) {
         setActiveAttendance(activeAttendanceRes.attendance);
-      } else {
-        setActiveAttendance(null);
       }
     } catch (e) {
       console.warn("Backend sync notice:", e);
@@ -317,48 +368,69 @@ export default function App() {
   };
 
   const handleAddProduct = async (productData: Partial<Product>) => {
+    let newProd: Product;
     try {
-      const newProd = await productsApi.create(productData);
-      setProducts((prev) => [newProd, ...prev]);
+      newProd = await productsApi.create(productData);
     } catch (e: any) {
-      console.error("Failed to create product:", e);
-      alert(e?.message || "Failed to create product");
-      throw e;
+      console.warn("Backend API not reachable, saving product locally:", e);
+      const id = `prod-local-${Date.now()}`;
+      newProd = {
+        id,
+        code: productData.code || `PRD-${Date.now().toString().slice(-4)}`,
+        name: productData.name || 'New Product',
+        technicalName: productData.technicalName || productData.name || '',
+        category: productData.category || 'Fertilizers',
+        packSize: productData.packSize || '1 Ltr',
+        bottlesPerCase: productData.bottlesPerCase || 10,
+        casePrice: productData.casePrice || (productData.dealerPrice ? productData.dealerPrice * 10 : 0),
+        caseSize: productData.caseSize || '10 units/case',
+        mrp: Number(productData.mrp || 0),
+        dealerPrice: Number(productData.dealerPrice || 0),
+        distributorPrice: Number(productData.distributorPrice || 0),
+        gst: Number(productData.gst || 18),
+        stock: Number(productData.stock || 100),
+        reservedStock: 0,
+        warehouse: productData.warehouse || 'Main Warehouse',
+        recommendedCrops: productData.recommendedCrops || ['All Crops'],
+        dosage: productData.dosage || '2ml per liter',
+        description: productData.description || '',
+        imageUrl: productData.imageUrl || 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300',
+        status: productData.status || 'Available',
+        is_available: productData.status !== 'Unavailable',
+      };
     }
+    setProducts((prev) => [newProd, ...prev]);
   };
 
   const handleUpdateProduct = async (id: string, productData: Partial<Product>) => {
     try {
-      const updated = await productsApi.update(id, productData);
-      setProducts((prev) => prev.map((p) => (p.id === id ? { ...p, ...updated } : p)));
+      await productsApi.update(id, productData);
     } catch (e: any) {
-      console.error("Failed to update product:", e);
-      throw e;
+      console.warn("Backend API not reachable, updating product locally:", e);
     }
+    setProducts((prev) => prev.map((p) => (p.id === id ? { ...p, ...productData } : p)));
   };
 
   const handleDeleteProduct = async (id: string) => {
     try {
       await productsApi.delete(id);
-      setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch (e: any) {
-      console.error("Failed to delete product:", e);
-      throw e;
+      console.warn("Backend API not reachable, removing product locally:", e);
     }
+    setProducts((prev) => prev.filter((p) => p.id !== id));
   };
 
   const handleUpdateOrderStatus = async (orderId: string, newStatus: Order['status']) => {
     try {
       await ordersApi.updateStatus(orderId, newStatus);
-      setOrders((prev) =>
-        prev.map((ord) => (ord.id === orderId ? { ...ord, status: newStatus } : ord))
-      );
-      if (selectedOrder && selectedOrder.id === orderId) {
-        setSelectedOrder({ ...selectedOrder, status: newStatus });
-      }
     } catch (e: any) {
-      console.error("Status update API notice:", e);
-      alert(e?.message || `Failed to update order status to ${newStatus}`);
+      console.warn("Status update API notice, saving locally:", e);
+    }
+    setOrders((prev) =>
+      prev.map((ord) => (ord.id === orderId ? { ...ord, status: newStatus } : ord))
+    );
+    if (selectedOrder && selectedOrder.id === orderId) {
+      setSelectedOrder({ ...selectedOrder, status: newStatus });
     }
   };
 

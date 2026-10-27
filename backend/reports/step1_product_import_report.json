@@ -13,854 +13,854 @@
   "conflicts": [],
   "created_records": [
     {
-      "id": "041968b7-e923-4a8a-b487-2761242da43c",
+      "id": "257acd50-15b6-4898-95b0-79929dfc3824",
       "product_name": "ACTIVE 100",
       "technical_name": "Silicon Based Super Spreader",
       "pack_size": "100 ml",
       "dealer_price": 100.0
     },
     {
-      "id": "4d249c2e-c41a-46d4-842c-0d9fc672277f",
+      "id": "fe4f1239-d6b1-46fb-8c79-fadf170bde01",
       "product_name": "ACTIVE 100",
       "technical_name": "Silicon Based Super Spreader",
       "pack_size": "1 Ltr",
       "dealer_price": 750.0
     },
     {
-      "id": "89252239-1282-4976-9d4a-d53c34352146",
+      "id": "52cb6876-ea3f-438a-b3a1-b72293c3380a",
       "product_name": "ACTIVE 100",
       "technical_name": "Silicon Based Super Spreader",
       "pack_size": "250 ml",
       "dealer_price": 210.0
     },
     {
-      "id": "0268157d-003a-4a27-91c9-cef1d296c9b4",
+      "id": "d7bccb77-a828-4b84-98af-326528425cfb",
       "product_name": "ACTIVE 100",
       "technical_name": "Silicon Based Super Spreader",
       "pack_size": "500 ml",
       "dealer_price": 390.0
     },
     {
-      "id": "9be2a1d2-3166-4608-ab38-7fdcce88d3eb",
+      "id": "41915bf9-28ba-49fc-8e4a-89d9ff595b68",
       "product_name": "ACTIVE 100",
       "technical_name": "Silicon Based Super Spreader",
       "pack_size": "5 Ltr",
       "dealer_price": 3600.0
     },
     {
-      "id": "88a27fca-e210-4f17-a344-07dfd33a12b8",
+      "id": "f7204f3f-fb72-4a16-86f4-5dbde5d971f7",
       "product_name": "ACTIVE 100",
       "technical_name": "Silicon Based Super Spreader",
       "pack_size": "5 ml",
       "dealer_price": 148.0
     },
     {
-      "id": "5aa823b3-60f1-434e-84df-8d416fa3589c",
+      "id": "dbe052a4-007b-480e-aeea-6d607baf4e1b",
       "product_name": "AGNEEPATH SC",
       "technical_name": "Fipronil 5% SC",
       "pack_size": "1 Ltr",
       "dealer_price": 620.0
     },
     {
-      "id": "2a1b4a0c-f743-4b85-a5cf-98a73083e1fe",
+      "id": "3a69a411-02e7-4a40-ba19-254827027fdd",
       "product_name": "AGNEEPATH SC",
       "technical_name": "Fipronil 5% SC",
       "pack_size": "500 ml",
       "dealer_price": 330.0
     },
     {
-      "id": "99449ecd-fc8f-4d5d-802e-faa30337c331",
+      "id": "b51cd751-6845-48d0-bf7e-7165257a25c5",
       "product_name": "AMITRA 80",
       "technical_name": "Amino Acid 80% Powder",
       "pack_size": "1 Kg",
       "dealer_price": 465.0
     },
     {
-      "id": "4b795eaf-0826-44d2-940f-d5574b02079a",
+      "id": "3d339635-b483-44fb-b806-4c01c2580845",
       "product_name": "AMITRA 80",
       "technical_name": "Amino Acid 80% Powder",
       "pack_size": "500 Gm",
       "dealer_price": 253.0
     },
     {
-      "id": "23493196-26ea-4f4a-b9f0-fd9002b03775",
+      "id": "04c56573-4225-4245-a2da-7c61e530bbd0",
       "product_name": "ATTACK-20",
       "technical_name": "Chlorpyriphos 20% EC",
       "pack_size": "1 Ltr",
       "dealer_price": 340.0
     },
     {
-      "id": "08600015-5f05-4f99-b83e-c9f7c34c6396",
+      "id": "241497de-e87c-4cfb-bc34-9fe82c040af6",
       "product_name": "ATTACK-20",
       "technical_name": "Chlorpyriphos 20% EC",
       "pack_size": "250 ml",
       "dealer_price": 101.0
     },
     {
-      "id": "c82a6e8b-18d9-47b9-99cc-226e25e09990",
+      "id": "619378d8-dccb-4c9e-8ca6-3e735de2e4c1",
       "product_name": "ATTACK-20",
       "technical_name": "Chlorpyriphos 20% EC",
       "pack_size": "500 ml",
       "dealer_price": 187.5
     },
     {
-      "id": "d92417b3-052d-42d1-a12a-74556e5a34e0",
+      "id": "92eb8e67-ad7c-4596-bc10-a2249a854774",
       "product_name": "ATTACK-50",
       "technical_name": "Chlorpyriphos 50% EC",
       "pack_size": "1 Ltr",
       "dealer_price": 630.0
     },
     {
-      "id": "8c447da8-3cd9-447e-bf5c-af5f00d46af8",
+      "id": "3b135011-dc68-4eb9-bc9d-a353dd9da6bf",
       "product_name": "ATTACK-50",
       "technical_name": "Chlorpyriphos 50% EC",
       "pack_size": "500 ml",
       "dealer_price": 333.0
     },
     {
-      "id": "13efefbd-7315-4bc0-a83d-c6aba53c1fb8",
+      "id": "39f75955-84b3-429c-8de7-662c728b4c38",
       "product_name": "ATTACK-505",
       "technical_name": "Chlorpyrifos + Cypermethrin 5% EC",
       "pack_size": "1 Ltr",
       "dealer_price": 685.0
     },
     {
-      "id": "5a34014c-604d-40fe-b20c-6667b67e3356",
+      "id": "1329efff-2239-43ca-94b5-4eb4e6a2ba7c",
       "product_name": "ATTACK-505",
       "technical_name": "Chlorpyrifos + Cypermethrin 5% EC",
       "pack_size": "500 ml",
       "dealer_price": 360.0
     },
     {
-      "id": "5c2c5cc8-c334-4585-86ad-10abc7b6ecdb",
+      "id": "515784b4-7e22-44cd-9362-483db73188cf",
       "product_name": "BENZO KILL",
       "technical_name": "Emamectin Benzoate 5% SG",
       "pack_size": "100 Gm",
       "dealer_price": 140.0
     },
     {
-      "id": "398a51e7-29d5-4c98-b2d4-c1408ae524c8",
+      "id": "285492c5-0907-4c19-b541-a231602587c9",
       "product_name": "BENZO KILL",
       "technical_name": "Emamectin Benzoate 5% SG",
       "pack_size": "250 Gm",
       "dealer_price": 323.0
     },
     {
-      "id": "b3316bcd-c9a3-4194-8872-bc1d49a43440",
+      "id": "15b088d1-c097-4c5f-a6c5-2ac71a704186",
       "product_name": "BENZO KILL",
       "technical_name": "Emamectin Benzoate 5% SG",
       "pack_size": "500 Gm",
       "dealer_price": 620.0
     },
     {
-      "id": "ef2f695c-2732-4da5-b950-6a80e412f070",
+      "id": "7e0a753e-57ca-41f8-8230-7c8663d62776",
       "product_name": "BHISMA GOLD",
       "technical_name": "Profenophos 50% EC",
       "pack_size": "1 Ltr",
       "dealer_price": 635.0
     },
     {
-      "id": "43ab804d-50fd-44f2-b19a-4f6159167a23",
+      "id": "9ef79424-41c7-4173-b120-75573ae4d636",
       "product_name": "BHISMA GOLD",
       "technical_name": "Profenophos 50% EC",
       "pack_size": "250 ml",
       "dealer_price": 183.0
     },
     {
-      "id": "033b1b1f-55c7-4aff-a97f-dbf49f30dedd",
+      "id": "55c7fdf5-5161-4346-a5ba-5bd39461b72f",
       "product_name": "BHISMA GOLD",
       "technical_name": "Profenophos 50% EC",
       "pack_size": "500 ml",
       "dealer_price": 340.0
     },
     {
-      "id": "1e79b3cf-9bdd-4de2-982a-9dd0040a028d",
+      "id": "ae3a9d6f-a844-4c85-9fd9-55948188c6e6",
       "product_name": "C-IMIDA",
       "technical_name": "Imidacloprid 17.8% SL",
       "pack_size": "1 Ltr",
       "dealer_price": 825.0
     },
     {
-      "id": "e797d3bf-9c6c-4f85-b5ca-3876a5ff3ea8",
+      "id": "041fc3f4-4b58-4251-93c5-7023d3129f4b",
       "product_name": "C-IMIDA",
       "technical_name": "Imidacloprid 17.8% SL",
       "pack_size": "250 ml",
       "dealer_price": 229.0
     },
     {
-      "id": "d291e309-b4ec-4f5f-81b0-b802fe40d98a",
+      "id": "6e7707da-b87b-4f05-b9a5-ed879f62d149",
       "product_name": "C-IMIDA",
       "technical_name": "Imidacloprid 17.8% SL",
       "pack_size": "500 ml",
       "dealer_price": 433.0
     },
     {
-      "id": "a3516a2b-3b84-4046-b0a1-c72bfaeaea0d",
+      "id": "ca933f69-4fd4-4e00-83ea-0bb8c2346923",
       "product_name": "C-IMIDA SUPER",
       "technical_name": "Imidacloprid 30.5% SC",
       "pack_size": "250 ml",
       "dealer_price": 307.0
     },
     {
-      "id": "9f8d2518-f584-4d67-a398-b883daf762eb",
+      "id": "9c9c8d2d-6cde-416a-baec-740afb69526c",
       "product_name": "C-IMIDA SUPER",
       "technical_name": "Imidacloprid 30.5% SC",
       "pack_size": "500 ml",
       "dealer_price": 593.0
     },
     {
-      "id": "2969f702-1851-440c-90ff-5bd76eae5711",
+      "id": "2e8b4f57-3c94-48a2-89ac-b21476bd566a",
       "product_name": "CCS-303",
       "technical_name": "Bio Stimulant",
       "pack_size": "1 Ltr",
       "dealer_price": 1807.0
     },
     {
-      "id": "56d59a38-6b57-47f0-a195-f11129e1aac2",
+      "id": "a7938cee-9992-4302-9734-225acdbe2133",
       "product_name": "CCS-303",
       "technical_name": "Bio Stimulant",
       "pack_size": "250 ml",
       "dealer_price": 475.0
     },
     {
-      "id": "21431e42-20b2-4bc0-bc77-c6c3f09ca44c",
+      "id": "b6d21fa4-90bc-4cc8-b5cc-dec27c876c18",
       "product_name": "CCS-303",
       "technical_name": "Bio Stimulant",
       "pack_size": "500 ml",
       "dealer_price": 921.0
     },
     {
-      "id": "00d4c83b-4213-49eb-af6b-f02e6236be3d",
+      "id": "5450c352-09ac-47be-ad24-f3aeb4f0dccf",
       "product_name": "CCS-CARB",
       "technical_name": "Plant Immunity Booster Bio Stimulant",
       "pack_size": "1 Ltr",
       "dealer_price": 697.0
     },
     {
-      "id": "54382c2a-5040-4535-8a5c-dbf9eda2ec9c",
+      "id": "8b832721-c8ed-438a-b3a6-7fdc4d0cd1d5",
       "product_name": "CCS-CARB",
       "technical_name": "Plant Immunity Booster Bio Stimulant",
       "pack_size": "500 ml",
       "dealer_price": 365.0
     },
     {
-      "id": "41cf1f20-9ad1-439c-b9c8-6220a1657ab4",
+      "id": "efcad062-c173-4805-a4c4-387213c7d61e",
       "product_name": "CCS-NEEM 100",
       "technical_name": "Azadirachtin 1% (1000 ppm) min",
       "pack_size": "250 ml",
       "dealer_price": 710.0
     },
     {
-      "id": "3fd2d26a-a38a-4774-a5c0-63865befb35a",
+      "id": "91e6b86d-b50d-46ce-b616-7ee142a8b659",
       "product_name": "CCS-NEEM 100",
       "technical_name": "Azadirachtin 1% (1000 ppm) min",
       "pack_size": "500 ml",
       "dealer_price": 1400.0
     },
     {
-      "id": "3d2a9249-46d3-46b8-a821-de6b48790001",
+      "id": "d9065c0f-63da-444d-85e1-50368adc2ca9",
       "product_name": "CHIT BRIGHT",
       "technical_name": "Flowering Stimulant",
       "pack_size": "250 ml",
       "dealer_price": 847.5
     },
     {
-      "id": "488cd9ee-c9dc-4237-bbf1-8a614d7221cd",
+      "id": "5a317ca2-b6b2-4319-b36c-2ddeb04ce090",
       "product_name": "CHIT BRIGHT",
       "technical_name": "Flowering Stimulant",
       "pack_size": "5 ml",
       "dealer_price": 275.0
     },
     {
-      "id": "af97dbe7-5c1d-4ce4-a16a-e949daf975ec",
+      "id": "5addf05f-c663-4ece-ba69-6018ba1d038e",
       "product_name": "CHIT-OXY",
       "technical_name": "Oxyfluorfen 23.5% EC",
       "pack_size": "100 ml",
       "dealer_price": 125.0
     },
     {
-      "id": "ba9d1719-cb74-417c-aa16-d56ef70bad0a",
+      "id": "d1a6e2ca-c7ef-4075-a91c-11f3cb515f2d",
       "product_name": "CHITARA",
       "technical_name": "Thiamethoxam 25% WG",
       "pack_size": "100 Gm",
       "dealer_price": 82.0
     },
     {
-      "id": "1034f69f-a895-4d5b-a42f-3df335a4e34f",
+      "id": "148b3e00-70d2-4d8d-8985-9d9215eb5d48",
       "product_name": "CHITARA",
       "technical_name": "Thiamethoxam 25% WG",
       "pack_size": "1 Kg",
       "dealer_price": 650.0
     },
     {
-      "id": "617d26d6-adbe-49da-8351-c5fdde68a75e",
+      "id": "ae2614d4-cd31-470d-9888-fa0453f2e9f5",
       "product_name": "CHITARA",
       "technical_name": "Thiamethoxam 25% WG",
       "pack_size": "250 Gm",
       "dealer_price": 185.0
     },
     {
-      "id": "831b7afc-b9a4-49b9-b46a-93f8ea6c6892",
+      "id": "3475a327-93f8-45fa-a725-c7adfd8aa436",
       "product_name": "CHITARA",
       "technical_name": "Thiamethoxam 25% WG",
       "pack_size": "500 Gm",
       "dealer_price": 345.0
     },
     {
-      "id": "01cc393f-b277-476b-bc53-14e351894796",
+      "id": "133d2359-1486-41d6-ab39-1efa8b948bd6",
       "product_name": "CHITGOR",
       "technical_name": "Dimethoate 30% EC",
       "pack_size": "1 Ltr",
       "dealer_price": 570.0
     },
     {
-      "id": "677eeaf2-4dd1-469f-976d-da40c2778bff",
+      "id": "d57f4fb4-a7fd-439c-90ba-9f38b7985886",
       "product_name": "CHITGOR",
       "technical_name": "Dimethoate 30% EC",
       "pack_size": "250 ml",
       "dealer_price": 165.0
     },
     {
-      "id": "788c0d03-bfec-439b-8596-178f95ab79d0",
+      "id": "42a91ef9-bf4d-47fb-84d1-af32dd488df4",
       "product_name": "CHITGOR",
       "technical_name": "Dimethoate 30% EC",
       "pack_size": "500 ml",
       "dealer_price": 305.0
     },
     {
-      "id": "56685424-3480-41ce-86aa-eeb4d95de904",
+      "id": "f6b0ce55-2ff2-420b-8e78-d8e615811a68",
       "product_name": "CHITHEXA GOLD",
       "technical_name": "Hexaconazole 75% WG",
       "pack_size": "100 Gm",
       "dealer_price": 395.0
     },
     {
-      "id": "d888a7f9-e1fd-4f6c-821b-c301c0d4f151",
+      "id": "50cdb5b7-1707-478d-b65f-f5603d3e4ffc",
       "product_name": "CHITMIZA-10",
       "technical_name": "Imazethapyr 10% SL",
       "pack_size": "1 Ltr",
       "dealer_price": 780.0
     },
     {
-      "id": "7acc82a4-0256-4cb3-81de-0e7c11a22f9f",
+      "id": "5465b00a-39b0-4505-9591-8b97c9195233",
       "product_name": "CHITMIZA-10",
       "technical_name": "Imazethapyr 10% SL",
       "pack_size": "500 ml",
       "dealer_price": 415.0
     },
     {
-      "id": "86acd87e-79f2-4931-9de5-d11500d80434",
+      "id": "0cd30e97-92d3-415f-bc2d-70691f5d0e89",
       "product_name": "CHITRA B",
       "technical_name": "Chelated Boron as Boron Glycine (Liquid)",
       "pack_size": "100 ml",
       "dealer_price": 340.0
     },
     {
-      "id": "72aae925-0109-4502-89a4-8ac380a72039",
+      "id": "20c08b0b-4b4f-4e1f-a61f-a4af1dfc9d71",
       "product_name": "CHITRA BOOST",
       "technical_name": "Paclobutrazole 40% SC",
       "pack_size": "100 ml",
       "dealer_price": 340.0
     },
     {
-      "id": "43660352-4fea-46ea-af79-63dbcd626eaf",
+      "id": "9271ae92-56bb-4a9c-b9b6-daee5cf24211",
       "product_name": "CHITRA CA",
       "technical_name": "Chelated Calcium as Calcium Glycine (Liquid)",
       "pack_size": "1 Ltr",
       "dealer_price": 572.0
     },
     {
-      "id": "fae4931d-f749-4d47-814f-ee31a8944136",
+      "id": "6801ccff-bca1-4785-acf2-27a2df66f977",
       "product_name": "CHITRA CA",
       "technical_name": "Chelated Calcium as Calcium Glycine (Liquid)",
       "pack_size": "250 ml",
       "dealer_price": 225.0
     },
     {
-      "id": "fd71cef4-9b7b-4a89-bb03-471b8fa2202d",
+      "id": "5c3f7a4e-6049-4f61-ac2b-56e059b289e5",
       "product_name": "CHITRA CA",
       "technical_name": "Chelated Calcium as Calcium Glycine (Liquid)",
       "pack_size": "500 ml",
       "dealer_price": 299.0
     },
     {
-      "id": "bec3e579-000f-4cd2-b288-b250aac76791",
+      "id": "01aa8304-afb5-4837-b646-172c06ec4c92",
       "product_name": "CHITRA CAL-11",
       "technical_name": "Concentrated Liquid Calcium 11%",
       "pack_size": "1 Ltr",
       "dealer_price": 572.0
     },
     {
-      "id": "8e464238-ae11-429e-866d-a0aa80b90a29",
+      "id": "ce1752e0-ba59-4285-bbb1-2613922dbd01",
       "product_name": "CHITRA CAL-11",
       "technical_name": "Concentrated Liquid Calcium 11%",
       "pack_size": "500 ml",
       "dealer_price": 299.0
     },
     {
-      "id": "b9b0a154-c0cf-4534-9bdb-998412394b9d",
+      "id": "b8fc0563-4cdf-4663-860b-191a7e219a4f",
       "product_name": "CHITRA CBZ",
       "technical_name": "Fortified Calcium Suspension",
       "pack_size": "1 Ltr",
       "dealer_price": 1025.0
     },
     {
-      "id": "a79637c6-033b-494c-a469-9b8534440be7",
+      "id": "a33f35a7-1693-4de7-b875-aecad7f6bc98",
       "product_name": "CHITRA CBZ",
       "technical_name": "Fortified Calcium Suspension",
       "pack_size": "500 ml",
       "dealer_price": 525.0
     },
     {
-      "id": "05c51858-55ff-4c47-97f8-3e8b8fc7c0e1",
+      "id": "dc58d853-f04d-4e9f-b50b-50096907b848",
       "product_name": "CHITRA MKP",
       "technical_name": "N:P:K - 00%:52%:34%",
       "pack_size": "25 Kg",
       "dealer_price": 5300.0
     },
     {
-      "id": "e30519f2-7013-4abc-ac44-b69ce9dcec77",
+      "id": "7aa9fa31-15aa-4633-b98a-0e8213b62022",
       "product_name": "CHITRA PACLO",
       "technical_name": "Paclobutrazole 23% SC",
       "pack_size": "1 Ltr",
       "dealer_price": 1050.0
     },
     {
-      "id": "96ce5aaa-9aaf-48b9-a5fe-b848f8dc1b08",
+      "id": "0cdc5107-d01a-4c33-8b7e-a75b47c04d37",
       "product_name": "CHITRA PYRAD",
       "technical_name": "Tolfenpyrad 15% EC",
       "pack_size": "250 ml",
       "dealer_price": 370.0
     },
     {
-      "id": "1edd1506-f70e-4538-8c6b-ddb54967397c",
+      "id": "c87be24c-f597-4d31-acfc-83af51528365",
       "product_name": "CHITRA PYRAD",
       "technical_name": "Tolfenpyrad 15% EC",
       "pack_size": "500 ml",
       "dealer_price": 720.0
     },
     {
-      "id": "773ff03b-c444-48ec-98b0-9f5ae3e800c8",
+      "id": "8b10ff64-c300-4e43-b0a6-15bff27d0234",
       "product_name": "CHITRA ZIB",
       "technical_name": "NPK 11:11:8 Fortified With Zinc & Boron (Suspension)",
       "pack_size": "1 Ltr",
       "dealer_price": 965.0
     },
     {
-      "id": "d90c3259-5d57-4ddf-8b1f-5e1dd493e2cf",
+      "id": "1ba8f304-b5a9-49ee-b0b1-31059cc204da",
       "product_name": "CHITRA ZIB",
       "technical_name": "NPK 11:11:8 Fortified With Zinc & Boron (Suspension)",
       "pack_size": "500 ml",
       "dealer_price": 495.0
     },
     {
-      "id": "ffd7b47d-7f1a-43fb-bfec-76f1cd880a7b",
+      "id": "aa5ac08f-77ef-4347-9e29-62299b4b8012",
       "product_name": "CHITRA ZINC",
       "technical_name": "Chelated Zinc as Zn-EDTA 12%",
       "pack_size": "500 Gm",
       "dealer_price": 328.0
     },
     {
-      "id": "11f445eb-fd27-41c0-8fed-fc42a9917dd9",
+      "id": "05b7ddb5-cc23-4c8d-9ebf-999c831235c7",
       "product_name": "CHITRA ZINCOOX",
       "technical_name": "Zinc Oxide Suspension 39.5% Zn",
       "pack_size": "1 Ltr",
       "dealer_price": 1018.0
     },
     {
-      "id": "71d4a02f-e5e0-4e03-a41b-8b71553b7559",
+      "id": "a32e74e7-b9c5-4a0a-8430-0bd84d19e71c",
       "product_name": "CHITRA ZINCOOX",
       "technical_name": "Zinc Oxide Suspension 39.5% Zn",
       "pack_size": "500 ml",
       "dealer_price": 521.0
     },
     {
-      "id": "8c35fc3c-aa14-4d94-83a8-a0e65e5dd605",
+      "id": "85869587-12f9-4218-9aa8-4ab99ccf4e52",
       "product_name": "CHITRAZINE",
       "technical_name": "Atrazine 50% WP",
       "pack_size": "500 Gm",
       "dealer_price": 190.0
     },
     {
-      "id": "54fc088d-f0e0-4ec5-8f51-b2c6c9fdd542",
+      "id": "59c33c58-15de-436b-bc11-91290c0a1b6b",
       "product_name": "CRAGIBB",
       "technical_name": "Gibberellic Acid 0.001% L",
       "pack_size": "1 Ltr",
       "dealer_price": 340.0
     },
     {
-      "id": "ba4dffe2-6247-4203-9b80-b36c17ac83e4",
+      "id": "92966a29-dd51-4d25-8e67-c9a724aba857",
       "product_name": "CRETA SUPER",
       "technical_name": "Thiamethoxam 30% FS",
       "pack_size": "100 ml",
       "dealer_price": 86.0
     },
     {
-      "id": "766e6f24-125d-4395-9128-3436e8160b2c",
+      "id": "6b201510-6567-4e3f-bd3f-d77080b2be83",
       "product_name": "CRETA SUPER",
       "technical_name": "Thiamethoxam 30% FS",
       "pack_size": "1 Ltr",
       "dealer_price": 705.0
     },
     {
-      "id": "6063f561-3cce-4147-968d-cdadf85645d7",
+      "id": "541a261f-31b3-48a5-8578-28249cf36f11",
       "product_name": "CRETA SUPER",
       "technical_name": "Thiamethoxam 30% FS",
       "pack_size": "250 ml",
       "dealer_price": 198.0
     },
     {
-      "id": "d6289ed3-ec83-490e-8751-f391d8065bae",
+      "id": "66901604-adca-44fb-b848-20500f123fda",
       "product_name": "CRETA SUPER",
       "technical_name": "Thiamethoxam 30% FS",
       "pack_size": "500 ml",
       "dealer_price": 370.0
     },
     {
-      "id": "5140f52e-f8a4-4800-a32c-363501dda40d",
+      "id": "4d0b5d69-98cd-4cef-bca8-c7441bde984e",
       "product_name": "DHARTI RATAN",
       "technical_name": "Humic Acid + Alginic Acid + Amino Acid Bio Stimulant",
       "pack_size": "1 Kg",
       "dealer_price": 810.0
     },
     {
-      "id": "d5d254aa-3498-4ea7-aecd-86e6b7d91958",
+      "id": "ca8fb398-0053-4649-88ac-007306196e0f",
       "product_name": "DHARTI RATAN",
       "technical_name": "Humic Acid + Alginic Acid + Amino Acid Bio Stimulant",
       "pack_size": "500 Gm",
       "dealer_price": 430.0
     },
     {
-      "id": "dd0207d0-3795-41df-bda5-10f2bf7d3d0b",
+      "id": "0186e259-5617-4f62-9aa2-5605ad82c6a9",
       "product_name": "FIMIDA-40",
       "technical_name": "Fipronil 40% + Imidacloprid 40% WG",
       "pack_size": "100 Gm",
       "dealer_price": 540.0
     },
     {
-      "id": "8638d520-fe4a-4979-be3b-894f68c3d167",
+      "id": "972c4d61-47f5-4e5f-b7de-2b2079ac12c2",
       "product_name": "FIMIDA 40",
       "technical_name": "Fipronil 40% + Imidacloprid 40% WG",
       "pack_size": "100 gm",
       "dealer_price": 540.0
     },
     {
-      "id": "edfaebfc-824d-4a96-a8b5-b5804df73f5a",
+      "id": "0cf5d767-10a8-4f7c-a8cc-0105543bc88e",
       "product_name": "FLO-AVTAR",
       "technical_name": "Bio Stimulant",
       "pack_size": "1 Ltr",
       "dealer_price": 800.0
     },
     {
-      "id": "ec762dc7-3491-4ae5-b154-a2e8606f9d94",
+      "id": "98d0e698-e475-41f8-855a-f4f81f69ef08",
       "product_name": "FLO-AVTAR",
       "technical_name": "Bio Stimulant",
       "pack_size": "250 ml",
       "dealer_price": 220.0
     },
     {
-      "id": "7c5559e8-83e1-4d0a-8906-773ca9aa643b",
+      "id": "8e87c5d3-05a4-42be-bd5d-b30ff4953189",
       "product_name": "FLO-AVTAR",
       "technical_name": "Bio Stimulant",
       "pack_size": "500 ml",
       "dealer_price": 415.0
     },
     {
-      "id": "6cc2ba06-c80d-4342-be3c-8e194b1bbaf9",
+      "id": "77b47a92-dd51-4e48-b020-7513513c935f",
       "product_name": "FLOWER PLUS",
       "technical_name": "Amino Acids & Vitamins",
       "pack_size": "100 ml",
       "dealer_price": 212.0
     },
     {
-      "id": "a239b1fd-255e-46b6-94bc-19f7df107c98",
+      "id": "06ab2dfa-da5c-4af5-abaa-21ee735a68e2",
       "product_name": "FLOWER PLUS",
       "technical_name": "Amino Acids & Vitamins",
       "pack_size": "250 ml",
       "dealer_price": 505.0
     },
     {
-      "id": "ca42d4a4-f2f8-4ec5-8a83-c1e4648c794f",
+      "id": "f4aa8f1e-583c-4084-a63d-73a600027755",
       "product_name": "FLOWER PLUS",
       "technical_name": "Amino Acids & Vitamins",
       "pack_size": "500 ml",
       "dealer_price": 980.0
     },
     {
-      "id": "34fc9d54-84b2-49af-8822-d5b7fa469eac",
+      "id": "66316502-c59b-4ef4-9498-c00c2d17a2b4",
       "product_name": "FUNGASTIN",
       "technical_name": "Carbendazim 50% WP",
       "pack_size": "250 Gm",
       "dealer_price": 140.0
     },
     {
-      "id": "fd3766e8-f706-489b-8a40-f6ef96079948",
+      "id": "c098e1d1-8639-4a6a-a456-dd2d526273f6",
       "product_name": "FUNGASTIN",
       "technical_name": "Carbendazim 50% WP",
       "pack_size": "500 Gm",
       "dealer_price": 270.0
     },
     {
-      "id": "dd1d91d2-a80b-40ea-99a2-9c4df83ee033",
+      "id": "e443fb0b-0164-49ab-bc59-975c2a0c1b0d",
       "product_name": "HARIYALI GOLD PLUS",
       "technical_name": "Humic Acid + Fulvic Acid + Amino Acid + Seaweed",
       "pack_size": "1 Ltr",
       "dealer_price": 478.0
     },
     {
-      "id": "42c281e9-f968-4d5d-bb27-eeefaa99928d",
+      "id": "239dfff1-9336-4994-9af3-4566f0face20",
       "product_name": "HARIYALI GOLD PLUS",
       "technical_name": "Humic Acid + Fulvic Acid + Amino Acid + Seaweed",
       "pack_size": "500 ml",
       "dealer_price": 254.0
     },
     {
-      "id": "2c9b835c-9c90-4d30-bff2-0ec06fa17a2e",
+      "id": "3c65f5c6-e058-44ae-b36a-9b8fb8eb70d2",
       "product_name": "HIT-WICKET",
       "technical_name": "Paraquat Dichloride 24% SL",
       "pack_size": "1 Ltr",
       "dealer_price": 335.0
     },
     {
-      "id": "b80bf6cf-bbf2-4647-a15b-e6b71a928e60",
+      "id": "06e22bf4-3728-43b2-8089-e1c3a14877d5",
       "product_name": "HIT-WICKET",
       "technical_name": "Paraquat Dichloride 24% SL",
       "pack_size": "500 ml",
       "dealer_price": 188.0
     },
     {
-      "id": "a151cedf-87b0-486e-9819-12a6b54c18ba",
+      "id": "0530ce83-bb28-4979-88b7-72da56d217b1",
       "product_name": "HUKUMAT",
       "technical_name": "Thiamethoxam 12.6% + Lambdacyhalothrin 9.5% ZC",
       "pack_size": "1 Ltr",
       "dealer_price": 1255.0
     },
     {
-      "id": "03457277-c891-46bc-83cb-1fd9190700c8",
+      "id": "6684ce73-3113-410c-8516-e97cd3a1e7df",
       "product_name": "HUKUMAT",
       "technical_name": "Thiamethoxam 12.6% + Lambdacyhalothrin 9.5% ZC",
       "pack_size": "500 ml",
       "dealer_price": 648.0
     },
     {
-      "id": "f7738531-f914-4437-87a5-1a9f5ffdda52",
+      "id": "79d2ede6-bd93-45f0-8543-c73cf65494f0",
       "product_name": "JORAWAR",
       "technical_name": "Azoxystrobin 11% + Tebuconazole 18.3% SC",
       "pack_size": "1 Ltr",
       "dealer_price": 1140.0
     },
     {
-      "id": "0ca9f961-94d4-4af3-b39d-40fea1d9be0d",
+      "id": "244b1c08-857d-473a-8d4a-4829490649c8",
       "product_name": "JORAWAR",
       "technical_name": "Azoxystrobin 11% + Tebuconazole 18.3% SC",
       "pack_size": "250 ml",
       "dealer_price": 308.0
     },
     {
-      "id": "27ca8d51-cefc-4f00-abfa-3161fb97d6b8",
+      "id": "4d3f32f0-4e11-4db5-b424-46c51bd55594",
       "product_name": "JORAWAR",
       "technical_name": "Azoxystrobin 11% + Tebuconazole 18.3% SC",
       "pack_size": "500 ml",
       "dealer_price": 590.0
     },
     {
-      "id": "72c37126-9cc0-400b-a0ab-4bf9b89be119",
+      "id": "fc282863-6089-4018-abc0-10898cdea134",
       "product_name": "KARGIL-75",
       "technical_name": "Carbendazim 12% + Mancozeb 63% WP",
       "pack_size": "1 Kg",
       "dealer_price": 545.0
     },
     {
-      "id": "3049b910-4025-49dd-9ec2-ada46adf1c87",
+      "id": "e7874aad-d81a-4e58-914b-52c3e072b243",
       "product_name": "KARGIL-75",
       "technical_name": "Carbendazim 12% + Mancozeb 63% WP",
       "pack_size": "500 Gm",
       "dealer_price": 283.0
     },
     {
-      "id": "db84e90e-4fbb-4cc4-9e60-ae77984e4299",
+      "id": "ae085431-ca42-4053-b583-f1488a6a0e21",
       "product_name": "KILL-71",
       "technical_name": "Ammonium Salt of Glyphosate 71% SG",
       "pack_size": "100 Gm",
       "dealer_price": 65.0
     },
     {
-      "id": "3ae8d17a-f57f-473d-8ebb-e741cb1a20f8",
+      "id": "06766002-90f0-4ff9-9f85-0652305958c1",
       "product_name": "KILL-71",
       "technical_name": "Ammonium Salt of Glyphosate 71% SG",
       "pack_size": "1 Kg",
       "dealer_price": 600.0
     },
     {
-      "id": "d12a62c1-c687-4853-9b41-b48445a411a2",
+      "id": "ae4f3c81-87af-458f-a506-9217e06870a1",
       "product_name": "KRANTIKARI",
       "technical_name": "Azoxystrobin 18.2% + Difenoconazole 11.4% SC",
       "pack_size": "500 ml",
       "dealer_price": 925.0
     },
     {
-      "id": "96315680-ff11-4704-927a-11adaf754940",
+      "id": "4af3a03f-ee93-44bf-bb0f-db2984360f04",
       "product_name": "LASKAR",
       "technical_name": "Lambda Cyhalothrin 4.9% CS",
       "pack_size": "1 Ltr",
       "dealer_price": 355.0
     },
     {
-      "id": "34b3ef41-2762-41e0-a833-e22cb55270aa",
+      "id": "b5106359-be1f-4dd8-9476-546fcc62fe87",
       "product_name": "METMAX",
       "technical_name": "Metalaxyl 35% WS",
       "pack_size": "250 Gm",
       "dealer_price": 270.0
     },
     {
-      "id": "1d26eb96-61fa-4ded-8d27-e6eede02b6a3",
+      "id": "e4830a17-1158-4d3f-9001-2b41b2b5f6f2",
       "product_name": "MULTI POWER 55",
       "technical_name": "Bio Stimulant",
       "pack_size": "1 Ltr",
       "dealer_price": 765.0
     },
     {
-      "id": "998f89eb-e26d-4d97-92d2-bfe505ecdda8",
+      "id": "ec6b2eea-a93a-412f-bb01-2542c88b4826",
       "product_name": "MULTI POWER 55",
       "technical_name": "Bio Stimulant",
       "pack_size": "500 ml",
       "dealer_price": 397.5
     },
     {
-      "id": "4d1f249f-bb6e-49bf-b621-d554d56ed581",
+      "id": "9b4577cd-fce3-4963-85fb-d6ff77226772",
       "product_name": "NOVA-404",
       "technical_name": "Profenofos + Cypermethrin 4% EC",
       "pack_size": "1 Ltr",
       "dealer_price": 575.0
     },
     {
-      "id": "15958442-9d97-4a62-b4c5-c90a4dc25f1f",
+      "id": "86bc42fc-8271-4f67-af22-f83f5fe4ff9e",
       "product_name": "NOVA-404",
       "technical_name": "Profenofos + Cypermethrin 4% EC",
       "pack_size": "500 ml",
       "dealer_price": 308.0
     },
     {
-      "id": "a45d02e6-55e4-4e8f-9043-ea7e78e22554",
+      "id": "7f6f0897-c6fc-433c-b3bc-6923a3b0512c",
       "product_name": "PLATINUM-5",
       "technical_name": "Lambda Cyhalothrin 5% EC",
       "pack_size": "1 Ltr",
       "dealer_price": 315.0
     },
     {
-      "id": "703e2f36-d470-45ef-a030-e9ed376595b7",
+      "id": "ba7397dd-100b-48b6-bc74-367c1df0ba60",
       "product_name": "PRO-VALIDA",
       "technical_name": "Validamycin 3% SL",
       "pack_size": "1 Ltr",
       "dealer_price": 305.0
     },
     {
-      "id": "5f25c580-9242-4090-b22c-cab0b421cede",
+      "id": "a947c586-ea09-4828-ad0a-07800d87f1c2",
       "product_name": "PRO-VALIDA",
       "technical_name": "Validamycin 3% SL",
       "pack_size": "500 ml",
       "dealer_price": 168.0
     },
     {
-      "id": "b543ff66-3bea-405a-b23e-001b34c722fa",
+      "id": "2fd94b86-ee08-474d-b4f0-4541f7019c00",
       "product_name": "QUIZFOP-10",
       "technical_name": "Quizalofop-Ethyl 10% EC",
       "pack_size": "1 Ltr",
       "dealer_price": 905.0
     },
     {
-      "id": "b8d85737-4fd4-4697-8cc4-2fddff2983bf",
+      "id": "647e0a43-977a-4cdd-9fd3-b6abb1044591",
       "product_name": "QUIZFOP-10",
       "technical_name": "Quizalofop-Ethyl 10% EC",
       "pack_size": "250 ml",
       "dealer_price": 241.0
     },
     {
-      "id": "dc9fa76c-62e6-461d-a083-c948b5238794",
+      "id": "6c67ad2f-e763-4300-a9f0-02c120e683a9",
       "product_name": "QUIZFOP-10",
       "technical_name": "Quizalofop-Ethyl 10% EC",
       "pack_size": "500 ml",
       "dealer_price": 468.0
     },
     {
-      "id": "f75672bc-8ed2-4b92-85ce-7695267dcb10",
+      "id": "b6be87eb-a984-4322-8fb1-a94696e1bdad",
       "product_name": "ROOT RATAN",
       "technical_name": "Humic Acid + Alginic Acid",
       "pack_size": "1 Kg",
       "dealer_price": 402.0
     },
     {
-      "id": "b680fd8a-47cd-4618-a9bc-2ed052a11cd3",
+      "id": "e9de0fe9-7f76-49ea-89d1-1abd0cfedd48",
       "product_name": "ROOT RATAN",
       "technical_name": "Humic Acid + Alginic Acid",
       "pack_size": "500 Gm",
       "dealer_price": 219.0
     },
     {
-      "id": "978b36e1-0893-42b4-8480-98bc89a49f6b",
+      "id": "79da1c5f-dff1-44e5-b639-9ebe15116722",
       "product_name": "SEED MAX",
       "technical_name": "Carboxin 17.5% + Thiram 17.5% FF",
       "pack_size": "100 ml",
       "dealer_price": 170.0
     },
     {
-      "id": "9b7edbf2-c42f-4b95-ae63-a8b47e8fcf10",
+      "id": "782bf274-f4eb-4529-909b-d91249aa09cd",
       "product_name": "SEED MAX",
       "technical_name": "Carboxin 17.5% + Thiram 17.5% FF",
       "pack_size": "250 ml",
       "dealer_price": 400.0
     },
     {
-      "id": "7b7fcf5f-aa82-4972-b005-531326449c5b",
+      "id": "68611f09-19da-4200-aac3-f8d87d0ff328",
       "product_name": "SHAKTIMAN",
       "technical_name": "Sulphur 55.16% SC",
       "pack_size": "1 Ltr",
       "dealer_price": 260.0
     },
     {
-      "id": "de5843ff-be8c-4e74-95ab-3463f06b3d0e",
+      "id": "1f3bc2b0-f5d9-4723-a6f9-518e53c970b3",
       "product_name": "STORAGE",
       "technical_name": "High Performance Soil Adjuvant",
       "pack_size": "250 Gm",
       "dealer_price": 360.0
     },
     {
-      "id": "754f7171-5a46-465f-830d-4e53231684cd",
+      "id": "786c651e-6789-42dc-b742-5362b89eb81b",
       "product_name": "TEBU SF",
       "technical_name": "Tebuconazole 10% + Sulphur 65% WG",
       "pack_size": "1 Kg",
       "dealer_price": 425.0
     },
     {
-      "id": "aea726f0-a466-4142-96a4-a41d4614beb2",
+      "id": "38ffb428-7cf1-4890-a546-6d2432e72b18",
       "product_name": "TEBU SF",
       "technical_name": "Tebuconazole 10% + Sulphur 65% WG",
       "pack_size": "500 Gm",
       "dealer_price": 227.5
     },
     {
-      "id": "b92bb92e-a7ac-489f-89ed-0d7b388f9f3c",
+      "id": "73fdb9d4-7f04-4c0a-b7c1-5adb21697234",
       "product_name": "TEBZOLE",
       "technical_name": "Tebuconazole 25.9% EC",
       "pack_size": "1 Ltr",
       "dealer_price": 950.0
     },
     {
-      "id": "b5db2cb8-bbdd-462d-9aae-5948bde2a70c",
+      "id": "2a5fefa3-5490-489c-8afa-73e1c8d4586c",
       "product_name": "TEBZOLE",
       "technical_name": "Tebuconazole 25.9% EC",
       "pack_size": "500 ml",
       "dealer_price": 421.0
     },
     {
-      "id": "8ba2dcda-6090-45f1-8e82-ebc0d997582d",
+      "id": "ccfacfd4-a794-4815-950d-f9af31e8dbbc",
       "product_name": "VITARA GOLD",
       "technical_name": "Metalaxyl 8% + Mancozeb 64% WP",
       "pack_size": "500 Gm",
       "dealer_price": 368.0
     },
     {
-      "id": "e5b707bc-8c41-4db2-8909-510d69e96d1d",
+      "id": "7e85e395-d79e-40be-831e-bc99de355ce3",
       "product_name": "WELCOME HONEY BEE",
       "technical_name": "Citrus Peel Extract Silicon Based Adjuvant",
       "pack_size": "250 ml",

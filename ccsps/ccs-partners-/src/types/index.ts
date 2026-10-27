@@ -153,6 +153,7 @@ export interface Product {
   imageUrl?: string;
   status: 'Available' | 'Unavailable' | string;
   is_available?: boolean;
+  is_priced?: boolean;
 }
 
 export interface AttendanceRecord {
